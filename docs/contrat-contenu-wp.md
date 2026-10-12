@@ -242,11 +242,30 @@ Textes aujourd'hui codés en dur dans les gabarits Astro et qui doivent devenir 
 | `tsis_ui_related_services_title` | « D'autres services TSIS » |
 | `tsis_ui_related_realisations_title` | « D'autres solutions conçues par TSIS » |
 | `tsis_ui_discover_label` | « Découvrir → » |
+| `tsis_ui_service_hero_eyebrow` | « Solution digitale TSIS » — surtitre des fiches service et réalisation |
+| `tsis_ui_hero_cta_label` | « Parler de votre projet » — bouton principal des fiches |
+| `tsis_ui_discover_service_label` | « Découvrir le service → » — liste des services |
+| `tsis_ui_discover_solution_label` | « Découvrir la solution → » — liste des solutions |
 | `tsis_ui_contact_hero_eyebrow` / `_title` / `_intro` | en-tête de `/contact/` |
 | `tsis_ui_services_index_eyebrow` / `_title` / `_intro` | en-tête de `/nos-services/` |
 | `tsis_ui_solutions_index_eyebrow` / `_title` / `_intro` | en-tête de `/nos-solutions/` |
 
 Sans valeur WordPress, le libellé de repli actuel est utilisé : aucun trou dans l'interface.
+
+**Conventions retenues à l'implémentation** (compatibles avec ou sans ACF, le pont lisant les
+métadonnées brutes) :
+
+- une liste de textes libres est un répéteur à **un seul sous-champ nommé `item`** ; le pont renvoie
+  une liste de chaînes (`["Sur mesure", "Accompagnement"]`), jamais une liste d'objets ;
+- `nav.primaryCta` est alimenté par les options `tsis_primary_cta_label` et `tsis_primary_cta_href` ;
+- les en-têtes des pages d'index (`servicesIndex`, `solutionsIndex`, `contact`) sont lus dans les
+  options `tsis_ui_*_index_*` / `tsis_ui_contact_hero_*`, avec priorité à une métadonnée de la page
+  correspondante si elle existe ;
+- `realisation.secteurs` est une liste de **slugs** de la taxonomie `secteur` (clé de jointure
+  stable) ; le pont fournit aussi la liste `secteurs` pour résoudre les libellés ;
+- les répéteurs, galeries et relations ACF nécessitent **ACF PRO** ; sans ACF PRO, seules les
+  métadonnées natives (une valeur par clé) sont lues — le site fonctionne, mais les listes ne sont
+  pas éditables confortablement.
 
 ## 6. Côté WordPress — livrables à installer
 
@@ -262,9 +281,11 @@ Répertoire `wordpress/` du dépôt (voir `wordpress/README.md` pour la procédu
    - mise en cache par transient + purge à la publication ;
    - aucune authentification requise en lecture (contenu déjà public), corroborée par l'en-tête
      `X-TSIS-Bridge` pour permettre à Astro de détecter le pont.
-2. **`wordpress/acf/tsis-content-fields.json`** — groupes de champs ACF (un par page/CPT + options)
-   avec l'option « Show in REST API » activée, importables en un clic pour donner à l'éditeur une
-   saisie structurée.
+2. **`wordpress/acf/tsis-content-fields.json`** — 7 groupes, **112 champs** (identité et contact,
+   libellés d'interface, page d'accueil, page À propos, CPT service, CPT realisation, CPT
+   tsis_member), noms identiques aux clés du contrat, « Show in REST API » activé sur chaque champ,
+   importables en un clic pour donner à l'éditeur une saisie structurée. Les répéteurs, galeries et
+   la page d'options nécessitent **ACF PRO**.
 3. **`wordpress/README.md`** — installation (mu-plugin par FTP/Gestionnaire de fichiers, import ACF,
    déclaration des menus, exclusion du cache LiteSpeed, vérification par `curl`), sans jamais
    demander de mot de passe.
@@ -336,3 +357,5 @@ Règles d'exécution :
 | W04 | Logo vectoriel SVG | à fournir par TSIS |
 | W05 | Contenu anglais | outillage Universally non exposé — décision à prendre |
 | W06 | Validation du rendu EN et du routage `/en/` | dépend de W05 |
+| W07 | ACF PRO installé sur le WordPress de TSIS | sinon répéteurs, galeries et page d'options indisponibles (le pont fonctionne quand même en métadonnées natives) |
+| W08 | Exclusion de la route REST du cache LiteSpeed et autorisation de l'accès anonyme dans Wordfence | deux causes classiques de réponse vide ou 403 après installation |
