@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import { REALISATIONS } from '../data/realisations';
+
+const title = 'Nos solutions';
+const description = 'Découvrez des solutions digitales adaptées aux réalités de chaque secteur.';
+
+const secteurs = [...new Set(REALISATIONS.flatMap((r) => r.secteurs))].sort((a, b) =>
+  a.localeCompare(b, 'fr')
+);
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    eyebrow="Nos solutions"
+    title="Des projets conçus pour faire grandir votre activité."
+    intro={description}
+  >
+    <Button href="/contact/" variant="accent" size="lg">Parlons de vos besoins</Button>
+  </PageHero>
+
+  <section class="section">
+    <div class="container-tsis">
+      <div class="mb-lg flex flex-wrap gap-sm" role="group" aria-label="Filtrer par secteur">
+        <button
+          type="button"
+          class="secteur-filter rounded-full border border-line px-4 py-2 text-body-sm font-bold text-primary transition aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-primary"
+          data-secteur="all"
+          aria-pressed="true"
+        >
+          Tous
+        </button>
+        {secteurs.map((s) => (
+          <button
+            type="button"
+            class="secteur-filter rounded-full border border-line px-4 py-2 text-body-sm font-bold text-primary transition aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-primary"
+            data-secteur={s}
+            aria-pressed="false"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      <div id="solutions-grid" class="grid gap-lg md:grid-cols-2 lg:grid-cols-3">
+        {REALISATIONS.map((r) => (
+          <article
+            class="solution-card group flex flex-col overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-card)]"
+            data-secteurs={r.secteurs.join('|')}
+          >
+            {r.image ? (
+              <img
+                src={r.image}
+                alt={r.imageAlt}
+                width="640"
+                height="400"
+                class="h-52 w-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <div class="flex h-52 w-full items-center justify-center bg-primary/90" aria-hidden="true">
+                <span class="font-heading text-h3 font-bold text-accent">TSIS</span>
+              </div>
+            )}
+            <div class="flex flex-1 flex-col gap-sm p-lg">
+              {r.secteurs[0] && <span class="eyebrow !text-muted">{r.secteurs[0]}</span>}
+              <h2 class="!text-h4">{r.title}</h2>
+              <p class="text-muted">{r.excerpt}</p>
+              <a
+                href={`/realisations/${r.slug}/`}
+                class="mt-auto pt-sm font-bold text-primary no-underline hover:text-accent"
+              >
+                Découvrir la solution →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p id="solutions-empty" class="hidden py-xl text-center text-muted">
+        Aucune solution dans ce secteur pour le moment.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white pb-2xl">
+    <div class="container-tsis">
+      <div class="flex flex-col items-center gap-md rounded-3xl bg-primary px-xl py-2xl text-center text-white">
+        <span class="eyebrow">Vous avez un projet en tête ?</span>
+        <h2 class="!text-white">Parlons de votre projet</h2>
+        <p class="max-w-[42rem] text-body-lg text-footer-text">
+          Présentez-nous vos objectifs et les défis de votre activité. Ensemble, identifions la
+          solution digitale adaptée à votre organisation.
+        </p>
+        <Button href="/contact/" variant="accent" size="lg">Demander un devis</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.secteur-filter');
+  const cards = document.querySelectorAll<HTMLElement>('.solution-card');
+  const empty = document.getElementById('solutions-empty');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const active = btn.dataset.secteur ?? 'all';
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+
+      let visible = 0;
+      cards.forEach((card) => {
+        const match =
+          active === 'all' || (card.dataset.secteurs ?? '').split('|').includes(active);
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      empty?.classList.toggle('hidden', visible > 0);
+    });
+  });
+</script>

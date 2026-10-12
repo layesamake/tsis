@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import { SERVICES } from '../data/services';
+
+const title = 'Nos services';
+const description =
+  "De la stratégie à la mise en œuvre, TSIS conçoit des solutions fiables, adaptées à vos besoins et à votre secteur.";
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    eyebrow="Nos services"
+    title="Des expertises digitales au service de votre croissance."
+    intro={description}
+  >
+    <Button href="/contact/" variant="accent" size="lg">Demander un devis</Button>
+  </PageHero>
+
+  <section class="section">
+    <div class="container-tsis">
+      <div class="grid gap-md sm:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.map((s, i) => (
+          <a
+            href={`/services/${s.slug}/`}
+            class="group flex flex-col gap-sm rounded-2xl border border-line bg-white p-lg no-underline transition hover:border-accent hover:shadow-[var(--shadow-soft)]"
+          >
+            <span class="font-heading text-h5 text-accent">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="!text-h5">{s.title}</h2>
+            <p class="text-body-sm text-muted">{s.excerpt}</p>
+            <span class="mt-auto pt-sm font-bold text-primary group-hover:text-accent">
+              Découvrir le service →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white pb-2xl">
+    <div class="container-tsis">
+      <div class="flex flex-col items-center gap-md rounded-3xl bg-primary px-xl py-2xl text-center text-white">
+        <span class="eyebrow">Un besoin spécifique ?</span>
+        <h2 class="!text-white">Parlons de votre projet</h2>
+        <p class="max-w-[42rem] text-body-lg text-footer-text">
+          Présentez-nous vos objectifs et les défis de votre activité. Ensemble, identifions la
+          solution digitale adaptée à votre organisation.
+        </p>
+        <Button href="/contact/" variant="accent" size="lg">Demander un devis</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

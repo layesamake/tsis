@@ -1,0 +1,24 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  tone?: 'dark' | 'tint';
+}
+
+const { eyebrow, title, intro, tone = 'dark' } = Astro.props;
+const dark = tone === 'dark';
+---
+
+<section class:list={[dark ? 'bg-primary text-white' : 'bg-[#f6f9fb]']}>
+  <div class="container-tsis flex flex-col items-start gap-md py-2xl">
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h1 class:list={[dark && '!text-white']}>{title}</h1>
+    {intro && (
+      <p class:list={['max-w-[48rem] text-body-lg', dark ? 'text-footer-text' : 'text-muted']}>
+        {intro}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

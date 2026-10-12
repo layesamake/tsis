@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Button from '../../components/Button.astro';
+import { REALISATIONS } from '../../data/realisations';
+
+export function getStaticPaths() {
+  return REALISATIONS.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props;
+
+const related = REALISATIONS.filter((r) => r.slug !== item.slug).slice(0, 3);
+---
+
+<BaseLayout title={item.title} description={item.excerpt}>
+  <PageHero eyebrow="Solution digitale TSIS" title={item.title} intro={item.excerpt}>
+    {item.secteurs.length > 0 && (
+      <span class="rounded-full bg-white/10 px-4 py-2 text-body-sm font-bold text-accent">
+        {item.secteurs.join(' · ')}
+      </span>
+    )}
+    <Button href="/contact/" variant="accent" size="lg">Parler de votre projet</Button>
+  </PageHero>
+
+  <section class="section">
+    <div class="container-tsis grid gap-xl lg:grid-cols-[2fr_1fr]">
+      <div class="flex flex-col gap-md">
+        <span class="eyebrow">Le projet</span>
+        <h2>Une réponse pensée pour les besoins réels.</h2>
+        <p class="text-body-lg">{item.excerpt}</p>
+
+        {item.image && (
+          <img
+            src={item.image}
+            alt={item.imageAlt}
+            width="960"
+            height="600"
+            class="mt-md w-full rounded-2xl object-cover shadow-[var(--shadow-card)]"
+            loading="lazy"
+          />
+        )}
+      </div>
+
+      <aside class="flex flex-col gap-sm rounded-2xl bg-[#f6f9fb] p-lg">
+        <h2 class="!text-h6">Vous avez un projet similaire ?</h2>
+        <p class="text-body-sm text-muted">
+          Parlons de vos besoins et construisons une solution adaptée à votre activité.
+        </p>
+        <Button href="/contact/" variant="primary">Demander un devis</Button>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section bg-[#f6f9fb]">
+    <div class="container-tsis">
+      <h2 class="!text-h3">D'autres solutions conçues par TSIS</h2>
+      <div class="mt-lg grid gap-lg md:grid-cols-2 lg:grid-cols-3">
+        {related.map((r) => (
+          <article class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-card)]">
+            {r.image ? (
+              <img src={r.image} alt={r.imageAlt} width="640" height="400" class="h-44 w-full object-cover" loading="lazy" />
+            ) : (
+              <div class="flex h-44 w-full items-center justify-center bg-primary/90" aria-hidden="true">
+                <span class="font-heading text-h3 font-bold text-accent">TSIS</span>
+              </div>
+            )}
+            <div class="flex flex-1 flex-col gap-sm p-lg">
+              {r.secteurs[0] && <span class="eyebrow !text-muted">{r.secteurs[0]}</span>}
+              <h3 class="!text-h5">{r.title}</h3>
+              <p class="text-body-sm text-muted">{r.excerpt}</p>
+              <a href={`/realisations/${r.slug}/`} class="mt-auto pt-sm font-bold text-primary no-underline hover:text-accent">
+                Découvrir →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { CONTACT, SITE } from '../config/site';
+
+const title = 'Contact';
+const description =
+  'Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h. Devis gratuit et sans engagement.';
+
+const besoins = [
+  'Logiciel sur mesure',
+  'Site web ou e-commerce',
+  'Application mobile',
+  'Réseaux et infrastructure IT',
+  'Cybersécurité ou vidéosurveillance',
+  'IA et automatisation',
+  'Marketing digital et design',
+  'Matériel informatique',
+  'Autre besoin',
+];
+
+const success = Astro.url.searchParams.get('sent') === '1';
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero
+    eyebrow="Contact"
+    title="Parlons de votre projet."
+    intro="Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h."
+  >
+    <div class="flex flex-wrap gap-sm text-body-sm">
+      <span class="rounded-full bg-white/10 px-4 py-2">Réponse sous 24 h</span>
+      <span class="rounded-full bg-white/10 px-4 py-2">Devis gratuit et sans engagement</span>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container-tsis grid gap-xl lg:grid-cols-[1.4fr_1fr]">
+      <!-- Formulaire -->
+      <div>
+        <h2 class="!text-h3">Votre demande</h2>
+
+        {success && (
+          <p
+            class="mt-md rounded-xl border border-accent/40 bg-accent/10 px-4 py-3 text-body-sm font-bold text-primary"
+            role="status"
+          >
+            Merci, votre demande a bien été envoyée. Nous vous répondons sous 24 h.
+          </p>
+        )}
+
+        <form method="post" action="/contact.php" class="mt-lg grid gap-md" novalidate>
+          <!-- Anti-spam : champ piège, invisible pour les humains -->
+          <div class="hidden" aria-hidden="true">
+            <label for="site_web">Site web</label>
+            <input id="site_web" name="site_web" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="grid gap-md sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="nom" class="text-body-sm font-bold text-primary">
+                Nom complet <span class="text-accent">*</span>
+              </label>
+              <input
+                id="nom"
+                name="nom"
+                type="text"
+                required
+                autocomplete="name"
+                class="rounded-xl border border-line px-4 py-3 outline-none focus:border-accent"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="email" class="text-body-sm font-bold text-primary">
+                Email <span class="text-accent">*</span>
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                class="rounded-xl border border-line px-4 py-3 outline-none focus:border-accent"
+              />
+            </div>
+          </div>
+
+          <div class="grid gap-md sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <label for="telephone" class="text-body-sm font-bold text-primary">Téléphone</label>
+              <input
+                id="telephone"
+                name="telephone"
+                type="tel"
+                autocomplete="tel"
+                class="rounded-xl border border-line px-4 py-3 outline-none focus:border-accent"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="besoin" class="text-body-sm font-bold text-primary">Type de besoin</label>
+              <select
+                id="besoin"
+                name="besoin"
+                class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+              >
+                {besoins.map((b) => <option value={b}>{b}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="message" class="text-body-sm font-bold text-primary">
+              Parlez-nous de votre projet <span class="text-accent">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              required
+              class="rounded-xl border border-line px-4 py-3 outline-none focus:border-accent"
+            ></textarea>
+          </div>
+
+          <label class="flex items-start gap-sm text-body-sm text-muted">
+            <input type="checkbox" name="consentement" value="1" required class="mt-1" />
+            <span>
+              J'accepte que TSIS utilise ces informations pour répondre à ma demande.
+            </span>
+          </label>
+
+          <div>
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center rounded-full bg-accent px-8 py-4 text-body font-bold text-primary transition hover:brightness-95"
+            >
+              Envoyer ma demande
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Coordonnées -->
+      <aside class="flex flex-col gap-lg">
+        <h2 class="!text-h3">Contactez-nous directement</h2>
+
+        <div class="rounded-2xl bg-[#f6f9fb] p-lg">
+          <h3 class="!text-h6">WhatsApp</h3>
+          <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" class="font-bold text-primary no-underline hover:text-accent">
+            {CONTACT.phones[0].label}
+          </a>
+        </div>
+
+        <div class="rounded-2xl bg-[#f6f9fb] p-lg">
+          <h3 class="!text-h6">Téléphone</h3>
+          <ul class="flex flex-col gap-1">
+            {CONTACT.phones.map((p) => (
+              <li>
+                <a href={p.href} class="font-bold text-primary no-underline hover:text-accent">{p.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-2xl bg-[#f6f9fb] p-lg">
+          <h3 class="!text-h6">Email</h3>
+          <a href={`mailto:${SITE.email}`} class="font-bold text-primary no-underline hover:text-accent">
+            {SITE.email}
+          </a>
+        </div>
+
+        <div class="rounded-2xl bg-[#f6f9fb] p-lg">
+          <h3 class="!text-h6">Adresse</h3>
+          <p class="text-body-sm">{SITE.address}</p>
+          <a
+            href={SITE.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-body-sm font-bold text-primary no-underline hover:text-accent"
+          >
+            Voir sur la carte →
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

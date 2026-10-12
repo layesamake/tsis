@@ -4,6 +4,7 @@ node_modules/
 # Build & caches
 dist/
 .astro/
+.preview/
 .next/
 .cache/
 *.tsbuildinfo

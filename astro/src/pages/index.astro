@@ -30,7 +30,7 @@ const featuredSolutions = SOLUTIONS.featured
       <div class="flex flex-col items-start gap-md">
         <span class="eyebrow">{HERO.eyebrow}</span>
         <h1 class="text-display !text-white">{HERO.title}</h1>
-        <p class="max-w-xl text-body-lg text-footer-text">{HERO.text}</p>
+        <p class="max-w-[36rem] text-body-lg text-footer-text">{HERO.text}</p>
 
         <ul class="flex flex-wrap gap-sm">
           {HERO.chips.map((chip) => (
@@ -178,7 +178,7 @@ const featuredSolutions = SOLUTIONS.featured
       <div class="flex flex-col items-center gap-md rounded-3xl bg-primary px-xl py-2xl text-center text-white">
         <span class="eyebrow">{FINAL_CTA.eyebrow}</span>
         <h2 class="!text-white">{FINAL_CTA.title}</h2>
-        <p class="max-w-2xl text-body-lg text-footer-text">{FINAL_CTA.text}</p>
+        <p class="max-w-[42rem] text-body-lg text-footer-text">{FINAL_CTA.text}</p>
         <Button href={FINAL_CTA.cta.href} variant="accent" size="lg">{FINAL_CTA.cta.label}</Button>
       </div>
     </div>

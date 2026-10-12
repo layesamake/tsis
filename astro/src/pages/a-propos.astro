@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import { ABOUT_PAGE, EXPERTISE, PILLARS, STATS, TEAM_SECTION } from '../data/about';
+import { TEAM } from '../data/team';
+import { SITE } from '../config/site';
+
+const title = 'À propos';
+const description =
+  "Touba Solution Informatique (TSI), entreprise sénégalaise spécialisée dans les solutions numériques sur mesure pour les entreprises et institutions africaines.";
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHero eyebrow={ABOUT_PAGE.eyebrow} title={ABOUT_PAGE.title} intro={ABOUT_PAGE.intro}>
+    <span class="rounded-full bg-white/10 px-4 py-2 text-body-sm font-bold text-accent">
+      {ABOUT_PAGE.badge}
+    </span>
+    <Button href="/contact/" variant="accent" size="lg">Échangeons sur votre projet</Button>
+  </PageHero>
+
+  <!-- Chiffres clés -->
+  <section class="border-b border-line bg-white">
+    <div class="container-tsis grid grid-cols-2 gap-lg py-xl lg:grid-cols-4">
+      {STATS.map((s) => (
+        <div class="text-center">
+          <p class="font-heading text-h2 font-bold text-primary">{s.value}</p>
+          <p class="text-body-sm text-muted">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Mission / Vision / Valeurs -->
+  <section class="section bg-[#f6f9fb]">
+    <div class="container-tsis">
+      <div class="grid gap-lg md:grid-cols-3">
+        {PILLARS.map((p) => (
+          <div class="flex flex-col gap-sm rounded-2xl bg-white p-lg shadow-[var(--shadow-soft)]">
+            <h2 class="!text-h5">{p.title}</h2>
+            <p class="text-muted">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise & présence -->
+  <section class="section bg-white">
+    <div class="container-tsis grid items-start gap-xl lg:grid-cols-2">
+      <div class="flex flex-col gap-md">
+        <span class="eyebrow">{EXPERTISE.eyebrow}</span>
+        <h2>{EXPERTISE.title}</h2>
+        {EXPERTISE.paragraphs.map((p) => <p class="text-body-lg">{p}</p>)}
+        <p class="text-muted">
+          Présents au{' '}
+          {EXPERTISE.countries.slice(0, 1).join('')}, en {EXPERTISE.countries.slice(1).join(', ')}.
+        </p>
+      </div>
+      <ul class="grid grid-cols-2 gap-sm">
+        {EXPERTISE.countries.map((c) => (
+          <li class="rounded-xl border border-line px-lg py-md text-body-sm font-bold text-primary">
+            {c}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Équipe -->
+  <section class="section bg-[#f6f9fb]">
+    <div class="container-tsis">
+      <header class="mx-auto flex max-w-[48rem] flex-col items-center gap-sm text-center">
+        <span class="eyebrow">{TEAM_SECTION.eyebrow}</span>
+        <h2>{TEAM_SECTION.title}</h2>
+        <p class="text-body-lg text-muted">{TEAM_SECTION.intro}</p>
+      </header>
+
+      <ul class="mt-xl grid grid-cols-2 gap-md sm:grid-cols-3 lg:grid-cols-5">
+        {TEAM.map((m) => (
+          <li class="flex flex-col items-center gap-sm rounded-2xl bg-white p-md text-center shadow-[var(--shadow-soft)]">
+            {m.photo ? (
+              <img
+                src={m.photo}
+                alt={m.name}
+                width="200"
+                height="200"
+                class="h-24 w-24 rounded-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <div class="flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 font-heading text-h5 font-bold text-primary" aria-hidden="true">
+                {m.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
+              </div>
+            )}
+            <p class="text-body-sm font-bold text-primary">{m.name}</p>
+            <p class="text-caption text-muted">{m.role}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white pb-2xl">
+    <div class="container-tsis">
+      <div class="flex flex-col items-center gap-md rounded-3xl bg-primary px-xl py-2xl text-center text-white">
+        <span class="eyebrow">Contact</span>
+        <h2 class="!text-white">Parlons de votre projet</h2>
+        <p class="max-w-[42rem] text-body-lg text-footer-text">{SITE.description}</p>
+        <Button href="/contact/" variant="accent" size="lg">Parlons de votre projet</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
