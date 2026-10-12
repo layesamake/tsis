@@ -10,6 +10,30 @@ un front public statique en **Astro**, alimenté par un **WordPress headless**.
 | Site public (Astro statique) | `astro.tsis.sn` | `tsis.sn` |
 | CMS WordPress headless | `preprod.tsis.sn` | `cms.tsis.sn` |
 
+## Où est le site construit ? (`index.html`)
+
+⚠️ **`index.html` n'existe pas sur `main` et c'est normal** : `main` ne contient que les
+*sources*. Le site **compilé** vit sur une branche séparée.
+
+| Branche | Contenu | Usage |
+|---------|---------|-------|
+| `main` | sources uniquement : `astro/`, `docs/`, `scripts/` | développement |
+| `deploy-astro` | le **site compilé** : `index.html`, `_astro/`, `contact.php`, `sitemap-index.xml`, `uploads/`… | à téléverser dans `public_html` |
+
+- Voir le build : <https://github.com/layesamake/tsis/tree/deploy-astro>
+- Télécharger l'archive (upload direct dans `public_html`) :
+  <https://github.com/layesamake/tsis/archive/refs/heads/deploy-astro.zip>
+
+Régénérer le build et le publier sur `deploy-astro` :
+
+```bash
+cd astro && npm run build          # génère astro/dist/
+# puis publier le contenu de astro/dist/ à la racine de la branche deploy-astro
+```
+
+Déploiement par SSH vers l'hébergement (alternative au zip) : `bash scripts/deploy.sh --dry-run`
+(voir l'en-tête du script pour les variables `DEPLOY_*`, à placer dans `.env.deploy`, non versionné).
+
 ## Contenu du dépôt
 
 ```
