@@ -1371,8 +1371,8 @@ function tsis_bridge_build_index( $slug, $option_base ) {
 		'eyebrow'         => $read( '_eyebrow' ),
 		'title'           => $read( '_title' ),
 		'intro'           => $read( '_intro' ),
-		'metaTitle'       => null,
-		'metaDescription' => null,
+		'metaTitle'       => '' !== trim( (string) $page->post_title ) ? $page->post_title : null,
+		'metaDescription' => tsis_bridge_str( $page->post_excerpt ) ? tsis_bridge_str( $page->post_excerpt ) : $read( '_intro' ),
 	);
 }
 

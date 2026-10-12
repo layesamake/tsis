@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T19:03:23.829Z",
+  "generatedAt": "2026-10-12T19:19:45.740Z",
   "lang": "fr",
   "source": "wordpress",
   "site": {
@@ -84,23 +84,28 @@
     "footer": [
       {
         "label": "Accueil",
-        "href": "/"
+        "href": "/",
+        "children": []
       },
       {
         "label": "À propos",
-        "href": "/a-propos/"
+        "href": "/a-propos/",
+        "children": []
       },
       {
         "label": "Nos services",
-        "href": "/nos-services/"
+        "href": "/nos-services/",
+        "children": []
       },
       {
         "label": "Nos solutions",
-        "href": "/nos-solutions/"
+        "href": "/nos-solutions/",
+        "children": []
       },
       {
-        "label": "Contact",
-        "href": "/contact/"
+        "label": "Demander un devis",
+        "href": "/contact/",
+        "children": []
       }
     ],
     "primaryCta": {
@@ -164,9 +169,9 @@
           "Support"
         ],
         "image": {
-          "url": "/uploads/hero-computer-1.png",
-          "width": null,
-          "height": null,
+          "url": "/uploads/wp/19f1de2b-hero-computer-1.png",
+          "width": 612,
+          "height": 408,
           "alt": "Solutions digitales TSIS"
         },
         "imageAlt": "Solutions digitales TSIS",
@@ -363,8 +368,8 @@
       "eyebrow": "Contact",
       "title": "Parlons de votre projet",
       "intro": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h.",
-      "metaTitle": "Contact",
-      "metaDescription": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h. Devis gratuit et sans engagement."
+      "metaTitle": "Demander un devis",
+      "metaDescription": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h."
     }
   },
   "services": [

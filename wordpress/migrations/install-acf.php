@@ -27,7 +27,9 @@ if ( ! is_array( $groupes ) ) {
 
 $existants = array();
 foreach ( (array) acf_get_field_groups() as $g ) {
-	$existants[ $g['key'] ] = $g;
+	if ( ! isset( $existants[ $g['key'] ] ) ) {
+		$existants[ $g['key'] ] = $g;
+	}
 }
 
 $crees = 0;
@@ -36,23 +38,26 @@ foreach ( $groupes as $groupe ) {
 	if ( empty( $groupe['key'] ) || empty( $groupe['fields'] ) ) {
 		continue;
 	}
-	$avant = isset( $existants[ $groupe['key'] ] ) ? count( (array) acf_get_fields( $existants[ $groupe['key'] ] ) ) : 0;
-	$res   = acf_import_field_group( $groupe );
+	$avant = 0;
+	if ( isset( $existants[ $groupe['key'] ] ) ) {
+		// ACF ne remplace pas un groupe par sa clé : il faut lui donner l'identifiant existant,
+		// sinon chaque import crée un second groupe identique dans l'interface.
+		$existant          = $existants[ $groupe['key'] ];
+		$groupe['ID']      = $existant['ID'];
+		$avant             = count( (array) acf_get_fields( $existant ) );
+	}
+	$res = acf_import_field_group( $groupe );
 	if ( ! $res ) {
 		echo 'ÉCHEC : ' . $groupe['key'] . "\n";
 		continue;
 	}
 	if ( $avant ) {
 		$maj++;
+		echo sprintf( "  maj      %-38s %2d champ(s) direct(s)\n", $groupe['title'], count( (array) $groupe['fields'] ) );
 	} else {
 		$crees++;
+		echo sprintf( "  créé     %-38s %2d champ(s) direct(s)\n", $groupe['title'], count( (array) $groupe['fields'] ) );
 	}
-	echo sprintf(
-		"  %-8s %-38s %2d champ(s) direct(s)\n",
-		$avant ? 'maj' : 'créé',
-		$groupe['title'],
-		count( (array) $groupe['fields'] )
-	);
 }
 
 echo "Groupes créés : $crees | mis à jour : $maj\n";

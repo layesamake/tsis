@@ -4,6 +4,14 @@
 # ------------------------------------------------------------
 # Envoie le contenu de astro/dist/ vers le répertoire cible via SSH (scp).
 #
+# ATTENTION — deux pièges connus sur ce compte :
+#  1. La racine réellement servie pour astro.tsis.sn est domains/tsis.sn/public_html/astro,
+#     à l'intérieur du dossier de tsis.sn (le WordPress de production : ne jamais y écrire).
+#  2. Le déploiement Git de Hostinger clone une branche du dépôt et publie son contenu brut dans
+#     cette racine : un push sur `main` EFFACE le site construit. Après tout push sur main,
+#     rejouer ce script pour restaurer le site, ou basculer hPanel sur la branche `deploy-astro`
+#     (voir scripts/publish-deploy.sh), qui contient le site construit à sa racine.
+#
 # Variables d'environnement attendues (à placer dans .env.deploy, non versionné) :
 #   DEPLOY_HOST       hôte SSH          (ex. 123.45.67.89 ou astro.tsis.sn)
 #   DEPLOY_USER       utilisateur SSH   (ex. u123456789)

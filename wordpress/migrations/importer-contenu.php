@@ -19,10 +19,10 @@
 
 $simulation = in_array( 'simulation', array_map( 'strval', (array) $args ), true );
 $racine     = __DIR__;
-$fichier    = $racine . '/contenu-extrait-elementor.json';
+$fichiers   = array_values( array_filter( (array) glob( $racine . '/contenu-*.json' ) ) );
 
-if ( ! file_exists( $fichier ) ) {
-	echo "Fichier de migration introuvable : $fichier\n";
+if ( ! $fichiers ) {
+	echo "Aucun fichier de migration (contenu-*.json) dans $racine\n";
 	return;
 }
 if ( ! function_exists( 'update_field' ) ) {
@@ -30,9 +30,23 @@ if ( ! function_exists( 'update_field' ) ) {
 	return;
 }
 
-$migration = json_decode( (string) file_get_contents( $fichier ), true );
-if ( ! is_array( $migration ) || empty( $migration['champs'] ) ) {
-	echo "Fichier de migration illisible ou vide.\n";
+/* Les fichiers sont lus dans l'ordre alphabétique ; chaque champ vide est renseigné une fois. */
+$migration = array( 'champs' => array(), 'equipe' => array(), 'options_wp' => array() );
+foreach ( $fichiers as $f ) {
+	$part = json_decode( (string) file_get_contents( $f ), true );
+	if ( ! is_array( $part ) ) {
+		echo 'Fichier illisible, ignoré : ' . basename( $f ) . "\n";
+		continue;
+	}
+	echo 'Source : ' . basename( $f ) . "\n";
+	$migration['champs']     = array_merge( $migration['champs'], (array) ( $part['champs'] ?? array() ) );
+	$migration['options_wp'] = array_merge( $migration['options_wp'], (array) ( $part['options_wp'] ?? array() ) );
+	if ( ! empty( $part['equipe'] ) ) {
+		$migration['equipe'] = (array) $part['equipe'];
+	}
+}
+if ( ! $migration['champs'] && ! $migration['equipe'] ) {
+	echo "Rien à migrer.\n";
 	return;
 }
 
@@ -191,7 +205,22 @@ foreach ( $migration['champs'] as $nom => $valeur ) {
 }
 
 /* ------------------------------------------------------------------ *
- * 2) Équipe : un membre = une publication tsis_member
+ * 2) Réglages natifs WordPress (titre secondaire du site, etc.)
+ * ------------------------------------------------------------------ */
+foreach ( (array) $migration['options_wp'] as $option => $valeur ) {
+	$actuelle = get_option( $option );
+	if ( ! empty( $actuelle ) ) {
+		$rapport['deja_remplis'][] = 'option ' . $option;
+		continue;
+	}
+	if ( ! $simulation ) {
+		update_option( $option, $valeur );
+	}
+	$rapport['renseignes'][] = 'option ' . $option;
+}
+
+/* ------------------------------------------------------------------ *
+ * 3) Équipe : un membre = une publication tsis_member
  * ------------------------------------------------------------------ */
 foreach ( (array) $migration['equipe'] as $membre ) {
 	$nom = trim( (string) ( $membre['nom'] ?? '' ) );

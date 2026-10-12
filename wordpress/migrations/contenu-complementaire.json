@@ -1,0 +1,36 @@
+{
+  "genereLe": "2026-10-12T19:16:19.514Z",
+  "origine": "valeurs affichées par le site Astro (instantané du 2026-10-12) et absentes de WordPress",
+  "avertissement": "Complément, pas remplacement : le script n'écrit que dans les champs vides.",
+  "champs": {
+    "tsis_ui_project_eyebrow": "Le projet",
+    "tsis_ui_project_title": "Une réponse pensée pour les besoins réels.",
+    "tsis_ui_service_aside_title": "Un besoin similaire ?",
+    "tsis_ui_service_aside_text": "Décrivez-nous votre contexte : nous revenons vers vous sous 24 h avec une première approche.",
+    "tsis_ui_service_aside_cta_label": "Demander un devis",
+    "tsis_ui_realisation_aside_title": "Vous avez un projet similaire ?",
+    "tsis_ui_realisation_aside_text": "Parlons de vos besoins et construisons une solution adaptée à votre activité.",
+    "tsis_ui_realisation_aside_cta_label": "Demander un devis",
+    "tsis_ui_related_services_title": "D'autres services TSIS",
+    "tsis_ui_related_realisations_title": "D'autres solutions conçues par TSIS",
+    "tsis_ui_discover_label": "Découvrir →",
+    "tsis_ui_service_hero_eyebrow": "Solution digitale TSIS",
+    "tsis_ui_hero_cta_label": "Parler de votre projet",
+    "tsis_ui_discover_service_label": "Découvrir le service →",
+    "tsis_ui_discover_solution_label": "Découvrir la solution →",
+    "tsis_hero_eyebrow": "Votre partenaire digital au Sénégal",
+    "tsis_hero_text": "Logiciels sur mesure, applications et infrastructures IT : nous transformons vos besoins en solutions concrètes.",
+    "tsis_hero_image_alt": "Solutions digitales TSIS",
+    "tsis_home_about_note": "Notre expertise couvre le commerce, la santé, les ressources humaines, l'éducation et l'industrie.",
+    "tsis_home_about_image_alt": "Équipe Touba Solution Informatique",
+    "tsis_about_eyebrow": "À propos de TSI",
+    "tsis_about_badge": "12+ ans d'expérience",
+    "tsis_about_expertise_title": "Présents là où vos projets se développent.",
+    "tsis_about_team_intro": "Une équipe pluridisciplinaire qui conçoit, développe et accompagne vos solutions au quotidien.",
+    "tsis_google_maps": "https://maps.app.goo.gl/x1heEpd86rZTHvov5",
+    "tsis_hero_image_fichier": "hero-computer-1.png"
+  },
+  "options_wp": {
+    "blogdescription": "Votre partenaire digital au Sénégal"
+  }
+}

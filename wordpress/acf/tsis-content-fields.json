@@ -632,32 +632,6 @@
         "new_lines": ""
       },
       {
-        "key": "field_tsis_home_solutions_featured",
-        "label": "Bloc Solutions — réalisations mises en avant",
-        "name": "tsis_home_solutions_featured",
-        "aria-label": "",
-        "type": "relationship",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "show_in_rest": true,
-        "post_type": [
-          "realisation"
-        ],
-        "taxonomy": "",
-        "filters": [
-          "search"
-        ],
-        "return_format": "id",
-        "min": "",
-        "max": ""
-      },
-      {
         "key": "field_tsis_home_solutions_cta_label",
         "label": "Bloc Solutions — bouton : libellé",
         "name": "tsis_home_solutions_cta_label",
