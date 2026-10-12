@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "content:pull": "node scripts/pull-content.mjs",
+    "build:live": "node scripts/pull-content.mjs && astro build"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

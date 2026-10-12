@@ -2,17 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
-import { SERVICES } from '../data/services';
-import { REALISATIONS } from '../data/realisations';
 import {
   ABOUT,
   FINAL_CTA,
   HERO,
   PROCESS,
+  REALISATIONS,
+  SERVICES,
   SERVICES_SECTION,
   SOLUTIONS,
   WHY,
-} from '../data/home';
+} from '../content';
 
 const featuredSolutions = SOLUTIONS.featured
   .map((slug) => REALISATIONS.find((r) => r.slug === slug))

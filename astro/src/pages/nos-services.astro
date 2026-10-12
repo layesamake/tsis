@@ -2,19 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Button from '../components/Button.astro';
-import { SERVICES } from '../data/services';
+import { PAGES, SERVICES, ui } from '../content';
 
-const title = 'Nos services';
-const description =
-  "De la stratégie à la mise en œuvre, TSIS conçoit des solutions fiables, adaptées à vos besoins et à votre secteur.";
+const page = PAGES.servicesIndex;
+const title = page.metaTitle;
+const description = page.metaDescription;
 ---
 
 <BaseLayout title={title} description={description}>
-  <PageHero
-    eyebrow="Nos services"
-    title="Des expertises digitales au service de votre croissance."
-    intro={description}
-  >
+  <PageHero eyebrow={page.eyebrow} title={page.title} intro={page.intro}>
     <Button href="/contact/" variant="accent" size="lg">Demander un devis</Button>
   </PageHero>
 
@@ -30,7 +26,7 @@ const description =
             <h2 class="!text-h5">{s.title}</h2>
             <p class="text-body-sm text-muted">{s.excerpt}</p>
             <span class="mt-auto pt-sm font-bold text-primary group-hover:text-accent">
-              Découvrir le service →
+              {ui('discoverServiceLabel', 'Découvrir le service →')}
             </span>
           </a>
         ))}

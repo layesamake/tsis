@@ -17,22 +17,29 @@ Hostinger « WordPress Pro » = hébergement mutualisé (PHP + MySQL, pas de Nod
 ## Flux
 ```
 Éditeur → WordPress (preprod.tsis.sn)
-              │  REST API  (/wp-json/wp/v2/…)
+              │  REST  /wp-json/tsis/v1/content   (greffon « pont », wordpress/mu-plugins)
+              │  repli : /wp-json/wp/v2/…          (REST public, sans greffon)
               ▼
-        Build Astro (SSG)   ← scripts locaux
+   scripts/pull-content.mjs ──► astro/src/content/wp-content.json  (instantané versionné)
+              │
+              ▼
+        Build Astro (SSG)   ← hors ligne, lit uniquement l'instantané
               │  dist/ (HTML/CSS/JS statiques)
               ▼
    astro.tsis.sn  ──(transfert domaine)──►  tsis.sn
 ```
 
-Déclenchement du rebuild : manuel au départ, puis webhook WordPress → script de build.
+Contrat de contenu détaillé : `docs/contrat-contenu-wp.md`.
+Déclenchement du rebuild : manuel (`npm run build:live`), puis webhook WordPress → script de build.
 
 ## Stack retenue
-- **Astro 5** + TypeScript
+- **Astro 7** + TypeScript
 - **Tailwind CSS 4**
 - Sortie statique (`output: 'static'`)
-- Contenu : Content Collections Astro alimentées par l'API REST WordPress
-- Multilingue FR/EN (le site actuel expose `/` et `/en/`)
+- Contenu : **instantané JSON versionné** alimenté par l'API REST WordPress
+  (`docs/contrat-contenu-wp.md`) ; le build ne fait **aucun appel réseau**
+- Multilingue FR/EN (le site actuel expose `/` et `/en/`) : structure prévue, contenu anglais encore
+  à fournir (plugin Universally non exposé publiquement)
 
 Cohérent avec les autres projets de l'utilisateur (Next.js/React/TS/Vitest) sans introduire
 de dépendance à un runtime Node côté hébergeur.
@@ -66,10 +73,14 @@ Source extraite : `docs/site-source/design-system.css` (31 tokens).
 ## Structure du dépôt
 ```
 tsis/
-├── astro/              # site public Astro (SSG)
-├── wordpress/          # config, exports, seeds du CMS WP
-├── scripts/            # extraction contenu, build, déploiement
-└── docs/               # contexte, architecture, inventaire
+├── astro/                    # site public Astro (SSG)
+│   ├── src/content/          # instantané de contenu WordPress + couche de contenu
+│   ├── src/lib/wp/           # pipeline de lecture (pont / REST public), types
+│   ├── scripts/              # rafraîchissement du contenu
+│   └── public/uploads/wp/    # images rapatriées depuis le CMS
+├── wordpress/                # greffon « pont », champs ACF, amorçage, procédure d'installation
+├── scripts/                  # extraction du contenu d'origine, build, déploiement
+└── docs/                     # contexte, architecture, inventaire, contrat de contenu
 ```
 
 ## Sources de contenu (site actuel)

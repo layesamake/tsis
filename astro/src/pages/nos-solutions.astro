@@ -2,10 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Button from '../components/Button.astro';
-import { REALISATIONS } from '../data/realisations';
+import { PAGES, REALISATIONS, ui } from '../content';
 
-const title = 'Nos solutions';
-const description = 'Découvrez des solutions digitales adaptées aux réalités de chaque secteur.';
+const page = PAGES.solutionsIndex;
+const title = page.metaTitle;
+const description = page.metaDescription;
 
 const secteurs = [...new Set(REALISATIONS.flatMap((r) => r.secteurs))].sort((a, b) =>
   a.localeCompare(b, 'fr')
@@ -13,11 +14,7 @@ const secteurs = [...new Set(REALISATIONS.flatMap((r) => r.secteurs))].sort((a, 
 ---
 
 <BaseLayout title={title} description={description}>
-  <PageHero
-    eyebrow="Nos solutions"
-    title="Des projets conçus pour faire grandir votre activité."
-    intro={description}
-  >
+  <PageHero eyebrow={page.eyebrow} title={page.title} intro={page.intro}>
     <Button href="/contact/" variant="accent" size="lg">Parlons de vos besoins</Button>
   </PageHero>
 
@@ -72,7 +69,7 @@ const secteurs = [...new Set(REALISATIONS.flatMap((r) => r.secteurs))].sort((a, 
                 href={`/realisations/${r.slug}/`}
                 class="mt-auto pt-sm font-bold text-primary no-underline hover:text-accent"
               >
-                Découvrir la solution →
+                {ui('discoverSolutionLabel', 'Découvrir la solution →')}
               </a>
             </div>
           </article>

@@ -1,20 +1,16 @@
 ---
-import { CONTACT, NAV, SITE, SOCIAL } from '../config/site';
+import { CONTACT, NAV_FOOTER, NAV_FOOTER_SERVICES, SITE, SOCIAL } from '../config/site';
 
 const year = new Date().getFullYear();
-const services = [
-  { label: 'Réseaux & infrastructure IT', href: '/services/reseaux-informatiques-infrastructure-it/' },
-  { label: 'Sécurité informatique & vidéosurveillance', href: '/services/securite-informatique-videosurveillance/' },
-  { label: 'Sites web & e-commerce', href: '/services/creation-sites-web-vitrine-e-commerce/' },
-  { label: 'ERP sur mesure', href: '/services/creation-sites-web-erp-sur-mesure/' },
-];
+/** Services mis en avant en pied de page : pilotés depuis WordPress (contrat §5.2). */
+const services = NAV_FOOTER_SERVICES;
 ---
 
 <footer class="mt-2xl bg-primary text-footer-text">
   <div class="container-tsis grid gap-xl py-2xl md:grid-cols-2 lg:grid-cols-4">
     <div class="lg:col-span-1">
       <div class="flex items-center gap-sm">
-        <img src="/brand/tsis-logo.png" alt={SITE.name} width="52" height="52" class="h-12 w-auto" />
+        <img src={SITE.logo} alt={SITE.logoAlt} width="52" height="52" class="h-12 w-auto" />
         <span class="font-heading text-body-lg font-bold text-white">TSIS</span>
       </div>
       <p class="mt-md text-body-sm leading-relaxed">{SITE.description}</p>
@@ -25,7 +21,7 @@ const services = [
         Explorer
       </h2>
       <ul class="mt-md flex flex-col gap-2">
-        {NAV.map((item) => (
+        {NAV_FOOTER.map((item) => (
           <li>
             <a href={item.href} class="text-body-sm no-underline hover:text-accent">{item.label}</a>
           </li>

@@ -2,10 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { CONTACT, SITE } from '../config/site';
+import { PAGES } from '../content';
 
-const title = 'Contact';
-const description =
-  'Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h. Devis gratuit et sans engagement.';
+const page = PAGES.contact;
+const title = page.metaTitle;
+const description = page.metaDescription;
 
 const besoins = [
   'Logiciel sur mesure',
@@ -23,11 +24,7 @@ const success = Astro.url.searchParams.get('sent') === '1';
 ---
 
 <BaseLayout title={title} description={description}>
-  <PageHero
-    eyebrow="Contact"
-    title="Parlons de votre projet."
-    intro="Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h."
-  >
+  <PageHero eyebrow={page.eyebrow} title={page.title} intro={page.intro}>
     <div class="flex flex-wrap gap-sm text-body-sm">
       <span class="rounded-full bg-white/10 px-4 py-2">Réponse sous 24 h</span>
       <span class="rounded-full bg-white/10 px-4 py-2">Devis gratuit et sans engagement</span>
