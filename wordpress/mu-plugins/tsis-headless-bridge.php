@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: TSIS — Pont de contenu headless
- * Description: Expose le contenu éditorial de TSIS (options, pages, CPT service/realisation/tsis_member, taxonomie secteur, menus) à l'API REST pour le site Astro, via la route GET /wp-json/tsis/v1/content.
- * Version: 1.0.0
+ * Description: Adaptateur : expose le contenu éditorial EXISTANT de TSIS (réglages ACF, CPT service/realisation, taxonomie secteur, CPT tsis_member, menus) à l'API REST pour le site Astro, via la route GET /wp-json/tsis/v1/content.
+ * Version: 2.0.0
  * Requires at least: 5.6
  * Requires PHP: 7.4
  * Author: TSIS
@@ -10,13 +10,17 @@
  * Text Domain: tsis-headless-bridge
  *
  * Greffon « must-use » autonome : aucune dépendance externe.
- * ACF est FACULTATIF — toutes les valeurs sont lues via get_option() / get_post_meta(),
- * ce qui rend le pont compatible avec ACF comme avec des métadonnées natives saisies à la main.
  *
- * Contrat de référence : docs/contrat-contenu-wp.md (§4 route, §5 modèle, §6 livrables).
- * Ce fichier n'écrit jamais de contenu : une donnée absente donne null ou [], jamais une
- * valeur inventée. Il ne peut jamais casser le site : toute erreur est capturée et rendue
- * en JSON lisible (sans trace PHP ni requête SQL).
+ * ADAPTATEUR du modèle de contenu DÉJÀ rempli par les éditeurs (§5 bis du contrat) :
+ * il LIT les champs ACF existants et les restitue au format du §4. Il ne crée aucun champ,
+ * aucun contenu, aucun modèle parallèle. ACF est FACULTATIF pour la lecture : les valeurs sont
+ * lues via get_option()/get_post_meta() (lues brutes), donc le pont fonctionne avec ACF comme
+ * avec des métadonnées natives.
+ *
+ * Contrat de référence : docs/contrat-contenu-wp.md (§4 route, §5 modèle, §5 bis correspondance,
+ * §6 livrables). Ce fichier n'écrit JAMAIS de contenu et ne coupe JAMAIS le site : une donnée
+ * absente donne null ou [], jamais une valeur inventée ; toute erreur est capturée et rendue en
+ * JSON lisible (sans trace PHP ni requête SQL). Aucun appel à exit()/die().
  *
  * @package TSIS\HeadlessBridge
  */
@@ -27,20 +31,26 @@ if ( defined( 'TSIS_BRIDGE_LOADED' ) ) {
 }
 define( 'TSIS_BRIDGE_LOADED', true );
 
+// Pas d'accès direct au fichier : on sort proprement (jamais exit(), qui couperait le chargement).
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Pas d'accès direct au fichier.
+	return;
 }
 
-define( 'TSIS_BRIDGE_VERSION', '1.0.0' );
+define( 'TSIS_BRIDGE_VERSION', '2.0.0' );
 define( 'TSIS_BRIDGE_CACHE_TTL', 300 ); // Secondes (aligné sur Cache-Control: max-age).
 
+/** Slugs des pages du site (sert au repli des libellés d'interface et aux en-têtes d'index). */
+function tsis_bridge_page_slugs() {
+	return array( 'accueil', 'a-propos', 'nos-services', 'nos-solutions', 'contact' );
+}
+
 /* -------------------------------------------------------------------------
- * 1. Enregistrements : CPT, menus, métadonnées, options
+ * 1. Enregistrements : CPT, menus, métadonnées
  * ---------------------------------------------------------------------- */
 
 /**
  * Enregistre le CPT `tsis_member` (§5.8).
- * Le CPT n'a pas de vue publique : il alimente uniquement le pont et l'admin.
+ * Le CPT n'a pas de vue publique : il alimente uniquement le pont et l'administration.
  */
 function tsis_bridge_register_post_type() {
 	register_post_type(
@@ -75,276 +85,99 @@ function tsis_bridge_register_post_type() {
 }
 
 /**
- * Déclare les emplacements de menus (§5.2) : tsis_primary et tsis_footer.
- * Hooké après le thème pour ne pas entrer en conflit avec hello-elementor.
+ * Déclare les emplacements de menus (§5.2) : `tsis_primary` et `tsis_footer`.
+ * On FUSIONNE avec les emplacements déjà déclarés (tsis_footer_navigation / tsis_footer_legal
+ * du greffon tsis-footer, menu-1/menu-2 du thème) sans jamais les écraser.
  */
 function tsis_bridge_register_nav_menus() {
-	register_nav_menus(
-		array(
-			'tsis_primary' => 'TSIS — Navigation principale',
-			'tsis_footer'  => 'TSIS — Navigation de pied de page',
-		)
+	$existing  = function_exists( 'get_registered_nav_menus' ) ? get_registered_nav_menus() : array();
+	$locations = array(
+		'tsis_primary' => 'TSIS — Navigation principale',
+		'tsis_footer'  => 'TSIS — Navigation de pied de page',
 	);
-}
-
-/**
- * Enregistre une métadonnée d'article exposée en REST (compatibilité éditeur).
- *
- * @param string $post_type Type d'article.
- * @param array  $names     Noms de métadonnées.
- * @param string $type      Type de valeur ('string', 'boolean', 'integer', 'number').
- */
-function tsis_bridge_register_post_meta_list( $post_type, $names, $type = 'string' ) {
-	foreach ( $names as $name ) {
-		register_post_meta(
-			$post_type,
-			$name,
-			array(
-				'type'          => $type,
-				'single'        => true,
-				'show_in_rest'  => true,
-				'auth_callback' => function () {
-					return current_user_can( 'edit_posts' );
-				},
-			)
-		);
+	if ( is_array( $existing ) && ! empty( $existing ) ) {
+		$locations = array_merge( $existing, $locations );
 	}
+	register_nav_menus( $locations );
 }
 
 /**
- * Enregistre une métadonnée de type tableau (relation ACF, galerie) avec un schéma REST explicite.
+ * Enregistre une métadonnée en REST si elle ne l'est pas déjà (compatibilité éditeur).
+ * On n'écrase jamais un enregistrement existant (ACF, etc.).
  *
  * @param string $post_type Type d'article.
  * @param string $name      Nom de la métadonnée.
+ * @param array  $args      Arguments supplémentaires.
  */
-function tsis_bridge_register_post_meta_array( $post_type, $name ) {
-	register_post_meta(
-		$post_type,
-		$name,
-		array(
-			'type'          => 'array',
-			'single'        => true,
-			'show_in_rest'  => array(
-				'schema' => array(
-					'type'  => 'array',
-					'items' => array( 'type' => array( 'string', 'integer' ) ),
-				),
-			),
-			'auth_callback' => function () {
-				return current_user_can( 'edit_posts' );
-			},
-		)
+function tsis_bridge_maybe_register_meta( $post_type, $name, $args = array() ) {
+	if ( function_exists( 'registered_meta_key_exists' ) && registered_meta_key_exists( 'post', $name, $post_type ) ) {
+		return;
+	}
+	$defaults = array(
+		'single'        => true,
+		'show_in_rest'  => true,
+		'auth_callback' => function () {
+			return current_user_can( 'edit_posts' );
+		},
 	);
+	register_post_meta( $post_type, $name, array_merge( $defaults, $args ) );
 }
 
 /**
- * Enregistre toutes les métadonnées utiles en REST (§6.1).
- * Les clés sont EXACTEMENT celles du contrat §5 (mêmes noms que les champs ACF).
+ * Enregistre (de façon additive et prudente) les métadonnées scalaires lues par le pont.
+ * Aucune métadonnée existante n'est renommée ni remplacée ; les répéteurs, galeries et
+ * relations restent gérés par ACF (on évite tout schéma REST redondant).
  */
 function tsis_bridge_register_meta() {
-	// Page d'accueil + page À propos + en-têtes d'index (stockés en métadonnées de page).
-	tsis_bridge_register_post_meta_list(
-		'page',
-		array(
-			// §5.3 Accueil — Hero.
-			'tsis_hero_eyebrow',
-			'tsis_hero_title',
-			'tsis_hero_text',
-			'tsis_hero_image',
-			'tsis_hero_image_alt',
-			'tsis_hero_primary_cta_label',
-			'tsis_hero_primary_cta_href',
-			'tsis_hero_secondary_cta_label',
-			'tsis_hero_secondary_cta_href',
-			// §5.3 Accueil — À propos.
-			'tsis_home_about_eyebrow',
-			'tsis_home_about_title',
-			'tsis_home_about_text',
-			'tsis_home_about_note',
-			'tsis_home_about_image',
-			'tsis_home_about_image_alt',
-			'tsis_home_about_cta_label',
-			'tsis_home_about_cta_href',
-			// §5.3 Accueil — Solutions.
-			'tsis_home_solutions_eyebrow',
-			'tsis_home_solutions_title',
-			'tsis_home_solutions_intro',
-			'tsis_home_solutions_cta_label',
-			'tsis_home_solutions_cta_href',
-			// §5.3 Accueil — Services.
-			'tsis_home_services_eyebrow',
-			'tsis_home_services_title',
-			'tsis_home_services_intro',
-			'tsis_home_services_cta_label',
-			'tsis_home_services_cta_href',
-			// §5.3 Accueil — Pourquoi.
-			'tsis_home_why_eyebrow',
-			'tsis_home_why_title',
-			'tsis_home_why_intro',
-			'tsis_home_why_cta_label',
-			'tsis_home_why_cta_href',
-			// §5.3 Accueil — Processus.
-			'tsis_home_process_eyebrow',
-			'tsis_home_process_title',
-			'tsis_home_process_intro',
-			// §5.3 Accueil — CTA final.
-			'tsis_home_final_eyebrow',
-			'tsis_home_final_title',
-			'tsis_home_final_text',
-			'tsis_home_final_cta_label',
-			'tsis_home_final_cta_href',
-			// §5.4 Page À propos — en-tête.
-			'tsis_about_eyebrow',
-			'tsis_about_title',
-			'tsis_about_intro',
-			'tsis_about_badge',
-			// §5.4 Page À propos — expertise + équipe (titre de section).
-			'tsis_about_expertise_eyebrow',
-			'tsis_about_expertise_title',
-			'tsis_about_team_eyebrow',
-			'tsis_about_team_title',
-			'tsis_about_team_intro',
-			// §5.9 En-têtes d'index, stockés en option mais surchargeables par la page.
-			'tsis_ui_services_index_eyebrow',
-			'tsis_ui_services_index_title',
-			'tsis_ui_services_index_intro',
-			'tsis_ui_solutions_index_eyebrow',
-			'tsis_ui_solutions_index_title',
-			'tsis_ui_solutions_index_intro',
-			'tsis_ui_contact_hero_eyebrow',
-			'tsis_ui_contact_hero_title',
-			'tsis_ui_contact_hero_intro',
-		)
+	// Champs de page (nouveaux champs éditoriaux du §5.3 / §5.4 / §5.9).
+	$page_scalars = array(
+		'tsis_hero_eyebrow', 'tsis_hero_title', 'tsis_hero_text', 'tsis_hero_image', 'tsis_hero_image_alt',
+		'tsis_hero_primary_cta_label', 'tsis_hero_primary_cta_href',
+		'tsis_hero_secondary_cta_label', 'tsis_hero_secondary_cta_href',
+		'tsis_home_about_eyebrow', 'tsis_home_about_title', 'tsis_home_about_text', 'tsis_home_about_note',
+		'tsis_home_about_image', 'tsis_home_about_image_alt', 'tsis_home_about_cta_label', 'tsis_home_about_cta_href',
+		'tsis_home_solutions_eyebrow', 'tsis_home_solutions_title', 'tsis_home_solutions_intro',
+		'tsis_home_solutions_cta_label', 'tsis_home_solutions_cta_href',
+		'tsis_home_services_eyebrow', 'tsis_home_services_title', 'tsis_home_services_intro',
+		'tsis_home_services_cta_label', 'tsis_home_services_cta_href',
+		'tsis_home_why_eyebrow', 'tsis_home_why_title', 'tsis_home_why_intro',
+		'tsis_home_why_cta_label', 'tsis_home_why_cta_href',
+		'tsis_home_process_eyebrow', 'tsis_home_process_title', 'tsis_home_process_intro',
+		'tsis_home_final_eyebrow', 'tsis_home_final_title', 'tsis_home_final_text',
+		'tsis_home_final_cta_label', 'tsis_home_final_cta_href',
+		'tsis_about_eyebrow', 'tsis_about_title', 'tsis_about_intro', 'tsis_about_badge',
+		'tsis_about_expertise_eyebrow', 'tsis_about_expertise_title',
+		'tsis_about_team_eyebrow', 'tsis_about_team_title', 'tsis_about_team_intro',
+		'tsis_ui_project_eyebrow', 'tsis_ui_project_title',
+		'tsis_ui_service_aside_title', 'tsis_ui_service_aside_text', 'tsis_ui_service_aside_cta_label',
+		'tsis_ui_realisation_aside_title', 'tsis_ui_realisation_aside_text', 'tsis_ui_realisation_aside_cta_label',
+		'tsis_ui_related_services_title', 'tsis_ui_related_realisations_title', 'tsis_ui_discover_label',
+		'tsis_ui_service_hero_eyebrow', 'tsis_ui_hero_cta_label',
+		'tsis_ui_discover_service_label', 'tsis_ui_discover_solution_label',
+		'tsis_ui_contact_hero_eyebrow', 'tsis_ui_contact_hero_title', 'tsis_ui_contact_hero_intro',
+		'tsis_ui_services_index_eyebrow', 'tsis_ui_services_index_title', 'tsis_ui_services_index_intro',
+		'tsis_ui_solutions_index_eyebrow', 'tsis_ui_solutions_index_title', 'tsis_ui_solutions_index_intro',
 	);
+	foreach ( $page_scalars as $name ) {
+		tsis_bridge_maybe_register_meta( 'page', $name );
+	}
 
-	// Répéteurs/textes de page stockés par ACF sous forme de compteur (valeur scalaire).
-	tsis_bridge_register_post_meta_list(
-		'page',
-		array(
-			'tsis_hero_chips',
-			'tsis_home_about_highlights',
-			'tsis_home_why_items',
-			'tsis_home_process_steps',
-			'tsis_about_pillars',
-			'tsis_about_expertise_paragraphs',
-			'tsis_about_expertise_countries',
-			'tsis_about_stats',
-		)
-	);
-	// Relation vers realisation (tableau d'identifiants/slugs).
-	tsis_bridge_register_post_meta_array( 'page', 'tsis_home_solutions_featured' );
+	// CPT service (champs existants, §5 bis).
+	tsis_bridge_maybe_register_meta( 'service', 'service_presentation' );
+	tsis_bridge_maybe_register_meta( 'service', 'service_ordre', array( 'type' => 'number' ) );
 
-	// CPT service (§5.5).
-	tsis_bridge_register_post_meta_list(
-		'service',
-		array(
-			'tsis_service_icon',
-			'tsis_service_body',
-			'tsis_service_seo_title',
-			'tsis_service_seo_description',
-		)
-	);
-	tsis_bridge_register_post_meta_list( 'service', array( 'tsis_service_features' ) );
-
-	// CPT realisation (§5.6).
-	tsis_bridge_register_post_meta_list(
-		'realisation',
-		array(
-			'tsis_realisation_client',
-			'tsis_realisation_year',
-			'tsis_realisation_body',
-			'tsis_realisation_seo_title',
-			'tsis_realisation_seo_description',
-		)
-	);
-	tsis_bridge_register_post_meta_list( 'realisation', array( 'tsis_realisation_results' ) );
-	tsis_bridge_register_post_meta_array( 'realisation', 'tsis_realisation_gallery' );
+	// CPT realisation (champs existants, §5 bis).
+	tsis_bridge_maybe_register_meta( 'realisation', 'projet_presentation' );
+	tsis_bridge_maybe_register_meta( 'realisation', 'projet_demo_url' );
+	tsis_bridge_maybe_register_meta( 'realisation', 'projet_temoignage_citation' );
+	tsis_bridge_maybe_register_meta( 'realisation', 'projet_temoignage_nom' );
+	tsis_bridge_maybe_register_meta( 'realisation', 'projet_temoignage_fonction' );
+	tsis_bridge_maybe_register_meta( 'realisation', 'projet_accueil', array( 'type' => 'boolean' ) );
 
 	// CPT tsis_member (§5.8).
-	tsis_bridge_register_post_meta_list( 'tsis_member', array( 'tsis_member_role', 'tsis_member_photo' ) );
-	tsis_bridge_register_post_meta_list( 'tsis_member', array( 'tsis_member_visible' ), 'boolean' );
-}
-
-/**
- * Enregistre les options globales en REST (§5.1, §5.2, §5.9).
- * Le pont lit de toute façon les valeurs via get_option() : cet enregistrement sert
- * uniquement à rendre ces champs éditables via l'API des réglages.
- */
-function tsis_bridge_register_options() {
-	$options = array(
-		// §5.1 Identité / contact.
-		'tsis_site_name',
-		'tsis_site_short_name',
-		'tsis_site_legal_name',
-		'tsis_site_tagline',
-		'tsis_site_description',
-		'tsis_site_logo',
-		'tsis_site_url',
-		'tsis_contact_email',
-		'tsis_contact_address',
-		'tsis_contact_maps_url',
-		'tsis_contact_whatsapp',
-		// §5.2 Bouton principal d'en-tête.
-		'tsis_primary_cta_label',
-		'tsis_primary_cta_href',
-		// §5.9 Libellés d'interface.
-		'tsis_ui_project_eyebrow',
-		'tsis_ui_project_title',
-		'tsis_ui_service_aside_title',
-		'tsis_ui_service_aside_text',
-		'tsis_ui_service_aside_cta_label',
-		'tsis_ui_realisation_aside_title',
-		'tsis_ui_realisation_aside_text',
-		'tsis_ui_realisation_aside_cta_label',
-		'tsis_ui_related_services_title',
-		'tsis_ui_related_realisations_title',
-		'tsis_ui_discover_label',
-		'tsis_ui_contact_hero_eyebrow',
-		'tsis_ui_contact_hero_title',
-		'tsis_ui_contact_hero_intro',
-		'tsis_ui_services_index_eyebrow',
-		'tsis_ui_services_index_title',
-		'tsis_ui_services_index_intro',
-		'tsis_ui_solutions_index_eyebrow',
-		'tsis_ui_solutions_index_title',
-		'tsis_ui_solutions_index_intro',
-	);
-
-	foreach ( $options as $name ) {
-		register_setting(
-			'tsis_content',
-			$name,
-			array(
-				'type'          => 'string',
-				'show_in_rest'  => true,
-				'default'       => '',
-				'auth_callback' => function () {
-					return current_user_can( 'manage_options' );
-				},
-			)
-		);
-	}
-}
-
-/**
- * Déclare la page d'options ACF (si ACF PRO est présent) qui accueille les
- * groupes de champs « Réglages du site » et « Libellés d'interface ».
- * Sans ACF PRO, le pont fonctionne quand même : les valeurs sont lues via get_option().
- */
-function tsis_bridge_maybe_register_options_page() {
-	if ( function_exists( 'acf_add_options_page' ) ) {
-		acf_add_options_page(
-			array(
-				'page_title' => 'Contenu du site TSIS',
-				'menu_title' => 'Contenu TSIS',
-				'menu_slug'  => 'tsis-content-options',
-				'capability' => 'edit_posts',
-				'redirect'   => false,
-				'position'   => '58.9',
-				'icon_url'   => 'dashicons-admin-generic',
-			)
-		);
-	}
+	tsis_bridge_maybe_register_meta( 'tsis_member', 'tsis_member_role' );
+	tsis_bridge_maybe_register_meta( 'tsis_member', 'tsis_member_photo' );
+	tsis_bridge_maybe_register_meta( 'tsis_member', 'tsis_member_visible', array( 'type' => 'boolean' ) );
 }
 
 /* -------------------------------------------------------------------------
@@ -446,6 +279,25 @@ function tsis_bridge_ctx_option() {
 }
 
 /**
+ * Lit une option globale en tenant compte du stockage ACF de la page d'options.
+ * ACF stocke les valeurs de la page d'options sous le préfixe `options_` ; on accepte aussi
+ * l'option nue (métadonnée native saisie hors ACF).
+ *
+ * @param string $name Nom du champ.
+ * @return mixed
+ */
+function tsis_bridge_option( $name ) {
+	$value = get_option( 'options_' . $name, null );
+	if ( null === $value || '' === $value || false === $value ) {
+		$plain = get_option( $name, null );
+		if ( null !== $plain && '' !== $plain && false !== $plain ) {
+			$value = $plain;
+		}
+	}
+	return $value;
+}
+
+/**
  * Lit une valeur brute (scalaire ou tableau) depuis un contexte.
  *
  * @param array  $ctx Contexte issu de tsis_bridge_ctx_post()/tsis_bridge_ctx_option().
@@ -456,7 +308,7 @@ function tsis_bridge_raw( $ctx, $key ) {
 	if ( isset( $ctx['post'] ) ) {
 		return get_post_meta( (int) $ctx['post'], $key, true );
 	}
-	return get_option( $key, null );
+	return tsis_bridge_option( $key );
 }
 
 /**
@@ -528,6 +380,19 @@ function tsis_bridge_href( $value ) {
 	}
 
 	return $url; // URL externe : absolue.
+}
+
+/**
+ * Échappe une valeur destinée à un attribut HTML.
+ *
+ * @param string $value Valeur.
+ * @return string
+ */
+function tsis_bridge_attr( $value ) {
+	if ( function_exists( 'esc_attr' ) ) {
+		return esc_attr( $value );
+	}
+	return htmlspecialchars( (string) $value, ENT_QUOTES, 'UTF-8' );
 }
 
 /**
@@ -648,18 +513,25 @@ function tsis_bridge_cast( $value, $type ) {
 }
 
 /**
- * Aplatit une ligne de répéteur selon une liste de sous-champs typés.
+ * Normalise une spécification de sous-champ.
+ * Accepte soit une chaîne (type 'str', même nom en sortie), soit un tableau
+ * { 'name' => nom_source, 'type' => type }.
  *
- * @param array $row    Ligne brute (tableau associatif).
- * @param array $fields Map souschamp => type.
- * @return array
+ * @param string $output_key Clé de sortie.
+ * @param mixed  $spec       Spécification.
+ * @return array {name, type}
  */
-function tsis_bridge_cast_row( $row, $fields ) {
-	$out = array();
-	foreach ( $fields as $name => $type ) {
-		$out[ $name ] = tsis_bridge_cast( isset( $row[ $name ] ) ? $row[ $name ] : null, $type );
+function tsis_bridge_field_spec( $output_key, $spec ) {
+	if ( is_array( $spec ) ) {
+		return array(
+			'name' => isset( $spec['name'] ) ? $spec['name'] : $output_key,
+			'type' => isset( $spec['type'] ) ? $spec['type'] : 'str',
+		);
 	}
-	return $out;
+	return array(
+		'name' => $output_key,
+		'type' => (string) $spec,
+	);
 }
 
 /**
@@ -669,7 +541,7 @@ function tsis_bridge_cast_row( $row, $fields ) {
  *
  * @param array  $ctx    Contexte de lecture.
  * @param string $base   Nom du champ de base.
- * @param array  $fields Map souschamp => type.
+ * @param array  $fields Map clé_de_sortie => spécification de sous-champ.
  * @return array Liste (vide si rien).
  */
 function tsis_bridge_repeater( $ctx, $base, $fields ) {
@@ -679,8 +551,21 @@ function tsis_bridge_repeater( $ctx, $base, $fields ) {
 	if ( is_array( $raw ) ) {
 		$rows = array();
 		foreach ( $raw as $row ) {
-			if ( is_array( $row ) ) {
-				$rows[] = tsis_bridge_cast_row( $row, $fields );
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$out   = array();
+			$empty = true;
+			foreach ( $fields as $okey => $spec ) {
+				$field = tsis_bridge_field_spec( $okey, $spec );
+				$value = tsis_bridge_cast( isset( $row[ $field['name'] ] ) ? $row[ $field['name'] ] : null, $field['type'] );
+				$out[ $okey ] = $value;
+				if ( null !== $value && '' !== $value && false !== $value ) {
+					$empty = false;
+				}
+			}
+			if ( ! $empty ) {
+				$rows[] = $out;
 			}
 		}
 		return $rows;
@@ -694,56 +579,22 @@ function tsis_bridge_repeater( $ctx, $base, $fields ) {
 
 	$rows = array();
 	for ( $i = 0; $i < $count; $i++ ) {
-		$row   = array();
+		$out   = array();
 		$empty = true;
-		foreach ( $fields as $name => $type ) {
-			$cell         = tsis_bridge_raw( $ctx, $base . '_' . $i . '_' . $name );
-			$row[ $name ] = tsis_bridge_cast( $cell, $type );
-			if ( null !== $row[ $name ] && '' !== $row[ $name ] && false !== $row[ $name ] ) {
+		foreach ( $fields as $okey => $spec ) {
+			$field        = tsis_bridge_field_spec( $okey, $spec );
+			$cell         = tsis_bridge_raw( $ctx, $base . '_' . $i . '_' . $field['name'] );
+			$value        = tsis_bridge_cast( $cell, $field['type'] );
+			$out[ $okey ] = $value;
+			if ( null !== $value && '' !== $value && false !== $value ) {
 				$empty = false;
 			}
 		}
 		if ( ! $empty ) {
-			$rows[] = $row;
+			$rows[] = $out;
 		}
 	}
 	return $rows;
-}
-
-/**
- * Cherche la première sous-valeur non vide dont la clé commence par un préfixe.
- * Utilisé pour les répéteurs de texte dont le nom du sous-champ n'est pas imposé.
- *
- * @param array  $ctx    Contexte de lecture.
- * @param string $prefix Préfixe (ex. « tsis_hero_chips_0_ »).
- * @return string|null
- */
-function tsis_bridge_scan_subfield( $ctx, $prefix ) {
-	if ( isset( $ctx['post'] ) ) {
-		$all = get_post_meta( (int) $ctx['post'] );
-	} else {
-		$all = wp_load_alloptions();
-	}
-	if ( ! is_array( $all ) ) {
-		return null;
-	}
-	foreach ( $all as $key => $value ) {
-		if ( 0 !== strpos( (string) $key, $prefix ) ) {
-			continue;
-		}
-		if ( is_array( $value ) ) {
-			$value = reset( $value );
-		}
-		$value = maybe_unserialize( $value );
-		if ( is_array( $value ) ) {
-			$value = reset( $value );
-		}
-		$value = tsis_bridge_str( $value );
-		if ( null !== $value ) {
-			return $value;
-		}
-	}
-	return null;
 }
 
 /**
@@ -778,7 +629,7 @@ function tsis_bridge_text_list( $ctx, $base ) {
 		return $out;
 	}
 
-	// Convention ACF : nombre de lignes.
+	// Convention ACF : nombre de lignes. Sous-champ attendu « item » ; repli sur le premier sous-champ non vide.
 	$count = is_numeric( $raw ) ? (int) $raw : 0;
 	for ( $i = 0; $i < $count; $i++ ) {
 		$value = tsis_bridge_str( tsis_bridge_raw( $ctx, $base . '_' . $i . '_item' ) );
@@ -793,6 +644,53 @@ function tsis_bridge_text_list( $ctx, $base ) {
 }
 
 /**
+ * Cherche la première sous-valeur non vide dont la clé commence par un préfixe.
+ * Utilisé pour les répéteurs de texte dont le nom du sous-champ n'est pas imposé.
+ *
+ * @param array  $ctx    Contexte de lecture.
+ * @param string $prefix Préfixe (ex. « tsis_hero_chips_0_ »).
+ * @return string|null
+ */
+function tsis_bridge_scan_subfield( $ctx, $prefix ) {
+	if ( isset( $ctx['post'] ) ) {
+		$all = get_post_meta( (int) $ctx['post'] );
+	} else {
+		// Options : on balaie les option_name correspondant au préfixe (avec ou sans `options_`).
+		global $wpdb;
+		$all    = array();
+		$prefix = 'options_' . $prefix;
+		if ( isset( $wpdb ) && is_object( $wpdb ) ) {
+			$rows = $wpdb->get_results( $wpdb->prepare( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like( $prefix ) . '%' ), ARRAY_A );
+			if ( is_array( $rows ) ) {
+				foreach ( $rows as $row ) {
+					$all[ $row['option_name'] ] = maybe_unserialize( $row['option_value'] );
+				}
+			}
+		}
+	}
+	if ( ! is_array( $all ) ) {
+		return null;
+	}
+	foreach ( $all as $key => $value ) {
+		if ( 0 !== strpos( (string) $key, $prefix ) ) {
+			continue;
+		}
+		if ( is_array( $value ) ) {
+			$value = reset( $value );
+		}
+		$value = maybe_unserialize( $value );
+		if ( is_array( $value ) ) {
+			$value = reset( $value );
+		}
+		$value = tsis_bridge_str( $value );
+		if ( null !== $value ) {
+			return $value;
+		}
+	}
+	return null;
+}
+
+/**
  * Résout une relation (ACF relationship ou native) en liste de slugs.
  *
  * @param array  $ctx Contexte de lecture.
@@ -802,6 +700,9 @@ function tsis_bridge_text_list( $ctx, $base ) {
 function tsis_bridge_slug_list( $ctx, $key ) {
 	$raw = tsis_bridge_raw( $ctx, $key );
 	$out = array();
+	if ( null === $raw || false === $raw ) {
+		return $out;
+	}
 
 	$append = function ( $item ) use ( &$out ) {
 		if ( is_numeric( $item ) ) {
@@ -821,9 +722,16 @@ function tsis_bridge_slug_list( $ctx, $key ) {
 		foreach ( $raw as $item ) {
 			$append( $item );
 		}
-	} elseif ( is_string( $raw ) ) {
-		foreach ( explode( ',', $raw ) as $item ) {
-			$append( trim( $item ) );
+	} elseif ( is_string( $raw ) && '' !== trim( $raw ) ) {
+		$maybe = maybe_unserialize( $raw );
+		if ( is_array( $maybe ) ) {
+			foreach ( $maybe as $item ) {
+				$append( $item );
+			}
+		} else {
+			foreach ( explode( ',', $raw ) as $item ) {
+				$append( trim( $item ) );
+			}
 		}
 	}
 	return $out;
@@ -831,6 +739,7 @@ function tsis_bridge_slug_list( $ctx, $key ) {
 
 /**
  * Aplatit une galerie ACF en liste d'objets image.
+ * Une valeur vide (false, '', tableau vide) donne toujours [] (§5 bis).
  *
  * @param array  $ctx Contexte de lecture.
  * @param string $key Nom du champ.
@@ -877,68 +786,291 @@ function tsis_bridge_page( $slug ) {
 	return ( $page instanceof WP_Post ) ? $page : null;
 }
 
+/**
+ * Cherche la première métadonnée non vide portant ce nom parmi les pages du site.
+ * Sert de repli pour les libellés d'interface (§5.9) lorsque ACF les stocke sur les pages.
+ *
+ * @param string $name Nom de la métadonnée.
+ * @return mixed
+ */
+function tsis_bridge_page_meta_any( $name ) {
+	foreach ( tsis_bridge_page_slugs() as $slug ) {
+		$page = tsis_bridge_page( $slug );
+		if ( $page ) {
+			$value = get_post_meta( $page->ID, $name, true );
+			if ( null !== tsis_bridge_str( $value ) ) {
+				return $value;
+			}
+		}
+	}
+	return null;
+}
+
 /* -------------------------------------------------------------------------
- * 4. Construction des blocs du document (§5)
+ * 3 bis. Nettoyage HTML (liste blanche, §6.1)
  * ---------------------------------------------------------------------- */
 
 /**
- * §5.1 Identité du site.
+ * Balises autorisées dans le corps nettoyé.
+ *
+ * @return array
+ */
+function tsis_bridge_allowed_tags() {
+	return array( 'p', 'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'strong', 'em', 'br', 'a' );
+}
+
+/**
+ * Retire les balises <script>, <style>, <iframe> et leur contenu (repli sans DOMDocument).
+ *
+ * @param string $html HTML brut.
+ * @return string
+ */
+function tsis_bridge_strip_forbidden_html( $html ) {
+	$html = preg_replace( '#<(script|style|iframe)\b[^>]*>.*?</\1>#is', '', $html );
+	$html = preg_replace( '#<(script|style|iframe)\b[^>]*/?>#is', '', $html );
+	return (string) $html;
+}
+
+/**
+ * Valide et normalise un lien : chemin relatif pour l'interne, absolu pour l'externe.
+ * Refuse les schémas dangereux (javascript:, data:).
+ *
+ * @param string $value Lien brut.
+ * @return string|null
+ */
+function tsis_bridge_safe_href( $value ) {
+	$href = tsis_bridge_href( $value );
+	if ( null === $href ) {
+		return null;
+	}
+	if ( 0 === stripos( $href, 'javascript:' ) || 0 === stripos( $href, 'data:' ) ) {
+		return null;
+	}
+	return $href;
+}
+
+/**
+ * Reconstruit le HTML des enfants d'un nœud selon la liste blanche.
+ * - les balises non autorisées (div, span, section… Elementor) sont « dépliées » : leur texte est conservé ;
+ * - aucune classe/style ni attribut d'événement n'est repris ; seul `href` survit sur <a> ;
+ * - <script>, <style> et <iframe> sont supprimés avec leur contenu.
+ *
+ * @param DOMNode $node    Nœud parent.
+ * @param array   $allowed Balises autorisées.
+ * @return string
+ */
+function tsis_bridge_clean_children( $node, $allowed ) {
+	$out = '';
+	foreach ( $node->childNodes as $child ) {
+		// Texte : on conserve la valeur, espaces normalisés.
+		if ( XML_TEXT_NODE === $child->nodeType || XML_CDATA_SECTION_NODE === $child->nodeType ) {
+			$text = preg_replace( '/\s+/u', ' ', (string) $child->nodeValue );
+			if ( '' !== trim( $text ) ) {
+				$out .= htmlspecialchars( $text, ENT_NOQUOTES, 'UTF-8' );
+			}
+			continue;
+		}
+		if ( XML_ELEMENT_NODE !== $child->nodeType ) {
+			continue;
+		}
+		$tag = strtolower( $child->nodeName );
+
+		// Balises dangereuses : supprimées avec leur contenu.
+		if ( in_array( $tag, array( 'script', 'style', 'iframe' ), true ) ) {
+			continue;
+		}
+
+		if ( 'a' === $tag ) {
+			$href = tsis_bridge_safe_href( $child->getAttribute( 'href' ) );
+			if ( null === $href ) {
+				// Lien invalide : on conserve le texte sans la balise.
+				$out .= tsis_bridge_clean_children( $child, $allowed );
+				continue;
+			}
+			$out .= '<a href="' . tsis_bridge_attr( $href ) . '">' . tsis_bridge_clean_children( $child, $allowed ) . '</a>';
+			continue;
+		}
+
+		if ( in_array( $tag, $allowed, true ) ) {
+			if ( 'br' === $tag ) {
+				$out .= '<br />';
+				continue;
+			}
+			$out .= '<' . $tag . '>' . tsis_bridge_clean_children( $child, $allowed ) . '</' . $tag . '>';
+			continue;
+		}
+
+		// Balise non autorisée (wrapper Elementor, div, span…) : on conserve uniquement le texte.
+		$out .= tsis_bridge_clean_children( $child, $allowed );
+	}
+	return $out;
+}
+
+/**
+ * Nettoie un corps HTML selon la liste blanche (§6.1).
+ * Retourne null si le résultat est vide.
+ *
+ * @param mixed $html HTML brut (texte simple accepté).
+ * @return string|null
+ */
+function tsis_bridge_clean_html( $html ) {
+	$html = tsis_bridge_str( $html );
+	if ( null === $html ) {
+		return null;
+	}
+
+	// Texte simple (aucune balise) : rien à nettoyer.
+	if ( false === strpos( $html, '<' ) ) {
+		return $html;
+	}
+
+	// Repli sans extension DOM : suppression des balises interdites puis des autres balises.
+	if ( ! class_exists( 'DOMDocument' ) ) {
+		$text = tsis_bridge_strip_forbidden_html( $html );
+		$text = function_exists( 'wp_strip_all_tags' ) ? wp_strip_all_tags( $text ) : strip_tags( $text );
+		$text = trim( preg_replace( '/\s+/u', ' ', $text ) );
+		return ( '' === $text ) ? null : $text;
+	}
+
+	$allowed    = tsis_bridge_allowed_tags();
+	$doc        = new DOMDocument( '1.0', 'UTF-8' );
+	$prev_state = libxml_use_internal_errors( true );
+	$loaded     = $doc->loadHTML(
+		'<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' . $html . '</body></html>',
+		LIBXML_NOWARNING | LIBXML_NOERROR | LIBXML_NONET
+	);
+	libxml_clear_errors();
+	libxml_use_internal_errors( $prev_state );
+
+	if ( ! $loaded ) {
+		$text = function_exists( 'wp_strip_all_tags' ) ? wp_strip_all_tags( tsis_bridge_strip_forbidden_html( $html ) ) : strip_tags( $html );
+		$text = trim( preg_replace( '/\s+/u', ' ', $text ) );
+		return ( '' === $text ) ? null : $text;
+	}
+
+	$body = $doc->getElementsByTagName( 'body' )->item( 0 );
+	if ( ! $body ) {
+		return null;
+	}
+
+	$out = trim( tsis_bridge_clean_children( $body, $allowed ) );
+	return ( '' === $out ) ? null : $out;
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Construction des blocs du document (§4 / §5 bis)
+ * ---------------------------------------------------------------------- */
+
+/**
+ * §5.1 / §5 bis Identité du site.
  *
  * @return array
  */
 function tsis_bridge_build_site() {
+	$name = tsis_bridge_str( tsis_bridge_option( 'tsis_nom_affiche' ) );
+	if ( null === $name ) {
+		$name = tsis_bridge_str( get_option( 'blogname', null ) ); // Repli : réglage général WordPress.
+	}
+
+	$legal = tsis_bridge_str( tsis_bridge_option( 'tsis_raison_sociale' ) );
+	if ( null === $legal ) {
+		$legal = $name;
+	}
+
+	$logo_id = function_exists( 'get_theme_mod' ) ? (int) get_theme_mod( 'custom_logo' ) : 0;
+
 	return array(
-		'name'        => tsis_bridge_str( get_option( 'tsis_site_name', null ) ),
-		'shortName'   => tsis_bridge_str( get_option( 'tsis_site_short_name', null ) ),
-		'legalName'   => tsis_bridge_str( get_option( 'tsis_site_legal_name', null ) ),
-		'tagline'     => tsis_bridge_str( get_option( 'tsis_site_tagline', null ) ),
-		'description' => tsis_bridge_str( get_option( 'tsis_site_description', null ) ),
-		'logo'        => tsis_bridge_image( get_option( 'tsis_site_logo', null ) ),
-		'url'         => tsis_bridge_str( get_option( 'tsis_site_url', null ) ),
-		'email'       => tsis_bridge_str( get_option( 'tsis_contact_email', null ) ),
-		'address'     => tsis_bridge_str( get_option( 'tsis_contact_address', null ) ),
-		'mapsUrl'     => tsis_bridge_href( get_option( 'tsis_contact_maps_url', null ) ),
+		'name'        => $name,
+		'shortName'   => tsis_bridge_str( tsis_bridge_option( 'tsis_sigle' ) ),
+		'legalName'   => $legal,
+		'tagline'     => tsis_bridge_str( get_option( 'blogdescription', null ) ),
+		'description' => tsis_bridge_str( tsis_bridge_option( 'tsis_presentation_courte' ) ),
+		'logo'        => $logo_id ? tsis_bridge_image_from_id( $logo_id ) : null,
+		'url'         => tsis_bridge_str( home_url() ),
 	);
 }
 
 /**
- * §5.1 Contact.
+ * Normalise un numéro de téléphone pour un lien `tel:` (sans espaces).
+ *
+ * @param string $value Numéro brut.
+ * @return string
+ */
+function tsis_bridge_tel( $value ) {
+	return (string) preg_replace( '/\s+/u', '', (string) $value );
+}
+
+/**
+ * §5.1 / §5 bis Contact.
+ * Téléphones : [tsis_telephone, tsis_telephone_secondaire] ;
+ * label = valeur, href = tel: sans espaces, whatsapp = vrai pour le premier si tsis_whatsapp renseigné.
  *
  * @return array
  */
 function tsis_bridge_build_contact() {
+	$has_whatsapp = ( null !== tsis_bridge_str( tsis_bridge_option( 'tsis_whatsapp' ) ) );
+
+	$phones = array();
+	$values = array(
+		tsis_bridge_option( 'tsis_telephone' ),
+		tsis_bridge_option( 'tsis_telephone_secondaire' ),
+	);
+	$first = true;
+	foreach ( $values as $raw ) {
+		$value = tsis_bridge_str( $raw );
+		if ( null === $value ) {
+			continue;
+		}
+		$phones[] = array(
+			'label'    => $value,
+			'href'     => 'tel:' . tsis_bridge_tel( $value ),
+			'whatsapp' => ( $first && $has_whatsapp ),
+		);
+		$first = false;
+	}
+
 	return array(
-		'phones'   => tsis_bridge_repeater(
-			tsis_bridge_ctx_option(),
-			'tsis_contact_phones',
-			array(
-				'label'    => 'str',
-				'href'     => 'href',
-				'whatsapp' => 'bool',
-			)
-		),
-		'whatsapp' => tsis_bridge_href( get_option( 'tsis_contact_whatsapp', null ) ),
+		'email'    => tsis_bridge_str( tsis_bridge_option( 'tsis_email' ) ),
+		'address'  => tsis_bridge_str( tsis_bridge_option( 'tsis_adresse' ) ),
+		'mapsUrl'  => tsis_bridge_href( tsis_bridge_option( 'tsis_google_maps' ) ),
+		'whatsapp' => tsis_bridge_href( tsis_bridge_option( 'tsis_whatsapp' ) ),
+		'phones'   => $phones,
 	);
 }
 
 /**
- * §5.1 Réseaux sociaux.
+ * §5.1 / §5 bis Réseaux sociaux.
+ * Ordre imposé : Facebook, LinkedIn, Instagram, YouTube, TikTok ; seules les valeurs non vides
+ * sont listées. Aucun libellé ni URL n'est inventé.
  *
  * @return array
  */
 function tsis_bridge_build_social() {
-	return tsis_bridge_repeater(
-		tsis_bridge_ctx_option(),
-		'tsis_social',
-		array(
-			'label' => 'str',
-			'href'  => 'href',
-		)
+	$networks = array(
+		array( 'label' => 'Facebook',  'key' => 'tsis_facebook' ),
+		array( 'label' => 'LinkedIn',  'key' => 'tsis_linkedin' ),
+		array( 'label' => 'Instagram', 'key' => 'tsis_instagram' ),
+		array( 'label' => 'YouTube',   'key' => 'tsis_youtube' ),
+		array( 'label' => 'TikTok',    'key' => 'tsis_tiktok' ),
 	);
+
+	$out = array();
+	foreach ( $networks as $network ) {
+		$href = tsis_bridge_href( tsis_bridge_option( $network['key'] ) );
+		if ( null === $href ) {
+			continue; // Valeur vide : omise (jamais de libellé ni d'URL inventés).
+		}
+		$out[] = array(
+			'label' => $network['label'],
+			'href'  => $href,
+		);
+	}
+	return $out;
 }
 
 /**
- * §5.9 Libellés d'interface.
+ * §5.9 Libellés d'interface (`ui`).
+ * Lus en option (préfixe `options_`) puis, à défaut, dans les métadonnées des pages.
  *
  * @return array
  */
@@ -972,42 +1104,77 @@ function tsis_bridge_build_ui() {
 
 	$out = array();
 	foreach ( $map as $output_key => $option_key ) {
-		$out[ $output_key ] = tsis_bridge_str( get_option( $option_key, null ) );
+		$value = tsis_bridge_str( tsis_bridge_option( $option_key ) );
+		if ( null === $value ) {
+			$value = tsis_bridge_str( tsis_bridge_page_meta_any( $option_key ) );
+		}
+		$out[ $output_key ] = $value;
 	}
 	return $out;
 }
 
 /**
- * §5.2 Navigation (menus WordPress + bouton principal).
+ * §5.2 / §5 bis Navigation.
+ * primary : emplacement `tsis_primary` si affecté, sinon le menu nommé `main` ;
+ * footer : emplacement `tsis_footer` si affecté, sinon null ;
+ * footerServices : null (le site a un repli) ; primaryCta : tsis_cta_libelle / tsis_cta_url.
  *
  * @return array
  */
 function tsis_bridge_build_nav() {
+	$primary = tsis_bridge_menu_location( 'tsis_primary' );
+	if ( empty( $primary ) ) {
+		$primary = tsis_bridge_menu_named( 'main' ); // Repli sur le menu existant « main ».
+	}
+
+	$footer = tsis_bridge_menu_location( 'tsis_footer' );
+	if ( empty( $footer ) ) {
+		$footer = null;
+	}
+
 	return array(
-		'primary'    => tsis_bridge_menu( 'tsis_primary' ),
-		'footer'     => tsis_bridge_menu( 'tsis_footer' ),
-		'primaryCta' => tsis_bridge_cta( get_option( 'tsis_primary_cta_label', null ), get_option( 'tsis_primary_cta_href', null ) ),
+		'primary'        => $primary,
+		'footer'         => $footer,
+		'footerServices' => null,
+		'primaryCta'     => tsis_bridge_cta( tsis_bridge_option( 'tsis_cta_libelle' ), tsis_bridge_option( 'tsis_cta_url' ) ),
 	);
 }
 
 /**
- * Construit l'arbre d'un menu à partir de son emplacement.
+ * Construit l'arbre d'un menu à partir d'un emplacement.
  *
  * @param string $location Identifiant d'emplacement.
  * @return array
  */
-function tsis_bridge_menu( $location ) {
+function tsis_bridge_menu_location( $location ) {
 	$locations = get_nav_menu_locations();
 	if ( empty( $locations[ $location ] ) ) {
 		return array(); // Menu non affecté → liste vide (pas d'invention).
 	}
+	return tsis_bridge_build_menu_tree( wp_get_nav_menu_items( (int) $locations[ $location ] ) );
+}
 
-	$menu = wp_get_nav_menu_object( (int) $locations[ $location ] );
-	if ( ! $menu ) {
+/**
+ * Construit l'arbre d'un menu à partir de son nom (ex. « main »).
+ *
+ * @param string $name Nom du menu.
+ * @return array
+ */
+function tsis_bridge_menu_named( $name ) {
+	$menu = wp_get_nav_menu_object( $name );
+	if ( ! $menu || is_wp_error( $menu ) ) {
 		return array();
 	}
+	return tsis_bridge_build_menu_tree( wp_get_nav_menu_items( $menu->term_id ) );
+}
 
-	$items = wp_get_nav_menu_items( $menu->term_id );
+/**
+ * Construit l'arbre {label, href, children[]} à partir des éléments d'un menu.
+ *
+ * @param array $items Éléments de menu (WP_Post).
+ * @return array
+ */
+function tsis_bridge_build_menu_tree( $items ) {
 	if ( ! is_array( $items ) || empty( $items ) ) {
 		return array();
 	}
@@ -1015,9 +1182,9 @@ function tsis_bridge_menu( $location ) {
 	$by_id    = array();
 	$children = array();
 	foreach ( $items as $item ) {
-		$by_id[ (int) $item->ID ]        = $item;
-		$parent                          = (int) $item->menu_item_parent;
-		$children[ $parent ][]           = (int) $item->ID;
+		$by_id[ (int) $item->ID ] = $item;
+		$parent                   = (int) $item->menu_item_parent;
+		$children[ $parent ][]    = (int) $item->ID;
 	}
 
 	$build = function ( $parent_id ) use ( &$build, $by_id, $children ) {
@@ -1040,7 +1207,7 @@ function tsis_bridge_menu( $location ) {
 }
 
 /**
- * §5.3 Page d'accueil.
+ * §5.3 Page d'accueil (blocs hero…process lus sur la page `accueil`, CTA final en options).
  *
  * @param WP_Post|null $page Page de slug « accueil ».
  * @return array|null
@@ -1052,7 +1219,7 @@ function tsis_bridge_build_home( $page ) {
 	$ctx = tsis_bridge_ctx_post( $page->ID );
 
 	return array(
-		'hero'        => array(
+		'hero'      => array(
 			'eyebrow'      => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_hero_eyebrow' ) ),
 			'title'        => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_hero_title' ) ),
 			'text'         => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_hero_text' ) ),
@@ -1062,7 +1229,7 @@ function tsis_bridge_build_home( $page ) {
 			'primaryCta'   => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_hero_primary_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_hero_primary_cta_href' ) ),
 			'secondaryCta' => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_hero_secondary_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_hero_secondary_cta_href' ) ),
 		),
-		'about'       => array(
+		'about'     => array(
 			'eyebrow'    => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_about_eyebrow' ) ),
 			'title'      => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_about_title' ) ),
 			'text'       => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_about_text' ) ),
@@ -1072,43 +1239,78 @@ function tsis_bridge_build_home( $page ) {
 			'imageAlt'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_about_image_alt' ) ),
 			'cta'        => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_home_about_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_home_about_cta_href' ) ),
 		),
-		'solutions'   => array(
+		'solutions' => array(
 			'eyebrow'  => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_solutions_eyebrow' ) ),
 			'title'    => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_solutions_title' ) ),
 			'intro'    => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_solutions_intro' ) ),
 			'featured' => tsis_bridge_slug_list( $ctx, 'tsis_home_solutions_featured' ),
 			'cta'      => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_home_solutions_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_home_solutions_cta_href' ) ),
 		),
-		'services'    => array(
+		'services'  => array(
 			'eyebrow' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_services_eyebrow' ) ),
 			'title'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_services_title' ) ),
 			'intro'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_services_intro' ) ),
 			'cta'     => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_home_services_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_home_services_cta_href' ) ),
 		),
-		'why'         => array(
+		'why'       => array(
 			'eyebrow' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_why_eyebrow' ) ),
 			'title'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_why_title' ) ),
 			'intro'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_why_intro' ) ),
 			'items'   => tsis_bridge_repeater( $ctx, 'tsis_home_why_items', array( 'title' => 'str', 'text' => 'str' ) ),
 			'cta'     => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_home_why_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_home_why_cta_href' ) ),
 		),
-		'process'     => array(
+		'process'   => array(
 			'eyebrow' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_process_eyebrow' ) ),
 			'title'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_process_title' ) ),
 			'intro'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_process_intro' ) ),
 			'steps'   => tsis_bridge_repeater( $ctx, 'tsis_home_process_steps', array( 'num' => 'str', 'title' => 'str', 'text' => 'str' ) ),
 		),
-		'finalCta'    => array(
+		'finalCta'  => array(
 			'eyebrow' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_final_eyebrow' ) ),
-			'title'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_final_title' ) ),
-			'text'    => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_home_final_text' ) ),
-			'cta'     => tsis_bridge_cta( tsis_bridge_raw( $ctx, 'tsis_home_final_cta_label' ), tsis_bridge_raw( $ctx, 'tsis_home_final_cta_href' ) ),
+			'title'   => tsis_bridge_str( tsis_bridge_option( 'tsis_cta_titre' ) ),
+			'text'    => tsis_bridge_str( tsis_bridge_option( 'tsis_cta_texte' ) ),
+			'cta'     => tsis_bridge_cta( tsis_bridge_option( 'tsis_cta_libelle' ), tsis_bridge_option( 'tsis_cta_url' ) ),
 		),
 	);
 }
 
 /**
- * §5.4 Page À propos.
+ * §5 bis Chiffres clés (option `tsis_chiffres_cles`).
+ * value = valeur suivi du suffixe séparé par une espace (« 12 ans ») ; label = libellé.
+ *
+ * @return array
+ */
+function tsis_bridge_build_stats() {
+	$rows = tsis_bridge_repeater(
+		tsis_bridge_ctx_option(),
+		'tsis_chiffres_cles',
+		array(
+			'tsis_chiffre_valeur'  => 'str',
+			'tsis_chiffre_suffixe' => 'str',
+			'tsis_chiffre_libelle' => 'str',
+		)
+	);
+
+	$out = array();
+	foreach ( $rows as $row ) {
+		$valeur  = isset( $row['tsis_chiffre_valeur'] ) ? $row['tsis_chiffre_valeur'] : null;
+		$suffixe = isset( $row['tsis_chiffre_suffixe'] ) ? $row['tsis_chiffre_suffixe'] : null;
+		$libelle = isset( $row['tsis_chiffre_libelle'] ) ? $row['tsis_chiffre_libelle'] : null;
+
+		$value = trim( (string) $valeur . ' ' . (string) $suffixe );
+		if ( '' === $value && null === $libelle ) {
+			continue;
+		}
+		$out[] = array(
+			'value' => ( '' === $value ) ? null : $value,
+			'label' => $libelle,
+		);
+	}
+	return $out;
+}
+
+/**
+ * §5.4 Page À propos (blocs lus sur la page `a-propos`, chiffres clés en options).
  *
  * @param WP_Post|null $page Page de slug « a-propos ».
  * @return array|null
@@ -1133,7 +1335,7 @@ function tsis_bridge_build_about( $page ) {
 			'paragraphs' => tsis_bridge_text_list( $ctx, 'tsis_about_expertise_paragraphs' ),
 			'countries'  => tsis_bridge_text_list( $ctx, 'tsis_about_expertise_countries' ),
 		),
-		'stats'       => tsis_bridge_repeater( $ctx, 'tsis_about_stats', array( 'value' => 'str', 'label' => 'str' ) ),
+		'stats'       => tsis_bridge_build_stats(),
 		'teamSection' => array(
 			'eyebrow' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_about_team_eyebrow' ) ),
 			'title'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_about_team_title' ) ),
@@ -1144,7 +1346,7 @@ function tsis_bridge_build_about( $page ) {
 
 /**
  * En-tête d'une page d'index (nos-services, nos-solutions, contact).
- * Priorité à la métadonnée de page, repli sur l'option tsis_ui_* (§5.9).
+ * Priorité à la métadonnée de page, repli sur l'option `tsis_ui_*` (§5.9).
  *
  * @param string $slug        Slug de la page.
  * @param string $option_base Préfixe d'options (ex. tsis_ui_services_index).
@@ -1160,20 +1362,37 @@ function tsis_bridge_build_index( $slug, $option_base ) {
 	$read = function ( $suffix ) use ( $ctx, $option_base ) {
 		$value = tsis_bridge_str( tsis_bridge_raw( $ctx, $option_base . $suffix ) );
 		if ( null === $value ) {
-			$value = tsis_bridge_str( get_option( $option_base . $suffix, null ) );
+			$value = tsis_bridge_str( tsis_bridge_option( $option_base . $suffix ) );
 		}
 		return $value;
 	};
 
 	return array(
-		'eyebrow' => $read( '_eyebrow' ),
-		'title'   => $read( '_title' ),
-		'intro'   => $read( '_intro' ),
+		'eyebrow'         => $read( '_eyebrow' ),
+		'title'           => $read( '_title' ),
+		'intro'           => $read( '_intro' ),
+		'metaTitle'       => null,
+		'metaDescription' => null,
 	);
 }
 
 /**
- * §5.5 Un service.
+ * Ordre d'affichage d'un service (§5 bis) : service_ordre, sinon menu_order.
+ *
+ * @param WP_Post $post Publication du CPT service.
+ * @param array   $ctx  Contexte de lecture.
+ * @return int
+ */
+function tsis_bridge_service_order( $post, $ctx ) {
+	$ordre = tsis_bridge_raw( $ctx, 'service_ordre' );
+	if ( is_numeric( $ordre ) && '' !== trim( (string) $ordre ) ) {
+		return (int) $ordre;
+	}
+	return (int) $post->menu_order;
+}
+
+/**
+ * §5 bis Un service (CPT service, champs existants).
  *
  * @param WP_Post $post Publication du CPT service.
  * @return array
@@ -1185,20 +1404,42 @@ function tsis_bridge_service_item( $post ) {
 		'title'    => $post->post_title,
 		'slug'     => $post->post_name,
 		'excerpt'  => tsis_bridge_str( $post->post_excerpt ),
-		'order'    => (int) $post->menu_order,
+		'order'    => tsis_bridge_service_order( $post, $ctx ),
 		'image'    => tsis_bridge_image( get_post_thumbnail_id( $post->ID ) ),
-		'icon'     => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_service_icon' ) ),
-		'body'     => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_service_body' ) ),
-		'features' => tsis_bridge_repeater( $ctx, 'tsis_service_features', array( 'title' => 'str', 'text' => 'str' ) ),
-		'seo'      => array(
-			'title'       => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_service_seo_title' ) ),
-			'description' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_service_seo_description' ) ),
+		'body'     => tsis_bridge_clean_html( tsis_bridge_raw( $ctx, 'service_presentation' ) ),
+		'features' => tsis_bridge_repeater(
+			$ctx,
+			'service_points_forts',
+			array(
+				'title' => array( 'name' => 'service_point_titre', 'type' => 'str' ),
+				'text'  => array( 'name' => 'service_point_description', 'type' => 'str' ),
+			)
 		),
 	);
 }
 
 /**
- * §5.6 Une réalisation.
+ * §5 bis Témoignage d'une réalisation.
+ *
+ * @param array $ctx Contexte de lecture.
+ * @return array|null {quote, name, role} ou null si tout est vide.
+ */
+function tsis_bridge_testimonial( $ctx ) {
+	$quote = tsis_bridge_str( tsis_bridge_raw( $ctx, 'projet_temoignage_citation' ) );
+	$name  = tsis_bridge_str( tsis_bridge_raw( $ctx, 'projet_temoignage_nom' ) );
+	$role  = tsis_bridge_str( tsis_bridge_raw( $ctx, 'projet_temoignage_fonction' ) );
+	if ( null === $quote && null === $name && null === $role ) {
+		return null;
+	}
+	return array(
+		'quote' => $quote,
+		'name'  => $name,
+		'role'  => $role,
+	);
+}
+
+/**
+ * §5 bis Une réalisation (CPT realisation, champs existants).
  *
  * @param WP_Post $post Publication du CPT realisation.
  * @return array
@@ -1207,21 +1448,26 @@ function tsis_bridge_realisation_item( $post ) {
 	$ctx = tsis_bridge_ctx_post( $post->ID );
 
 	return array(
-		'title'    => $post->post_title,
-		'slug'     => $post->post_name,
-		'excerpt'  => tsis_bridge_str( $post->post_excerpt ),
-		'order'    => (int) $post->menu_order,
-		'secteurs' => tsis_bridge_term_slugs( $post->ID, 'secteur' ),
-		'image'    => tsis_bridge_image( get_post_thumbnail_id( $post->ID ) ),
-		'client'   => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_realisation_client' ) ),
-		'year'     => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_realisation_year' ) ),
-		'body'     => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_realisation_body' ) ),
-		'results'  => tsis_bridge_repeater( $ctx, 'tsis_realisation_results', array( 'label' => 'str', 'value' => 'str' ) ),
-		'gallery'  => tsis_bridge_gallery( $ctx, 'tsis_realisation_gallery' ),
-		'seo'      => array(
-			'title'       => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_realisation_seo_title' ) ),
-			'description' => tsis_bridge_str( tsis_bridge_raw( $ctx, 'tsis_realisation_seo_description' ) ),
+		'title'           => $post->post_title,
+		'slug'            => $post->post_name,
+		'excerpt'         => tsis_bridge_str( $post->post_excerpt ),
+		'order'           => (int) $post->menu_order,
+		'secteurs'        => tsis_bridge_term_slugs( $post->ID, 'secteur' ),
+		'image'           => tsis_bridge_image( get_post_thumbnail_id( $post->ID ) ),
+		'body'            => tsis_bridge_clean_html( tsis_bridge_raw( $ctx, 'projet_presentation' ) ),
+		'features'        => tsis_bridge_repeater(
+			$ctx,
+			'projet_points',
+			array(
+				'title' => array( 'name' => 'projet_point_titre', 'type' => 'str' ),
+				'text'  => array( 'name' => 'projet_point_description', 'type' => 'str' ),
+			)
 		),
+		'gallery'         => tsis_bridge_gallery( $ctx, 'projet_galerie' ),
+		'relatedServices' => tsis_bridge_slug_list( $ctx, 'projet_services' ),
+		'featured'        => tsis_bridge_bool( tsis_bridge_raw( $ctx, 'projet_accueil' ) ),
+		'demoUrl'         => tsis_bridge_href( tsis_bridge_raw( $ctx, 'projet_demo_url' ) ),
+		'testimonial'     => tsis_bridge_testimonial( $ctx ),
 	);
 }
 
@@ -1266,7 +1512,7 @@ function tsis_bridge_get_ordered_posts( $post_type ) {
 }
 
 /**
- * §5.5 Liste des services.
+ * §5 bis Liste des services, triée par `service_ordre` puis titre.
  *
  * @return array
  */
@@ -1275,11 +1521,24 @@ function tsis_bridge_build_services() {
 	foreach ( tsis_bridge_get_ordered_posts( 'service' ) as $post ) {
 		$out[] = tsis_bridge_service_item( $post );
 	}
+
+	// Tri par ordre éditorial (service_ordre), puis titre : corrige l'ordre alphabétique actuel.
+	usort(
+		$out,
+		function ( $a, $b ) {
+			$oa = ( null === $a['order'] ) ? PHP_INT_MAX : (int) $a['order'];
+			$ob = ( null === $b['order'] ) ? PHP_INT_MAX : (int) $b['order'];
+			if ( $oa === $ob ) {
+				return strcasecmp( (string) $a['title'], (string) $b['title'] );
+			}
+			return ( $oa < $ob ) ? -1 : 1;
+		}
+	);
 	return $out;
 }
 
 /**
- * §5.6 Liste des réalisations.
+ * §5 bis Liste des réalisations.
  *
  * @return array
  */
@@ -1395,11 +1654,9 @@ function tsis_bridge_build_document( $lang ) {
  * ---------------------------------------------------------------------- */
 
 add_action( 'init', 'tsis_bridge_register_post_type' );
-add_action( 'init', 'tsis_bridge_register_meta' );
-add_action( 'init', 'tsis_bridge_register_options' );
+add_action( 'init', 'tsis_bridge_register_meta', 20 );
 add_action( 'after_setup_theme', 'tsis_bridge_register_nav_menus', 20 );
 add_action( 'rest_api_init', 'tsis_bridge_register_rest' );
-add_action( 'acf/init', 'tsis_bridge_maybe_register_options_page' );
 
 // Purge du cache du document à chaque modification éditoriale.
 add_action( 'save_post', 'tsis_bridge_purge_cache' );

@@ -155,6 +155,8 @@ export interface RealisationView {
   secteurs: string[];
   image: string | null;
   imageAlt: string;
+  /** Réalisation mise en avant sur l'accueil (`projet_accueil`). */
+  featured: boolean;
 }
 
 export interface TeamMemberView {
@@ -182,7 +184,29 @@ export const REALISATIONS: RealisationView[] = document.realisations.map((item) 
   secteurs: item.secteurs.map((slug) => secteurName.get(slug) ?? slug),
   image: item.image?.url ?? null,
   imageAlt: imageAlt(item.image, item.title),
+  featured: item.featured === true,
 }));
+
+/**
+ * Réalisations affichées sur l'accueil : celles marquées « à la une » dans WordPress
+ * (`projet_accueil`) ; à défaut, la sélection éditoriale de l'instantané.
+ */
+export const FEATURED_REALISATIONS: RealisationView[] = (() => {
+  const flagged = REALISATIONS.filter((item) => item.featured);
+  if (flagged.length > 0) return flagged;
+  const picked = (SOLUTIONS.featured ?? [])
+    .map((slug) => REALISATIONS.find((item) => item.slug === slug))
+    .filter((item): item is RealisationView => Boolean(item));
+  return picked.length > 0 ? picked : REALISATIONS.slice(0, 6);
+})();
+
+/** Services liés à une réalisation (`projet_services`), sous forme de vues prêtes à afficher. */
+export function getServicesBySlugs(slugs: string[] | undefined): ServiceView[] {
+  if (!slugs?.length) return [];
+  return slugs
+    .map((slug) => SERVICES.find((service) => service.slug === slug))
+    .filter((service): service is ServiceView => Boolean(service));
+}
 
 export const SECTEURS: Secteur[] = document.secteurs;
 

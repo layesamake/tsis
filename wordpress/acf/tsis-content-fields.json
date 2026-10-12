@@ -1,57 +1,57 @@
 [
   {
-    "key": "group_tsis_site_options",
-    "title": "TSIS — Réglages du site (identité, contact, réseaux)",
+    "key": "group_tsis_identite_complements",
+    "title": "TSIS — Identité (compléments)",
     "fields": [
       {
-        "key": "field_tsis_site_name",
-        "label": "Nom du site",
-        "name": "tsis_site_name",
+        "key": "field_tsis_nom_affiche",
+        "label": "Nom affiché du site",
+        "name": "tsis_nom_affiche",
         "aria-label": "",
         "type": "text",
-        "instructions": "",
-        "required": 1,
+        "instructions": "Facultatif : remplace le nom du site. À défaut, le réglage général WordPress (blogname) est utilisé.",
+        "required": 0,
         "conditional_logic": 0,
         "wrapper": {
           "width": "",
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
-        "key": "field_tsis_site_short_name",
-        "label": "Nom court (sigle)",
-        "name": "tsis_site_short_name",
+        "key": "field_tsis_sigle",
+        "label": "Sigle / nom court",
+        "name": "tsis_sigle",
         "aria-label": "",
         "type": "text",
-        "instructions": "",
-        "required": 1,
+        "instructions": "Utilisé pour le nom court (SITE.shortName).",
+        "required": 0,
         "conditional_logic": 0,
         "wrapper": {
           "width": "",
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
-        "key": "field_tsis_site_legal_name",
+        "key": "field_tsis_raison_sociale",
         "label": "Raison sociale",
-        "name": "tsis_site_legal_name",
+        "name": "tsis_raison_sociale",
         "aria-label": "",
         "type": "text",
-        "instructions": "",
+        "instructions": "À défaut, le nom affiché est utilisé.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -59,145 +59,20 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
-        "key": "field_tsis_site_tagline",
-        "label": "Accroche / slogan",
-        "name": "tsis_site_tagline",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_site_description",
-        "label": "Description du site (meta par défaut)",
-        "name": "tsis_site_description",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_site_logo",
-        "label": "Logo",
-        "name": "tsis_site_logo",
-        "aria-label": "",
-        "type": "image",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "return_format": "id",
-        "preview_size": "medium",
-        "library": "all",
-        "min_width": "",
-        "min_height": "",
-        "min_size": "",
-        "max_width": "",
-        "max_height": "",
-        "max_size": "",
-        "mime_types": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_site_url",
-        "label": "URL publique du site",
-        "name": "tsis_site_url",
-        "aria-label": "",
-        "type": "url",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "placeholder": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_contact_email",
-        "label": "Adresse e-mail de contact",
-        "name": "tsis_contact_email",
-        "aria-label": "",
-        "type": "email",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "placeholder": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_contact_address",
-        "label": "Adresse postale",
-        "name": "tsis_contact_address",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_contact_maps_url",
+        "key": "field_tsis_google_maps",
         "label": "Lien itinéraire (Google Maps)",
-        "name": "tsis_contact_maps_url",
+        "name": "tsis_google_maps",
         "aria-label": "",
         "type": "url",
-        "instructions": "",
+        "instructions": "Alimente le lien « itinéraire » de la page Contact (contact.mapsUrl).",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -205,216 +80,9 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
-        "placeholder": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_contact_phones",
-        "label": "Téléphones",
-        "name": "tsis_contact_phones",
-        "aria-label": "",
-        "type": "repeater",
-        "instructions": "",
-        "required": 1,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "layout": "table",
-        "pagination": 0,
-        "min": 0,
-        "max": 0,
-        "collapsed": "",
-        "button_label": "Ajouter une ligne",
-        "rows_per_page": 20,
-        "sub_fields": [
-          {
-            "key": "field_tsis_contact_phones_label",
-            "label": "Libellé affiché",
-            "name": "label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          },
-          {
-            "key": "field_tsis_contact_phones_href",
-            "label": "Lien (href)",
-            "name": "href",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          },
-          {
-            "key": "field_tsis_contact_phones_whatsapp",
-            "label": "WhatsApp",
-            "name": "whatsapp",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 1,
-            "ui_on_text": "",
-            "ui_off_text": ""
-          }
-        ],
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_contact_whatsapp",
-        "label": "Lien WhatsApp",
-        "name": "tsis_contact_whatsapp",
-        "aria-label": "",
-        "type": "url",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "placeholder": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_social",
-        "label": "Réseaux sociaux",
-        "name": "tsis_social",
-        "aria-label": "",
-        "type": "repeater",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "layout": "table",
-        "pagination": 0,
-        "min": 0,
-        "max": 0,
-        "collapsed": "",
-        "button_label": "Ajouter une ligne",
-        "rows_per_page": 20,
-        "sub_fields": [
-          {
-            "key": "field_tsis_social_label",
-            "label": "Libellé",
-            "name": "label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          },
-          {
-            "key": "field_tsis_social_href",
-            "label": "Lien",
-            "name": "href",
-            "aria-label": "",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "placeholder": ""
-          }
-        ],
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_primary_cta_label",
-        "label": "Bouton principal — libellé",
-        "name": "tsis_primary_cta_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_primary_cta_href",
-        "label": "Bouton principal — lien",
-        "name": "tsis_primary_cta_href",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "placeholder": ""
       }
     ],
     "location": [
@@ -422,7 +90,7 @@
         {
           "param": "options_page",
           "operator": "==",
-          "value": "tsis-content-options"
+          "value": "tsis-reglages"
         }
       ]
     ],
@@ -433,542 +101,13 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Options globales du site. Nécessite une page d’options ACF PRO (créée automatiquement par le mu-plugin).",
-    "show_in_rest": 1,
-    "modified": 1728758400
+    "description": "Compléments d'identité du site. COMPLÈTE le groupe « Réglages TSIS » existant (page d'options tsis-reglages) : aucun champ existant n'est renommé, remplacé ni supprimé.",
+    "show_in_rest": true,
+    "modified": 1760275200
   },
   {
-    "key": "group_tsis_ui_labels",
-    "title": "TSIS — Libellés d’interface",
-    "fields": [
-      {
-        "key": "field_tsis_ui_project_eyebrow",
-        "label": "Fiche « projet » — surtitre",
-        "name": "tsis_ui_project_eyebrow",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_project_title",
-        "label": "Fiche « projet » — titre",
-        "name": "tsis_ui_project_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_service_aside_title",
-        "label": "Fiche service — encart : titre",
-        "name": "tsis_ui_service_aside_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_service_aside_text",
-        "label": "Fiche service — encart : texte",
-        "name": "tsis_ui_service_aside_text",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_service_aside_cta_label",
-        "label": "Fiche service — encart : bouton",
-        "name": "tsis_ui_service_aside_cta_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_realisation_aside_title",
-        "label": "Fiche réalisation — encart : titre",
-        "name": "tsis_ui_realisation_aside_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_realisation_aside_text",
-        "label": "Fiche réalisation — encart : texte",
-        "name": "tsis_ui_realisation_aside_text",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_realisation_aside_cta_label",
-        "label": "Fiche réalisation — encart : bouton",
-        "name": "tsis_ui_realisation_aside_cta_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_related_services_title",
-        "label": "« D’autres services » — titre",
-        "name": "tsis_ui_related_services_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_related_realisations_title",
-        "label": "« D’autres solutions » — titre",
-        "name": "tsis_ui_related_realisations_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_discover_label",
-        "label": "Libellé « Découvrir »",
-        "name": "tsis_ui_discover_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_contact_hero_eyebrow",
-        "label": "Contact — surtitre",
-        "name": "tsis_ui_contact_hero_eyebrow",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_contact_hero_title",
-        "label": "Contact — titre",
-        "name": "tsis_ui_contact_hero_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_contact_hero_intro",
-        "label": "Contact — introduction",
-        "name": "tsis_ui_contact_hero_intro",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_services_index_eyebrow",
-        "label": "Nos services — surtitre",
-        "name": "tsis_ui_services_index_eyebrow",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_services_index_title",
-        "label": "Nos services — titre",
-        "name": "tsis_ui_services_index_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_services_index_intro",
-        "label": "Nos services — introduction",
-        "name": "tsis_ui_services_index_intro",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_solutions_index_eyebrow",
-        "label": "Nos solutions — surtitre",
-        "name": "tsis_ui_solutions_index_eyebrow",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_solutions_index_title",
-        "label": "Nos solutions — titre",
-        "name": "tsis_ui_solutions_index_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_solutions_index_intro",
-        "label": "Nos solutions — introduction",
-        "name": "tsis_ui_solutions_index_intro",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_service_hero_eyebrow",
-        "label": "Surtitre des fiches service et réalisation",
-        "name": "tsis_ui_service_hero_eyebrow",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_hero_cta_label",
-        "label": "Bouton principal des fiches (service et réalisation)",
-        "name": "tsis_ui_hero_cta_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_discover_service_label",
-        "label": "Lien « découvrir » — liste des services",
-        "name": "tsis_ui_discover_service_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_ui_discover_solution_label",
-        "label": "Lien « découvrir » — liste des solutions",
-        "name": "tsis_ui_discover_solution_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "tsis-content-options"
-        }
-      ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Textes d’interface des gabarits (surtitres, encarts, en-têtes d’index).",
-    "show_in_rest": 1,
-    "modified": 1728758400
-  },
-  {
-    "key": "group_tsis_home_page",
-    "title": "TSIS — Page d’accueil (slug « accueil »)",
+    "key": "group_tsis_pages_contenu",
+    "title": "TSIS — Contenu des pages",
     "fields": [
       {
         "key": "field_tsis_hero_eyebrow",
@@ -984,12 +123,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_hero_title",
@@ -1005,12 +144,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_hero_text",
@@ -1026,12 +165,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_hero_chips",
@@ -1047,6 +186,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -1073,10 +213,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_hero_image",
@@ -1092,6 +232,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "return_format": "id",
         "preview_size": "medium",
         "library": "all",
@@ -1101,8 +242,7 @@
         "max_width": "",
         "max_height": "",
         "max_size": "",
-        "mime_types": "",
-        "show_in_rest": true
+        "mime_types": ""
       },
       {
         "key": "field_tsis_hero_image_alt",
@@ -1118,12 +258,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_hero_primary_cta_label",
@@ -1139,12 +279,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_hero_primary_cta_href",
@@ -1160,12 +300,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_hero_secondary_cta_label",
@@ -1181,12 +321,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_hero_secondary_cta_href",
@@ -1202,12 +342,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_about_eyebrow",
@@ -1223,12 +363,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_about_title",
@@ -1244,12 +384,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_about_text",
@@ -1265,12 +405,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_home_about_note",
@@ -1286,12 +426,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_about_highlights",
@@ -1307,6 +447,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -1333,10 +474,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_home_about_image",
@@ -1352,6 +493,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "return_format": "id",
         "preview_size": "medium",
         "library": "all",
@@ -1361,8 +503,7 @@
         "max_width": "",
         "max_height": "",
         "max_size": "",
-        "mime_types": "",
-        "show_in_rest": true
+        "mime_types": ""
       },
       {
         "key": "field_tsis_home_about_image_alt",
@@ -1378,12 +519,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_about_cta_label",
@@ -1399,12 +540,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_about_cta_href",
@@ -1420,12 +561,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_solutions_eyebrow",
@@ -1441,12 +582,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_solutions_title",
@@ -1462,12 +603,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_solutions_intro",
@@ -1483,12 +624,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_home_solutions_featured",
@@ -1504,6 +645,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "post_type": [
           "realisation"
         ],
@@ -1513,8 +655,7 @@
         ],
         "return_format": "id",
         "min": "",
-        "max": "",
-        "show_in_rest": true
+        "max": ""
       },
       {
         "key": "field_tsis_home_solutions_cta_label",
@@ -1530,12 +671,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_solutions_cta_href",
@@ -1551,12 +692,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_services_eyebrow",
@@ -1572,12 +713,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_services_title",
@@ -1593,12 +734,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_services_intro",
@@ -1614,12 +755,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_home_services_cta_label",
@@ -1635,12 +776,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_services_cta_href",
@@ -1656,12 +797,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_why_eyebrow",
@@ -1677,12 +818,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_why_title",
@@ -1698,12 +839,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_why_intro",
@@ -1719,12 +860,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_home_why_items",
@@ -1740,6 +881,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -1766,7 +908,8 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           },
           {
             "key": "field_tsis_home_why_items_text",
@@ -1786,10 +929,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_home_why_cta_label",
@@ -1805,12 +948,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_why_cta_href",
@@ -1826,12 +969,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_process_eyebrow",
@@ -1847,12 +990,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_process_title",
@@ -1868,12 +1011,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_home_process_intro",
@@ -1889,12 +1032,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_home_process_steps",
@@ -1910,6 +1053,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -1936,7 +1080,8 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           },
           {
             "key": "field_tsis_home_process_steps_title",
@@ -1956,7 +1101,8 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           },
           {
             "key": "field_tsis_home_process_steps_text",
@@ -1976,10 +1122,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_home_final_eyebrow",
@@ -1995,122 +1141,13 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
-      {
-        "key": "field_tsis_home_final_title",
-        "label": "CTA final — titre",
-        "name": "tsis_home_final_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_home_final_text",
-        "label": "CTA final — texte",
-        "name": "tsis_home_final_text",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_home_final_cta_label",
-        "label": "CTA final — bouton : libellé",
-        "name": "tsis_home_final_cta_label",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_home_final_cta_href",
-        "label": "CTA final — bouton : lien",
-        "name": "tsis_home_final_cta_href",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "post_type",
-          "operator": "==",
-          "value": "page"
-        }
-      ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Champs de la page d’accueil. À saisir sur la page de slug « accueil ».",
-    "show_in_rest": 1,
-    "modified": 1728758400
-  },
-  {
-    "key": "group_tsis_about_page",
-    "title": "TSIS — Page À propos (slug « a-propos »)",
-    "fields": [
       {
         "key": "field_tsis_about_eyebrow",
         "label": "En-tête — surtitre",
@@ -2125,12 +1162,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_title",
@@ -2146,12 +1183,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_intro",
@@ -2167,12 +1204,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       },
       {
         "key": "field_tsis_about_badge",
@@ -2188,12 +1225,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_pillars",
@@ -2209,6 +1246,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -2235,7 +1273,8 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           },
           {
             "key": "field_tsis_about_pillars_text",
@@ -2255,10 +1294,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_about_expertise_eyebrow",
@@ -2274,12 +1313,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_expertise_title",
@@ -2295,12 +1334,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_expertise_paragraphs",
@@ -2316,6 +1355,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -2342,10 +1382,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_about_expertise_countries",
@@ -2361,6 +1401,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "layout": "table",
         "pagination": 0,
         "min": 0,
@@ -2387,75 +1428,10 @@
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
-            "append": ""
+            "append": "",
+            "show_in_rest": true
           }
-        ],
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_about_stats",
-        "label": "Chiffres clés",
-        "name": "tsis_about_stats",
-        "aria-label": "",
-        "type": "repeater",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "layout": "table",
-        "pagination": 0,
-        "min": 0,
-        "max": 0,
-        "collapsed": "",
-        "button_label": "Ajouter une ligne",
-        "rows_per_page": 20,
-        "sub_fields": [
-          {
-            "key": "field_tsis_about_stats_value",
-            "label": "Valeur",
-            "name": "value",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          },
-          {
-            "key": "field_tsis_about_stats_label",
-            "label": "Libellé",
-            "name": "label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          }
-        ],
-        "show_in_rest": true
+        ]
       },
       {
         "key": "field_tsis_about_team_eyebrow",
@@ -2471,12 +1447,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_team_title",
@@ -2492,12 +1468,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_about_team_intro",
@@ -2513,12 +1489,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "rows": 4,
         "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
+        "new_lines": ""
       }
     ],
     "location": [
@@ -2537,412 +1513,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Champs de la page À propos. À saisir sur la page de slug « a-propos ».",
-    "show_in_rest": 1,
-    "modified": 1728758400
+    "description": "Contenu éditorial des pages (accueil, à propos, en-têtes d'index, libellés d'interface). À saisir sur la page correspondante. Les champs tsis_*_index_* / tsis_ui_contact_hero_* remplacent la valeur en option. Aucun champ existant n'est renommé, remplacé ni supprimé.",
+    "show_in_rest": true,
+    "modified": 1760275200
   },
   {
-    "key": "group_tsis_service",
-    "title": "TSIS — Services (CPT service)",
-    "fields": [
-      {
-        "key": "field_tsis_service_icon",
-        "label": "Icône (classe ou identifiant)",
-        "name": "tsis_service_icon",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_service_body",
-        "label": "Corps détaillé",
-        "name": "tsis_service_body",
-        "aria-label": "",
-        "type": "wysiwyg",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "tabs": "all",
-        "toolbar": "full",
-        "media_upload": 1,
-        "delay": 0,
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_service_features",
-        "label": "Fonctionnalités clés",
-        "name": "tsis_service_features",
-        "aria-label": "",
-        "type": "repeater",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "layout": "table",
-        "pagination": 0,
-        "min": 0,
-        "max": 0,
-        "collapsed": "",
-        "button_label": "Ajouter une ligne",
-        "rows_per_page": 20,
-        "sub_fields": [
-          {
-            "key": "field_tsis_service_features_title",
-            "label": "Titre",
-            "name": "title",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          },
-          {
-            "key": "field_tsis_service_features_text",
-            "label": "Texte",
-            "name": "text",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          }
-        ],
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_service_seo_title",
-        "label": "SEO — titre",
-        "name": "tsis_service_seo_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_service_seo_description",
-        "label": "SEO — description",
-        "name": "tsis_service_seo_description",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "post_type",
-          "operator": "==",
-          "value": "service"
-        }
-      ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "",
-    "show_in_rest": 1,
-    "modified": 1728758400
-  },
-  {
-    "key": "group_tsis_realisation",
-    "title": "TSIS — Réalisations (CPT realisation)",
-    "fields": [
-      {
-        "key": "field_tsis_realisation_client",
-        "label": "Client",
-        "name": "tsis_realisation_client",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_realisation_year",
-        "label": "Année",
-        "name": "tsis_realisation_year",
-        "aria-label": "",
-        "type": "number",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "min": "",
-        "max": "",
-        "step": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_realisation_body",
-        "label": "Corps / étude de cas",
-        "name": "tsis_realisation_body",
-        "aria-label": "",
-        "type": "wysiwyg",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "tabs": "all",
-        "toolbar": "full",
-        "media_upload": 1,
-        "delay": 0,
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_realisation_results",
-        "label": "Résultats",
-        "name": "tsis_realisation_results",
-        "aria-label": "",
-        "type": "repeater",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "layout": "table",
-        "pagination": 0,
-        "min": 0,
-        "max": 0,
-        "collapsed": "",
-        "button_label": "Ajouter une ligne",
-        "rows_per_page": 20,
-        "sub_fields": [
-          {
-            "key": "field_tsis_realisation_results_label",
-            "label": "Libellé",
-            "name": "label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          },
-          {
-            "key": "field_tsis_realisation_results_value",
-            "label": "Valeur",
-            "name": "value",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "",
-              "class": "",
-              "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-          }
-        ],
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_realisation_gallery",
-        "label": "Galerie",
-        "name": "tsis_realisation_gallery",
-        "aria-label": "",
-        "type": "gallery",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "return_format": "id",
-        "preview_size": "medium",
-        "insert": "append",
-        "library": "all",
-        "min": "",
-        "max": "",
-        "min_width": "",
-        "min_height": "",
-        "min_size": "",
-        "max_width": "",
-        "max_height": "",
-        "max_size": "",
-        "mime_types": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_realisation_seo_title",
-        "label": "SEO — titre",
-        "name": "tsis_realisation_seo_title",
-        "aria-label": "",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "placeholder": "",
-        "prepend": "",
-        "append": "",
-        "show_in_rest": true
-      },
-      {
-        "key": "field_tsis_realisation_seo_description",
-        "label": "SEO — description",
-        "name": "tsis_realisation_seo_description",
-        "aria-label": "",
-        "type": "textarea",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "",
-        "maxlength": "",
-        "rows": 4,
-        "placeholder": "",
-        "new_lines": "",
-        "show_in_rest": true
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "post_type",
-          "operator": "==",
-          "value": "realisation"
-        }
-      ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "",
-    "show_in_rest": 1,
-    "modified": 1728758400
-  },
-  {
-    "key": "group_tsis_member",
+    "key": "group_tsis_equipe",
     "title": "TSIS — Équipe (CPT tsis_member)",
     "fields": [
       {
@@ -2959,12 +1535,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "default_value": "",
         "maxlength": "",
         "placeholder": "",
         "prepend": "",
-        "append": "",
-        "show_in_rest": true
+        "append": ""
       },
       {
         "key": "field_tsis_member_photo",
@@ -2980,6 +1556,7 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "return_format": "id",
         "preview_size": "medium",
         "library": "all",
@@ -2989,8 +1566,7 @@
         "max_width": "",
         "max_height": "",
         "max_size": "",
-        "mime_types": "",
-        "show_in_rest": true
+        "mime_types": ""
       },
       {
         "key": "field_tsis_member_visible",
@@ -3006,12 +1582,12 @@
           "class": "",
           "id": ""
         },
+        "show_in_rest": true,
         "message": "",
         "default_value": 1,
         "ui": 1,
         "ui_on_text": "",
-        "ui_off_text": "",
-        "show_in_rest": true
+        "ui_off_text": ""
       }
     ],
     "location": [
@@ -3030,8 +1606,537 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
-    "show_in_rest": 1,
-    "modified": 1728758400
+    "description": "Membres de l'équipe TSIS exposés par le pont tsis/v1/content. Le CPT est déclaré par le mu-plugin.",
+    "show_in_rest": true,
+    "modified": 1760275200
+  },
+  {
+    "key": "group_tsis_libelles_interface",
+    "title": "TSIS — Libellés d'interface",
+    "fields": [
+      {
+        "key": "field_tsis_ui_project_eyebrow",
+        "label": "Fiche « projet » — surtitre",
+        "name": "tsis_ui_project_eyebrow",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_project_title",
+        "label": "Fiche « projet » — titre",
+        "name": "tsis_ui_project_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_service_aside_title",
+        "label": "Fiche service — encart : titre",
+        "name": "tsis_ui_service_aside_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_service_aside_text",
+        "label": "Fiche service — encart : texte",
+        "name": "tsis_ui_service_aside_text",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "rows": 4,
+        "placeholder": "",
+        "new_lines": ""
+      },
+      {
+        "key": "field_tsis_ui_service_aside_cta_label",
+        "label": "Fiche service — encart : bouton",
+        "name": "tsis_ui_service_aside_cta_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_realisation_aside_title",
+        "label": "Fiche réalisation — encart : titre",
+        "name": "tsis_ui_realisation_aside_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_realisation_aside_text",
+        "label": "Fiche réalisation — encart : texte",
+        "name": "tsis_ui_realisation_aside_text",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "rows": 4,
+        "placeholder": "",
+        "new_lines": ""
+      },
+      {
+        "key": "field_tsis_ui_realisation_aside_cta_label",
+        "label": "Fiche réalisation — encart : bouton",
+        "name": "tsis_ui_realisation_aside_cta_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_related_services_title",
+        "label": "« D’autres services » — titre",
+        "name": "tsis_ui_related_services_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_related_realisations_title",
+        "label": "« D’autres solutions » — titre",
+        "name": "tsis_ui_related_realisations_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_discover_label",
+        "label": "Libellé « Découvrir »",
+        "name": "tsis_ui_discover_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_service_hero_eyebrow",
+        "label": "Surtitre des fiches service et réalisation",
+        "name": "tsis_ui_service_hero_eyebrow",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_hero_cta_label",
+        "label": "Bouton principal des fiches (service et réalisation)",
+        "name": "tsis_ui_hero_cta_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_discover_service_label",
+        "label": "Lien « découvrir » — liste des services",
+        "name": "tsis_ui_discover_service_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_discover_solution_label",
+        "label": "Lien « découvrir » — liste des solutions",
+        "name": "tsis_ui_discover_solution_label",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_contact_hero_eyebrow",
+        "label": "Contact — surtitre",
+        "name": "tsis_ui_contact_hero_eyebrow",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_contact_hero_title",
+        "label": "Contact — titre",
+        "name": "tsis_ui_contact_hero_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_contact_hero_intro",
+        "label": "Contact — introduction",
+        "name": "tsis_ui_contact_hero_intro",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "rows": 4,
+        "placeholder": "",
+        "new_lines": ""
+      },
+      {
+        "key": "field_tsis_ui_services_index_eyebrow",
+        "label": "Nos services — surtitre",
+        "name": "tsis_ui_services_index_eyebrow",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_services_index_title",
+        "label": "Nos services — titre",
+        "name": "tsis_ui_services_index_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_services_index_intro",
+        "label": "Nos services — introduction",
+        "name": "tsis_ui_services_index_intro",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "rows": 4,
+        "placeholder": "",
+        "new_lines": ""
+      },
+      {
+        "key": "field_tsis_ui_solutions_index_eyebrow",
+        "label": "Nos solutions — surtitre",
+        "name": "tsis_ui_solutions_index_eyebrow",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_solutions_index_title",
+        "label": "Nos solutions — titre",
+        "name": "tsis_ui_solutions_index_title",
+        "aria-label": "",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_tsis_ui_solutions_index_intro",
+        "label": "Nos solutions — introduction",
+        "name": "tsis_ui_solutions_index_intro",
+        "aria-label": "",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "show_in_rest": true,
+        "default_value": "",
+        "maxlength": "",
+        "rows": 4,
+        "placeholder": "",
+        "new_lines": ""
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "tsis-reglages"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Tous les libellés affichés par le site (surtitres, boutons, encarts, en-têtes de listes). Un libellé laissé vide reprend la valeur de repli du site.",
+    "show_in_rest": true,
+    "modified": 1791831549
   }
 ]

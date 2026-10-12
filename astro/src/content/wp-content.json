@@ -1,36 +1,36 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T18:22:20.920Z",
+  "generatedAt": "2026-10-12T19:03:23.829Z",
   "lang": "fr",
-  "source": "rest",
+  "source": "wordpress",
   "site": {
     "name": "Touba Solution Informatique",
     "shortName": "TSIS",
     "legalName": "Touba Solution Informatique",
     "tagline": "Votre partenaire digital au Sénégal",
-    "description": "Basée au Sénégal, Touba Solution Informatique conçoit des applications web et mobiles, logiciels ERP/CRM et solutions numériques sur mesure pour accompagner la transformation digitale des entreprises et institutions en Afrique.",
-    "url": "https://astro.tsis.sn",
+    "description": "Touba Solution Informatique (TSI) est une entreprise innovante basée au Sénégal, spécialisée dans le développement de solutions numériques sur mesure. Elle conçoit et déploie des applications web et mobiles, des systèmes ERP/CRM, ainsi que des plateformes adaptées aux besoins des entreprises et institutions africaines.\r\n\r\nActeur majeur de la transformation digitale en Afrique de l’Ouest, TSI accompagne ses clients vers des outils modernes, performants et sécurisés. Nous sommes également présents au Sénégal, en Côte d’Ivoire, au Mali, au Burkina Faso, en Guinée, au Cameroun et en Gambie.",
+    "url": "https://preprod.tsis.sn",
     "logo": {
-      "url": "/brand/tsis-logo.png",
-      "width": null,
-      "height": null,
-      "alt": "Touba Solution Informatique"
+      "url": "/uploads/wp/a847905c-cropped-cropped-cropped-cropped-design-sans-titre-12-31.png",
+      "width": 512,
+      "height": 512,
+      "alt": "Touba Solution informatique"
     }
   },
   "contact": {
-    "email": "contact@tsis.sn",
+    "email": "contact@preprod.tsis.sn",
     "address": "Arrêt BRT Scat Urbam, Dakar, Sénégal",
     "mapsUrl": "https://maps.app.goo.gl/x1heEpd86rZTHvov5",
     "whatsapp": "https://wa.me/221782254040",
     "phones": [
       {
         "label": "+221 78 225 40 40",
-        "href": "tel:+221****4040",
+        "href": "tel:+221782254040",
         "whatsapp": true
       },
       {
         "label": "+221 78 698 18 18",
-        "href": "tel:+221****1818",
+        "href": "tel:+221786981818",
         "whatsapp": false
       }
     ]
@@ -57,23 +57,28 @@
     "primary": [
       {
         "label": "Accueil",
-        "href": "/"
+        "href": "/",
+        "children": []
       },
       {
         "label": "À propos",
-        "href": "/a-propos/"
+        "href": "/a-propos/",
+        "children": []
       },
       {
         "label": "Nos services",
-        "href": "/nos-services/"
+        "href": "/nos-services/",
+        "children": []
       },
       {
         "label": "Nos solutions",
-        "href": "/nos-solutions/"
+        "href": "/nos-solutions/",
+        "children": []
       },
       {
         "label": "Contact",
-        "href": "/contact/"
+        "href": "/contact/",
+        "children": []
       }
     ],
     "footer": [
@@ -99,8 +104,8 @@
       }
     ],
     "primaryCta": {
-      "label": "Demander un devis",
-      "href": "/contact/"
+      "label": "Nous contacter",
+      "href": "/contact"
     },
     "footerServices": [
       {
@@ -136,7 +141,16 @@
     "discoverServiceLabel": "Découvrir le service →",
     "discoverSolutionLabel": "Découvrir la solution →",
     "discoverLabel": "Découvrir →",
-    "heroCtaLabel": "Parler de votre projet"
+    "heroCtaLabel": "Parler de votre projet",
+    "contactHeroEyebrow": null,
+    "contactHeroTitle": "Parlons de votre projet",
+    "contactHeroIntro": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h.",
+    "servicesIndexEyebrow": "NOS SERVICES",
+    "servicesIndexTitle": "Des expertises digitales au service de votre croissance.",
+    "servicesIndexIntro": "De la stratégie à la mise en œuvre, TSIS conçoit des solutions fiables, adaptées à vos besoins et à votre secteur.",
+    "solutionsIndexEyebrow": "NOS SOLUTIONS",
+    "solutionsIndexTitle": "Des projets conçus pour faire grandir votre activité.",
+    "solutionsIndexIntro": "Découvrez des solutions digitales adaptées aux réalités de chaque secteur."
   },
   "pages": {
     "home": {
@@ -162,23 +176,23 @@
         },
         "secondaryCta": {
           "label": "Découvrir nos solutions",
-          "href": "#solutions"
+          "href": "/#solutions"
         }
       },
       "about": {
-        "eyebrow": "À propos de TSIS",
+        "eyebrow": "À PROPOS DE TSIS",
         "title": "Des solutions technologiques pensées pour vos réalités.",
-        "text": "Touba Solution Informatique conçoit des logiciels, sites web et applications mobiles sur mesure. Nous associons IA, cybersécurité, automatisation et expertise métier pour améliorer l'efficacité, la visibilité et la croissance de votre organisation.",
+        "text": "Touba Solution Informatique conçoit des logiciels, sites web et applications mobiles sur mesure. Nous associons IA, cybersécurité, automatisation et expertise métier pour améliorer l’efficacité, la visibilité et la croissance de votre organisation. Notre expertise couvre le commerce, la santé, les ressources humaines, l’éducation et l’industrie.",
         "note": "Notre expertise couvre le commerce, la santé, les ressources humaines, l'éducation et l'industrie.",
         "highlights": [
           "Logiciels sur mesure",
           "Expertise multi-secteurs"
         ],
         "image": {
-          "url": "/uploads/boubacare.avif",
-          "width": null,
-          "height": null,
-          "alt": "Équipe Touba Solution Informatique"
+          "url": "/uploads/wp/3a845cf6-boubacare.avif",
+          "width": 1536,
+          "height": 1024,
+          "alt": "boubacare"
         },
         "imageAlt": "Équipe Touba Solution Informatique",
         "cta": {
@@ -187,7 +201,7 @@
         }
       },
       "solutions": {
-        "eyebrow": "Nos solutions",
+        "eyebrow": "NOS SOLUTIONS",
         "title": "Des solutions pensées pour vos réalités.",
         "intro": "Découvrez quelques-unes de nos réalisations digitales, conçues pour accompagner la croissance des entreprises et organisations.",
         "featured": [
@@ -201,7 +215,7 @@
         }
       },
       "services": {
-        "eyebrow": "Nos services",
+        "eyebrow": "NOS SERVICES",
         "title": "Une expertise complète pour faire évoluer votre activité.",
         "intro": "De la conception à l’accompagnement, nous mettons nos compétences technologiques au service de vos objectifs.",
         "cta": {
@@ -210,7 +224,7 @@
         }
       },
       "why": {
-        "eyebrow": "Pourquoi choisir TSIS ?",
+        "eyebrow": "POURQUOI CHOISIR TSIS ?",
         "title": "Un partenaire engagé à vos côtés.",
         "intro": "Nous combinons expertise technique, compréhension de votre métier et accompagnement humain pour transformer vos idées en résultats concrets.",
         "items": [
@@ -237,7 +251,7 @@
         }
       },
       "process": {
-        "eyebrow": "De l'idée à l'impact",
+        "eyebrow": "DE L’IDÉE À L’IMPACT",
         "title": "Votre vision devient une solution qui crée de la valeur.",
         "intro": "Une méthode simple, collaborative et centrée sur des résultats concrets pour votre organisation.",
         "steps": [
@@ -264,12 +278,12 @@
         ]
       },
       "finalCta": {
-        "eyebrow": "Faisons avancer votre projet",
-        "title": "Une idée, un besoin ? Parlons-en.",
+        "eyebrow": "FAISONS AVANCER VOTRE PROJET",
+        "title": "Parlons de votre projet",
         "text": "Présentez-nous vos objectifs et les défis de votre activité. Ensemble, identifions la solution digitale adaptée à votre organisation.",
         "cta": {
-          "label": "Parlons de votre projet",
-          "href": "/contact/"
+          "label": "Nous contacter",
+          "href": "/contact"
         }
       }
     },
@@ -299,7 +313,7 @@
         "title": "Présents là où vos projets se développent.",
         "paragraphs": [
           "Touba Solution Informatique (TSI) est une entreprise sénégalaise spécialisée dans le développement de solutions numériques sur mesure.",
-          "Nous accompagnons les entreprises et institutions africaines dans leur transformation digitale en leur fournissant des outils modernes, performants et sécurisés."
+          "Nous accompagnons les entreprises et institutions africaines dans leur transformation digitale en leur fournissant des outils modernes, performants et sécurisés. Présents au Sénégal, en Côte d’Ivoire, au Mali, au Burkina Faso, en Guinée, au Cameroun et en Gambie, nous concevons des solutions adaptées aux réalités locales et aux enjeux de chaque organisation."
         ],
         "countries": [
           "Sénégal",
@@ -313,37 +327,33 @@
       },
       "stats": [
         {
-          "value": "12+",
-          "label": "ans d'expérience"
+          "value": "12 ans",
+          "label": "D'expérience"
         },
         {
-          "value": "7",
-          "label": "pays de présence"
+          "value": "50 projets",
+          "label": "réalisés"
         },
         {
-          "value": "25",
-          "label": "collaborateurs"
-        },
-        {
-          "value": "9",
-          "label": "domaines de service"
+          "value": "500 projets",
+          "label": "réalisés"
         }
       ],
       "teamSection": {
-        "eyebrow": "Notre équipe",
+        "eyebrow": "NOTRE ÉQUIPE",
         "title": "Des talents engagés à vos côtés.",
         "intro": "Une équipe pluridisciplinaire qui conçoit, développe et accompagne vos solutions au quotidien."
       }
     },
     "servicesIndex": {
-      "eyebrow": "Nos services",
-      "title": "En-tête modifié (test)",
+      "eyebrow": "NOS SERVICES",
+      "title": "Des expertises digitales au service de votre croissance.",
       "intro": "De la stratégie à la mise en œuvre, TSIS conçoit des solutions fiables, adaptées à vos besoins et à votre secteur.",
       "metaTitle": "Nos services",
       "metaDescription": "De la stratégie à la mise en œuvre, TSIS conçoit des solutions fiables, adaptées à vos besoins et à votre secteur."
     },
     "solutionsIndex": {
-      "eyebrow": "Nos solutions",
+      "eyebrow": "NOS SOLUTIONS",
       "title": "Des projets conçus pour faire grandir votre activité.",
       "intro": "Découvrez des solutions digitales adaptées aux réalités de chaque secteur.",
       "metaTitle": "Nos solutions",
@@ -351,7 +361,7 @@
     },
     "contact": {
       "eyebrow": "Contact",
-      "title": "Parlons de votre projet.",
+      "title": "Parlons de votre projet",
       "intro": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h.",
       "metaTitle": "Contact",
       "metaDescription": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h. Devis gratuit et sans engagement."
@@ -362,11 +372,24 @@
       "slug": "automatisation-processus-intelligence-artificielle",
       "title": "Automatisation des processus par intelligence artificielle",
       "excerpt": "Automatisez les tâches répétitives et améliorez la productivité avec l’intelligence artificielle.",
-      "order": 100,
+      "order": 80,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Nous intégrons l’intelligence artificielle pour automatiser vos processus et réduire les tâches répétitives. Nos solutions intelligentes améliorent la productivité, la précision et la rapidité de vos opérations.",
+      "features": [
+        {
+          "title": "Automatisation",
+          "text": "Réduction des tâches répétitives dans vos processus."
+        },
+        {
+          "title": "Productivité",
+          "text": "Des opérations plus rapides et mieux organisées."
+        },
+        {
+          "title": "Précision",
+          "text": "Des solutions intelligentes pour fiabiliser l’exécution des tâches."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -376,11 +399,28 @@
       "slug": "creation-sites-web-erp-sur-mesure",
       "title": "Création de sites web & ERP sur mesure",
       "excerpt": "Alliez présence en ligne et gestion interne avec des outils sur mesure.",
-      "order": 100,
+      "order": 50,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Nous développons des sites web et des ERP sur mesure adaptés aux besoins spécifiques de votre activité. Ces solutions associent design, performance et automatisation pour optimiser votre gestion et renforcer votre présence digitale.",
+      "features": [
+        {
+          "title": "Sites professionnels",
+          "text": "Des sites vitrines, institutionnels et e-commerce modernes, responsives et sécurisés."
+        },
+        {
+          "title": "ERP métier",
+          "text": "Des outils de gestion adaptés à la comptabilité, aux stocks, aux ventes ou aux ressources humaines."
+        },
+        {
+          "title": "Intégration et automatisation",
+          "text": "Connexion de vos outils pour centraliser les données et faciliter la prise de décision."
+        },
+        {
+          "title": "Support continu",
+          "text": "Formation, assistance et mises à jour pour maintenir la performance des systèmes."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -390,11 +430,24 @@
       "slug": "creation-sites-web-vitrine-e-commerce",
       "title": "Création de sites web vitrine & e-commerce",
       "excerpt": "Des sites vitrines et boutiques en ligne conçus pour valoriser votre activité.",
-      "order": 100,
+      "order": 30,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Nous réalisons des sites vitrines élégants et des boutiques e-commerce performantes pour valoriser votre image et développer vos ventes. Chaque solution associe design attractif, navigation fluide et fonctionnalités adaptées à vos objectifs.",
+      "features": [
+        {
+          "title": "Site vitrine",
+          "text": "Une présence en ligne claire pour présenter votre entreprise et vos services."
+        },
+        {
+          "title": "Boutique e-commerce",
+          "text": "Une plateforme pensée pour présenter et vendre vos produits."
+        },
+        {
+          "title": "Expérience fluide",
+          "text": "Un design attractif et une navigation adaptée à vos visiteurs."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -404,11 +457,28 @@
       "slug": "developpement-logiciels-applications",
       "title": "Développement de logiciels & applications",
       "excerpt": "Des applications web, mobiles et logiciels sur mesure, évolutifs et performants.",
-      "order": 100,
+      "order": 70,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Touba Solution Informatique conçoit des solutions numériques sur mesure pour accompagner la transformation digitale des entreprises. Nous développons des applications web et mobiles performantes, intuitives et évolutives, pensées pour optimiser vos processus et accélérer votre croissance.",
+      "features": [
+        {
+          "title": "Applications mobiles",
+          "text": "Des applications iOS et Android personnalisées, performantes et intuitives."
+        },
+        {
+          "title": "Logiciels sur mesure",
+          "text": "Des ERP, CRM et outils métier adaptés à votre organisation."
+        },
+        {
+          "title": "Progressive Web Apps",
+          "text": "Des applications web rapides, sécurisées et accessibles."
+        },
+        {
+          "title": "Accompagnement de bout en bout",
+          "text": "Analyse, conception, développement, tests, déploiement et maintenance."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -418,11 +488,24 @@
       "slug": "fourniture-materiel-informatique-mobilier-bureau",
       "title": "Fourniture de matériel informatique & mobilier de bureau",
       "excerpt": "Équipez efficacement votre environnement de travail.",
-      "order": 100,
+      "order": 60,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Nous proposons du matériel informatique et du mobilier de bureau de qualité pour équiper efficacement votre entreprise. Nos solutions associent confort, durabilité et performance pour optimiser votre environnement de travail.",
+      "features": [
+        {
+          "title": "Matériel informatique",
+          "text": "Des équipements adaptés aux besoins de votre activité."
+        },
+        {
+          "title": "Mobilier de bureau",
+          "text": "Des solutions conçues pour le confort et l’organisation des espaces."
+        },
+        {
+          "title": "Qualité durable",
+          "text": "Des choix d’équipements axés sur la performance et la durabilité."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -432,11 +515,24 @@
       "slug": "gestion-files-attente-bornes-interactives",
       "title": "Gestion de files d’attente & bornes interactives",
       "excerpt": "Optimisez l’accueil et réduisez le temps d’attente de vos clients.",
-      "order": 100,
+      "order": 40,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Optimisez l’accueil et réduisez le temps d’attente de vos clients grâce à nos solutions de gestion de files d’attente. Nos bornes interactives offrent une expérience fluide, moderne et efficace pour améliorer la satisfaction client.",
+      "features": [
+        {
+          "title": "Gestion de l’attente",
+          "text": "Une organisation pensée pour fluidifier l’accueil."
+        },
+        {
+          "title": "Bornes interactives",
+          "text": "Des interfaces modernes pour orienter et informer les visiteurs."
+        },
+        {
+          "title": "Satisfaction client",
+          "text": "Une expérience plus rapide, claire et efficace."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -446,11 +542,28 @@
       "slug": "marketing-digital-design-graphique",
       "title": "Marketing digital & design graphique",
       "excerpt": "Renforcez votre visibilité grâce à une communication digitale cohérente et percutante.",
-      "order": 100,
+      "order": 90,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Touba Solution Informatique met en valeur votre marque grâce à des services de marketing digital et de design graphique. Des stratégies ciblées et des supports visuels professionnels renforcent votre présence sur les canaux digitaux.",
+      "features": [
+        {
+          "title": "Marketing digital",
+          "text": "Gestion des réseaux sociaux, campagnes publicitaires, SEO/SEA, emailing et suivi des performances."
+        },
+        {
+          "title": "Design graphique",
+          "text": "Création de logos, chartes graphiques, visuels, flyers, brochures et supports de communication."
+        },
+        {
+          "title": "Stratégie sur mesure",
+          "text": "Des plans marketing adaptés à vos objectifs et à votre public."
+        },
+        {
+          "title": "Optimisation continue",
+          "text": "Analyse des résultats et amélioration des actions menées."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -460,16 +573,29 @@
       "slug": "reseaux-informatiques-infrastructure-it",
       "title": "Réseaux informatiques & infrastructure IT",
       "excerpt": "Des réseaux fiables, sécurisés et évolutifs pour accompagner votre croissance.",
-      "order": 100,
+      "order": 10,
       "image": {
         "url": "/uploads/wp/dc4c0fdb-reseaux.jpg",
         "width": 800,
         "height": 400,
-        "alt": null
+        "alt": "reseaux"
       },
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Nous concevons, déployons et sécurisons vos réseaux informatiques afin d’assurer une connectivité fiable et performante. Nos solutions d’infrastructure IT garantissent stabilité, évolutivité et efficacité pour soutenir la croissance de votre entreprise.",
+      "features": [
+        {
+          "title": "Conception de réseau",
+          "text": "Une infrastructure pensée selon vos besoins opérationnels."
+        },
+        {
+          "title": "Déploiement sécurisé",
+          "text": "Mise en place de réseaux fiables et performants."
+        },
+        {
+          "title": "Évolutivité",
+          "text": "Des solutions capables d’accompagner la croissance de votre entreprise."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -479,11 +605,28 @@
       "slug": "securite-informatique-videosurveillance",
       "title": "Sécurité informatique & vidéosurveillance",
       "excerpt": "Protégez vos données, équipements et locaux avec une sécurité globale.",
-      "order": 100,
+      "order": 20,
       "image": null,
       "icon": null,
-      "body": null,
-      "features": [],
+      "body": "Touba Solution Informatique propose des solutions de cybersécurité et de vidéosurveillance pour protéger vos données, équipements et locaux. L’approche associe protection numérique, surveillance intelligente et accompagnement technique continu.",
+      "features": [
+        {
+          "title": "Audit et analyse des risques",
+          "text": "Identification des vulnérabilités de vos systèmes et sites."
+        },
+        {
+          "title": "Cybersécurité",
+          "text": "Pare-feu, antivirus, détection d’intrusion et politiques de sécurité adaptées."
+        },
+        {
+          "title": "Vidéosurveillance intelligente",
+          "text": "Caméras haute définition, accès à distance et stockage sécurisé."
+        },
+        {
+          "title": "Contrôle des accès",
+          "text": "Solutions biométriques, de pointage et de gestion des identités."
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
@@ -508,7 +651,8 @@
         "title": null,
         "description": null
       },
-      "order": 10
+      "order": 0,
+      "featured": false
     },
     {
       "slug": "diaba-market-place",
@@ -527,7 +671,8 @@
         "title": null,
         "description": null
       },
-      "order": 20
+      "order": 0,
+      "featured": false
     },
     {
       "slug": "khidma-gestion-chantier",
@@ -540,18 +685,41 @@
         "url": "/uploads/wp/482513cd-gestion-chantier.avif",
         "width": 1920,
         "height": 1200,
-        "alt": null
+        "alt": "gestion-chantier"
       },
       "client": null,
       "year": null,
-      "body": null,
+      "body": "Dans le domaine du BTP, chaque détail compte : la planification, la gestion des équipes, le suivi des délais et la maîtrise des coûts. Pourtant, gérer tout cela de manière efficace reste un véritable défi. C’est là qu’intervient <strong>KHIDMA</strong>, un logiciel web et mobile conçu pour simplifier et transformer la gestion de vos chantiers.",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 30
+      "order": 0,
+      "features": [
+        {
+          "title": "Planification intelligente",
+          "text": "Organisez vos tâches et vos phases de chantier avec précision, anticipez les imprévus et gagnez du temps."
+        },
+        {
+          "title": "Gestion complète des ouvriers",
+          "text": "Suivi de  la présence quotidienne des ouvrièrs, gestion des les équipes et des tâches, et gestion de  la paie."
+        },
+        {
+          "title": "Tableaux de bord en temps réel",
+          "text": "Accès à une vue claire et détaillée de l’avancement de chaque projet, permet d'identifier les blocages et de  prendre les décisions plus rapidement."
+        },
+        {
+          "title": "Suivi des processus",
+          "text": "Permet une parfaite coordination entre les différentes équipes et prestataires, tout en respectant les délais fixés."
+        },
+        {
+          "title": "Optimisation des coûts",
+          "text": "Vous permet de maîtriser vos dépenses grâce à une meilleure visibilité et éviter les pertes liées aux erreurs de gestion."
+        }
+      ],
+      "featured": false
     },
     {
       "slug": "securite-pointage",
@@ -564,18 +732,41 @@
         "url": "/uploads/wp/dac688be-gestion-files.jpg",
         "width": 463,
         "height": 284,
-        "alt": null
+        "alt": "gestion-files"
       },
       "client": null,
       "year": null,
-      "body": null,
+      "body": "Notre service de sécurité offre une protection complète grâce à l’installation de <strong>caméras de surveillance haute définition, systèmes d’alarme intelligents et dispositifs de contrôle d’accès modernes</strong>. Que vous souhaitiez sécuriser vos bureaux, entrepôts ou sites industriels, nous mettons en place des solutions fiables et adaptées pour prévenir les intrusions et garantir la tranquillité de vos équipes.",
       "results": [],
-      "gallery": [],
+      "gallery": [
+        {
+          "url": "/uploads/wp/dac688be-gestion-files.jpg",
+          "width": 463,
+          "height": 284,
+          "alt": "gestion-files"
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 40
+      "order": 0,
+      "features": [
+        {
+          "title": "Pointage et gestion du personnel",
+          "text": "Gestion efficace de présence et des horaires de votre personnel grâce à des dispositifs de pointage biométriques ou à badge."
+        },
+        {
+          "title": "Edition des rapports détails",
+          "text": "Nos systèmes génèrent automatiquement des rapports détaillés, facilitant le suivi des heures de travail, la gestion des absences et l’optimisation des plannings. Cela vous permet non seulement de gagner du temps, mais aussi d’améliorer la performance globale de votre organisation."
+        }
+      ],
+      "relatedServices": [
+        "gestion-files-attente-bornes-interactives",
+        "securite-informatique-videosurveillance",
+        "automatisation-processus-intelligence-artificielle"
+      ],
+      "featured": true
     },
     {
       "slug": "sunu-flix",
@@ -588,18 +779,41 @@
         "url": "/uploads/wp/6fb480b8-sunuflix.webp",
         "width": 1920,
         "height": 1200,
-        "alt": null
+        "alt": "sunuflix"
       },
       "client": null,
       "year": null,
-      "body": null,
+      "body": "<p>Vous aimez les films, séries et documentaires africains ? Vous voulez profiter de contenus authentiques qui racontent nos histoires, nos cultures et nos réalités ? Ne cherchez plus : <strong>SUNU FLIX</strong> est fait pour vous !</p><p>SUNU FLIX n’est pas seulement une application de streaming, c’est une <strong>expérience unique</strong> qui valorise la richesse du cinéma et des séries africaines. Grâce à une plateforme moderne et accessible, vous avez à portée de main un catalogue varié de productions locales et africaines, disponibles <strong>24h/24 et 7j/7</strong>, où que vous soyez.</p>",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 50
+      "order": 0,
+      "features": [
+        {
+          "title": "Streaming africain",
+          "text": "Découvrez des films, séries et histoires qui reflètent les cultures africaines."
+        },
+        {
+          "title": "Application mobile",
+          "text": "Emportez vos contenus préférés partout grâce à l’application SUNU FLIX."
+        },
+        {
+          "title": "Accès par abonnement",
+          "text": "Profitez du catalogue via une formule d’abonnement."
+        },
+        {
+          "title": "Soutien aux talents",
+          "text": "Chaque abonnement contribue à valoriser l’industrie audiovisuelle africaine"
+        }
+      ],
+      "relatedServices": [
+        "developpement-logiciels-applications",
+        "creation-sites-web-vitrine-e-commerce"
+      ],
+      "featured": true
     },
     {
       "slug": "louma-e-commerce",
@@ -611,14 +825,29 @@
       "image": null,
       "client": null,
       "year": null,
-      "body": null,
+      "body": "LOUMA accompagne les vendeurs et commerçants dans la création d’une boutique en ligne, la gestion des produits et commandes, et l’accès à une clientèle plus large.",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 60
+      "order": 0,
+      "features": [
+        {
+          "title": "Boutique prête rapidement",
+          "text": "Chaque commerçant peut créer sa boutique en ligne personnalisée."
+        },
+        {
+          "title": "Paiements sécurisés",
+          "text": "Les paiements Mobile Money sont intégrés."
+        },
+        {
+          "title": "Livraison intégrée",
+          "text": "Les commandes peuvent être livrées directement aux clients."
+        }
+      ],
+      "featured": true
     },
     {
       "slug": "bernde",
@@ -631,18 +860,51 @@
         "url": "/uploads/wp/4c3a7b6a-hero-computer-removebg-preview.png",
         "width": 612,
         "height": 408,
-        "alt": null
+        "alt": "hero-computer-removebg-preview"
       },
       "client": null,
       "year": null,
-      "body": null,
+      "body": "Berndé permet aux restaurants de proposer la commande en ligne depuis un mobile ou un terminal POS, avec paiement et suivi des commandes.",
       "results": [],
-      "gallery": [],
+      "gallery": [
+        {
+          "url": "/uploads/wp/288cf287-hero-computer-1.png",
+          "width": 612,
+          "height": 408,
+          "alt": "hero-computer"
+        },
+        {
+          "url": "/uploads/wp/dc4c0fdb-reseaux.jpg",
+          "width": 800,
+          "height": 400,
+          "alt": "reseaux"
+        }
+      ],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 70
+      "order": 0,
+      "features": [
+        {
+          "title": "Commande simplifiée",
+          "text": "Les clients parcourent le menu et passent commande en quelques clics."
+        },
+        {
+          "title": "Gestion des opérations",
+          "text": "Un suivi centralisé des commandes et des livraisons."
+        },
+        {
+          "title": "Expérience client",
+          "text": "Un service pratique qui favorise la satisfaction et la fidélisation."
+        }
+      ],
+      "relatedServices": [
+        "automatisation-processus-intelligence-artificielle",
+        "creation-sites-web-erp-sur-mesure",
+        "creation-sites-web-vitrine-e-commerce"
+      ],
+      "featured": true
     },
     {
       "slug": "touba-transfert",
@@ -654,14 +916,29 @@
       "image": null,
       "client": null,
       "year": null,
-      "body": null,
+      "body": "Touba Transfert permet d’envoyer et de recevoir de l’argent de manière simple et sécurisée, depuis un téléphone ou une agence.",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 80
+      "order": 0,
+      "features": [
+        {
+          "title": "Transferts rapides",
+          "text": "Des transactions réalisées en quelques minutes."
+        },
+        {
+          "title": "Sécurité",
+          "text": "Des protocoles de sécurité et une surveillance continue protègent les opérations."
+        },
+        {
+          "title": "Services utiles",
+          "text": "Transferts, retraits, paiement de factures et support client dédié."
+        }
+      ],
+      "featured": true
     },
     {
       "slug": "diaba-commerciale",
@@ -673,14 +950,29 @@
       "image": null,
       "client": null,
       "year": null,
-      "body": null,
+      "body": "Diaba aide les entreprises à centraliser la gestion des stocks, clients, fournisseurs, produits et ventes dans une interface simple d’utilisation.",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 90
+      "order": 0,
+      "features": [
+        {
+          "title": "Gestion centralisée",
+          "text": "Les opérations commerciales sont réunies dans une même plateforme."
+        },
+        {
+          "title": "Suivi en temps réel",
+          "text": "Des alertes aident à surveiller le stock et l’activité."
+        },
+        {
+          "title": "Rapports automatiques",
+          "text": "Des rapports détaillés facilitent le pilotage des ventes, marges et tendances."
+        }
+      ],
+      "featured": true
     },
     {
       "slug": "guides-gestion-hospitaliere",
@@ -692,14 +984,29 @@
       "image": null,
       "client": null,
       "year": null,
-      "body": null,
+      "body": "GUIDES, pour Gestion Uniformisée et Informatisée Des Établissements de Santé, centralise les opérations liées aux soins et à la gestion administrative des hôpitaux, cliniques et centres médicaux.",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 100
+      "order": 0,
+      "features": [
+        {
+          "title": "Gestion des patients et consultations",
+          "text": "Suivi centralisé de l’admission à la sortie, avec rendez-vous, consultations et traitements."
+        },
+        {
+          "title": "Pharmacie et dossiers médicaux",
+          "text": "Gestion des stocks, prescriptions, dispensation et traçabilité des informations médicales."
+        },
+        {
+          "title": "Pilotage de l’établissement",
+          "text": "Gestion du personnel médical, facturation et finances dans une solution intégrée."
+        }
+      ],
+      "featured": true
     },
     {
       "slug": "formation-entreprise",
@@ -711,14 +1018,29 @@
       "image": null,
       "client": null,
       "year": null,
-      "body": null,
+      "body": "TSI propose des formations professionnelles destinées à développer des compétences concrètes. Les parcours couvrent notamment le marketing digital, l’installation de caméras de surveillance, la comptabilité et la bureautique.",
       "results": [],
       "gallery": [],
       "seo": {
         "title": null,
         "description": null
       },
-      "order": 110
+      "order": 0,
+      "features": [
+        {
+          "title": "Formations pratiques",
+          "text": "Des programmes orientés compétences et besoins du marché."
+        },
+        {
+          "title": "Parcours variés",
+          "text": "Marketing digital, sécurité, comptabilité et outils bureautiques."
+        },
+        {
+          "title": "Accompagnement",
+          "text": "Des formats accessibles en présentiel ou en ligne."
+        }
+      ],
+      "featured": true
     }
   ],
   "secteurs": [
@@ -738,7 +1060,7 @@
     },
     {
       "slug": "education-formation",
-      "name": "Éducation & formation",
+      "name": "Éducation &amp; formation",
       "count": 1,
       "description": null,
       "order": 30
@@ -805,10 +1127,10 @@
       "name": "Mbaye Babacar Mbow",
       "role": "CEO",
       "photo": {
-        "url": "/uploads/team/01-mbaye-babacar-mbow.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Mbaye Babacar Mbow"
+        "url": "/uploads/wp/b1a77e63-01-mbaye-babacar-mbow.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "01-mbaye-babacar-mbow"
       },
       "order": 10
     },
@@ -816,10 +1138,10 @@
       "name": "Babacar Sadio",
       "role": "DGA",
       "photo": {
-        "url": "/uploads/team/02-babacar-sadio.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Babacar Sadio"
+        "url": "/uploads/wp/fc4dc865-02-babacar-sadio.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "02-babacar-sadio"
       },
       "order": 20
     },
@@ -827,10 +1149,10 @@
       "name": "Ndiakhate Séne",
       "role": "Responsable Commande",
       "photo": {
-        "url": "/uploads/team/03-ndiakhate-sene.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Ndiakhate Séne"
+        "url": "/uploads/wp/c8e00a99-03-ndiakhate-sene.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "03-ndiakhate-sene"
       },
       "order": 30
     },
@@ -838,10 +1160,10 @@
       "name": "Abdou khadre Ndiaye",
       "role": "Responsable Logistique",
       "photo": {
-        "url": "/uploads/team/04-abdou-khadre-ndiaye.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Abdou khadre Ndiaye"
+        "url": "/uploads/wp/4c38e51c-04-abdou-khadre-ndiaye.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "04-abdou-khadre-ndiaye"
       },
       "order": 40
     },
@@ -849,10 +1171,10 @@
       "name": "Stella Mbengue",
       "role": "Responsable Transfert",
       "photo": {
-        "url": "/uploads/team/05-stella-mbengue.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Stella Mbengue"
+        "url": "/uploads/wp/63974c85-05-stella-mbengue.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "05-stella-mbengue"
       },
       "order": 50
     },
@@ -860,10 +1182,10 @@
       "name": "Mariama Ngom",
       "role": "Comptable",
       "photo": {
-        "url": "/uploads/team/06-mariama-ngom.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Mariama Ngom"
+        "url": "/uploads/wp/641a9039-06-mariama-ngom.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "06-mariama-ngom"
       },
       "order": 60
     },
@@ -871,10 +1193,10 @@
       "name": "Abdou Rahmane Barry",
       "role": "Responsable Qualité",
       "photo": {
-        "url": "/uploads/team/07-abdou-rahmane-barry.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Abdou Rahmane Barry"
+        "url": "/uploads/wp/72113b83-07-abdou-rahmane-barry.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "07-abdou-rahmane-barry"
       },
       "order": 70
     },
@@ -882,10 +1204,10 @@
       "name": "Habib Cissé",
       "role": "Responsable Express Dakar",
       "photo": {
-        "url": "/uploads/team/08-habib-cisse.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Habib Cissé"
+        "url": "/uploads/wp/4dadd3d1-08-habib-cisse.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "08-habib-cisse"
       },
       "order": 80
     },
@@ -893,10 +1215,10 @@
       "name": "Aissatou Wade Diallo",
       "role": "Responsable Commerciale",
       "photo": {
-        "url": "/uploads/team/09-aissatou-wade-diallo.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Aissatou Wade Diallo"
+        "url": "/uploads/wp/8dee4c03-09-aissatou-wade-diallo.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "09-aissatou-wade-diallo"
       },
       "order": 90
     },
@@ -904,10 +1226,10 @@
       "name": "Mbaye Sene",
       "role": "Responsable Fournisseur",
       "photo": {
-        "url": "/uploads/team/10-mbaye-sene.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Mbaye Sene"
+        "url": "/uploads/wp/0a50f74d-10-mbaye-sene.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "10-mbaye-sene"
       },
       "order": 100
     },
@@ -915,10 +1237,10 @@
       "name": "Aida Ndao",
       "role": "Responsable Produit",
       "photo": {
-        "url": "/uploads/team/11-aida-ndao.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Aida Ndao"
+        "url": "/uploads/wp/d4a43f6e-11-aida-ndao.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "11-aida-ndao"
       },
       "order": 110
     },
@@ -926,10 +1248,10 @@
       "name": "Sokhna Mbow",
       "role": "Responsable Voyage",
       "photo": {
-        "url": "/uploads/team/12-sokhna-mbow.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Sokhna Mbow"
+        "url": "/uploads/wp/9cab59e9-12-sokhna-mbow.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "12-sokhna-mbow"
       },
       "order": 120
     },
@@ -937,10 +1259,10 @@
       "name": "Fatou sene Mbaye",
       "role": "Agent Centre d’appel",
       "photo": {
-        "url": "/uploads/team/13-fatou-sene-mbaye.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Fatou sene Mbaye"
+        "url": "/uploads/wp/9fd59789-13-fatou-sene-mbaye.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "13-fatou-sene-mbaye"
       },
       "order": 130
     },
@@ -948,10 +1270,10 @@
       "name": "Babacar Tomas",
       "role": "Informaticien",
       "photo": {
-        "url": "/uploads/team/14-babacar-tomas.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Babacar Tomas"
+        "url": "/uploads/wp/1be2481c-14-babacar-tomas.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "14-babacar-tomas"
       },
       "order": 140
     },
@@ -959,10 +1281,10 @@
       "name": "Fatoumata M Camara",
       "role": "Agent Commerciale",
       "photo": {
-        "url": "/uploads/team/15-fatoumata-m-camara.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Fatoumata M Camara"
+        "url": "/uploads/wp/7a875d14-15-fatoumata-m-camara.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "15-fatoumata-m-camara"
       },
       "order": 150
     },
@@ -970,10 +1292,10 @@
       "name": "Mamadou Ndangane Gaye",
       "role": "Responsable transaction inter bancaire",
       "photo": {
-        "url": "/uploads/team/16-mamadou-ndangane-gaye.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Mamadou Ndangane Gaye"
+        "url": "/uploads/wp/cfc43763-16-mamadou-ndangane-gaye.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "16-mamadou-ndangane-gaye"
       },
       "order": 160
     },
@@ -981,10 +1303,10 @@
       "name": "Ibrahima Bah",
       "role": "Agent logistique",
       "photo": {
-        "url": "/uploads/team/17-ibrahima-bah.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Ibrahima Bah"
+        "url": "/uploads/wp/bb30b104-17-ibrahima-bah.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "17-ibrahima-bah"
       },
       "order": 170
     },
@@ -992,10 +1314,10 @@
       "name": "Hawa Sall",
       "role": "Responsable Clientèle Chine",
       "photo": {
-        "url": "/uploads/team/18-hawa-sall.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Hawa Sall"
+        "url": "/uploads/wp/a0d0b703-18-hawa-sall.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "18-hawa-sall"
       },
       "order": 180
     },
@@ -1003,10 +1325,10 @@
       "name": "Khady Faye",
       "role": "Responsable Comptabilité",
       "photo": {
-        "url": "/uploads/team/19-khady-faye.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Khady Faye"
+        "url": "/uploads/wp/bc78c262-19-khady-faye.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "19-khady-faye"
       },
       "order": 190
     },
@@ -1014,10 +1336,10 @@
       "name": "Amdy Mbaye",
       "role": "Responsable Logement Chine",
       "photo": {
-        "url": "/uploads/team/20-amdy-mbaye.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Amdy Mbaye"
+        "url": "/uploads/wp/5c3b63f0-20-amdy-mbaye.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "20-amdy-mbaye"
       },
       "order": 200
     },
@@ -1025,10 +1347,10 @@
       "name": "Deguene Lo",
       "role": "Responsable RH",
       "photo": {
-        "url": "/uploads/team/21-deguene-lo.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Deguene Lo"
+        "url": "/uploads/wp/4a7bc65f-21-deguene-lo.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "21-deguene-lo"
       },
       "order": 210
     },
@@ -1036,10 +1358,10 @@
       "name": "Abdoul Niang",
       "role": "Responsable Achat",
       "photo": {
-        "url": "/uploads/team/22-abdoul-niang.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Abdoul Niang"
+        "url": "/uploads/wp/16d13b3c-22-abdoul-niang.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "22-abdoul-niang"
       },
       "order": 220
     },
@@ -1047,10 +1369,10 @@
       "name": "Mame Anta Mbacké",
       "role": "Responsable SAV",
       "photo": {
-        "url": "/uploads/team/23-mame-anta-mbacke.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Mame Anta Mbacké"
+        "url": "/uploads/wp/a4514189-23-mame-anta-mbacke.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "23-mame-anta-mbacke"
       },
       "order": 230
     },
@@ -1058,10 +1380,10 @@
       "name": "Mamadou Mbaye",
       "role": "Directeur Filiale Touba",
       "photo": {
-        "url": "/uploads/team/24-mamadou-mbaye.jpg",
-        "width": null,
-        "height": null,
-        "alt": "Mamadou Mbaye"
+        "url": "/uploads/wp/f391267e-24-mamadou-mbaye.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "24-mamadou-mbaye"
       },
       "order": 240
     },
@@ -1069,10 +1391,10 @@
       "name": "El Hadji Mbaye Sadio",
       "role": "Agent Commerciale",
       "photo": {
-        "url": "/uploads/team/25-el-hadji-mbaye-sadio.jpg",
-        "width": null,
-        "height": null,
-        "alt": "El Hadji Mbaye Sadio"
+        "url": "/uploads/wp/056273f4-25-el-hadji-mbaye-sadio.jpg",
+        "width": 400,
+        "height": 400,
+        "alt": "25-el-hadji-mbaye-sadio"
       },
       "order": 250
     }

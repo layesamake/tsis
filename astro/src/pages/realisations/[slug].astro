@@ -2,13 +2,25 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import Button from '../../components/Button.astro';
-import { REALISATIONS, ui } from '../../content';
+import { REALISATIONS, getRealisationEntity, getServicesBySlugs, imageUrl, ui } from '../../content';
 
 export function getStaticPaths() {
   return REALISATIONS.map((item) => ({ params: { slug: item.slug }, props: { item } }));
 }
 
 const { item } = Astro.props;
+
+// Détail éditorial saisi dans WordPress : présentation, points, galerie, services liés, témoignage.
+const entity = getRealisationEntity(item.slug);
+const body = entity?.body?.trim() ?? '';
+const features = entity?.features ?? [];
+const gallery = (entity?.gallery ?? [])
+  .map((image) => ({ src: imageUrl(image), alt: image.alt?.trim() || item.title }))
+  .filter((image): image is { src: string; alt: string } => Boolean(image.src));
+const relatedServices = getServicesBySlugs(entity?.relatedServices);
+const demoUrl = entity?.demoUrl?.trim() ?? '';
+const testimonial =
+  entity?.testimonial && entity.testimonial.quote?.trim() ? entity.testimonial : null;
 
 const related = REALISATIONS.filter((r) => r.slug !== item.slug).slice(0, 3);
 ---
@@ -34,7 +46,25 @@ const related = REALISATIONS.filter((r) => r.slug !== item.slug).slice(0, 3);
       <div class="flex flex-col gap-md">
         <span class="eyebrow">{ui('projectEyebrow', 'Le projet')}</span>
         <h2>{ui('projectTitle', 'Une réponse pensée pour les besoins réels.')}</h2>
-        <p class="text-body-lg">{item.excerpt}</p>
+
+        {body ? (
+          <div class="flex flex-col gap-sm text-body-lg" set:html={body} />
+        ) : (
+          <p class="text-body-lg">{item.excerpt}</p>
+        )}
+
+        {
+          features.length > 0 && (
+            <ul class="mt-md grid list-none gap-md p-0 sm:grid-cols-2">
+              {features.map((feature) => (
+                <li class="rounded-2xl border border-line bg-white p-lg">
+                  <h3 class="!text-h6">{feature.title}</h3>
+                  <p class="mt-xs text-body-sm text-muted">{feature.text}</p>
+                </li>
+              ))}
+            </ul>
+          )
+        }
 
         {item.image && (
           <img
@@ -46,6 +76,29 @@ const related = REALISATIONS.filter((r) => r.slug !== item.slug).slice(0, 3);
             loading="lazy"
           />
         )}
+
+        {
+          demoUrl && (
+            <p class="mt-sm">
+              <a href={demoUrl} rel="noopener" target="_blank" class="font-bold text-primary">
+                {ui('projectDemoLabel', 'Voir la démonstration →')}
+              </a>
+            </p>
+          )
+        }
+
+        {
+          testimonial && (
+            <blockquote class="mt-md rounded-2xl border-l-4 border-accent bg-[#f6f9fb] p-lg">
+              <p class="text-body-lg italic">« {testimonial.quote} »</p>
+              {(testimonial.name || testimonial.role) && (
+                <footer class="mt-sm text-body-sm text-muted">
+                  {[testimonial.name, testimonial.role].filter(Boolean).join(' — ')}
+                </footer>
+              )}
+            </blockquote>
+          )
+        }
       </div>
 
       <aside class="flex flex-col gap-sm rounded-2xl bg-[#f6f9fb] p-lg">
@@ -61,11 +114,50 @@ const related = REALISATIONS.filter((r) => r.slug !== item.slug).slice(0, 3);
         <Button href="/contact/" variant="primary">
           {ui('realisationAsideCtaLabel', 'Demander un devis')}
         </Button>
+
+        {
+          relatedServices.length > 0 && (
+            <div class="mt-md flex flex-col gap-xs">
+              <h2 class="!text-h6">{ui('projectServicesTitle', 'Services mobilisés')}</h2>
+              <ul class="flex list-none flex-col gap-xs p-0">
+                {relatedServices.map((service) => (
+                  <li>
+                    <a href={`/services/${service.slug}/`} class="font-bold text-primary no-underline hover:text-accent">
+                      {service.title} →
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
       </aside>
     </div>
   </section>
 
-  <section class="section bg-[#f6f9fb]">
+  {
+    gallery.length > 0 && (
+      <section class="section bg-[#f6f9fb]">
+        <div class="container-tsis">
+          <h2 class="!text-h3">{ui('projectGalleryTitle', 'Aperçus du projet')}</h2>
+          <div class="mt-lg grid gap-md sm:grid-cols-2 lg:grid-cols-3">
+            {gallery.map((image) => (
+              <img
+                src={image.src}
+                alt={image.alt}
+                width="640"
+                height="440"
+                class="h-64 w-full rounded-2xl object-cover shadow-[var(--shadow-soft)]"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section">
     <div class="container-tsis">
       <h2 class="!text-h3">
         {ui('relatedRealisationsTitle', "D'autres solutions conçues par TSIS")}

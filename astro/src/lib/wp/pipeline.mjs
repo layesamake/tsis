@@ -92,9 +92,10 @@ export async function httpJson(url, { timeoutMs = 20000 } = {}) {
  * Mode « pont »
  * ------------------------------------------------------------------ */
 
-/** Interroge le greffon. Retourne { ok, content } ou { ok: false, reason }. */
-export async function fetchBridgeContent({ base, lang = 'fr', log = () => {} }) {
-  const url = `${base}/tsis/v1/content?lang=${encodeURIComponent(lang)}`;
+/** Interroge le greffon. `root` = racine du site WordPress (ex. https://preprod.tsis.sn). */
+export async function fetchBridgeContent({ root, base, lang = 'fr', log = () => {} }) {
+  const racine = (root || base || '').replace(/\/wp-json(\/wp\/v2)?\/?$/, '').replace(/\/+$/, '');
+  const url = `${racine}/wp-json/tsis/v1/content?lang=${encodeURIComponent(lang)}`;
   const res = await httpJson(url);
   if (res.transportError) return { ok: false, reason: `injoignable (${res.transportError})` };
   if (!res.ok) return { ok: false, reason: `HTTP ${res.status}` };

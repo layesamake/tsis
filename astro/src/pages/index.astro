@@ -4,19 +4,17 @@ import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import {
   ABOUT,
+  FEATURED_REALISATIONS,
   FINAL_CTA,
   HERO,
   PROCESS,
-  REALISATIONS,
   SERVICES,
   SERVICES_SECTION,
   SOLUTIONS,
   WHY,
 } from '../content';
 
-const featuredSolutions = SOLUTIONS.featured
-  .map((slug) => REALISATIONS.find((r) => r.slug === slug))
-  .filter((r): r is (typeof REALISATIONS)[number] => Boolean(r));
+const featuredSolutions = FEATURED_REALISATIONS.slice(0, 6);
 ---
 
 <BaseLayout>

@@ -1,0 +1,287 @@
+{
+  "genereLe": "2026-10-12T18:58:15.659Z",
+  "origine": "wp-content/_elementor_data — pages accueil, a-propos, nos-services, nos-solutions, contact",
+  "avertissement": "Contenu extrait des données Elementor AVANT retrait du constructeur. Aucune valeur inventée : un champ vide n'avait pas de source dans Elementor. Les liens internes sont transposés vers les routes du site Astro.",
+  "champs": {
+    "tsis_nom_affiche": "Touba Solution Informatique",
+    "tsis_sigle": "TSIS",
+    "tsis_raison_sociale": "Touba Solution Informatique",
+    "tsis_hero_title": "Des solutions digitales qui font avancer votre entreprise.",
+    "tsis_hero_chips": [
+      "Sur mesure",
+      "Accompagnement",
+      "Support"
+    ],
+    "tsis_hero_primary_cta_label": "Demandez un devis",
+    "tsis_hero_primary_cta_href": "/contact/",
+    "tsis_hero_secondary_cta_label": "Découvrir nos solutions",
+    "tsis_hero_secondary_cta_href": "/#solutions",
+    "tsis_home_about_eyebrow": "À PROPOS DE TSIS",
+    "tsis_home_about_title": "Des solutions technologiques pensées pour vos réalités.",
+    "tsis_home_about_text": "Touba Solution Informatique conçoit des logiciels, sites web et applications mobiles sur mesure. Nous associons IA, cybersécurité, automatisation et expertise métier pour améliorer l’efficacité, la visibilité et la croissance de votre organisation. Notre expertise couvre le commerce, la santé, les ressources humaines, l’éducation et l’industrie.",
+    "tsis_home_about_highlights": [
+      "Logiciels sur mesure",
+      "Expertise multi-secteurs"
+    ],
+    "tsis_home_about_image_fichier": "boubacare.avif",
+    "tsis_home_about_cta_label": "En savoir plus",
+    "tsis_home_about_cta_href": "/a-propos/",
+    "tsis_home_solutions_eyebrow": "NOS SOLUTIONS",
+    "tsis_home_solutions_title": "Des solutions pensées pour vos réalités.",
+    "tsis_home_solutions_intro": "Découvrez quelques-unes de nos réalisations digitales, conçues pour accompagner la croissance des entreprises et organisations.",
+    "tsis_home_solutions_cta_label": "Voir toutes nos solutions",
+    "tsis_home_solutions_cta_href": "/nos-solutions/",
+    "tsis_home_services_eyebrow": "NOS SERVICES",
+    "tsis_home_services_title": "Une expertise complète pour faire évoluer votre activité.",
+    "tsis_home_services_intro": "De la conception à l’accompagnement, nous mettons nos compétences technologiques au service de vos objectifs.",
+    "tsis_home_services_cta_label": "Découvrir tous nos services",
+    "tsis_home_services_cta_href": "/nos-services/",
+    "tsis_home_why_eyebrow": "POURQUOI CHOISIR TSIS ?",
+    "tsis_home_why_title": "Un partenaire engagé à vos côtés.",
+    "tsis_home_why_intro": "Nous combinons expertise technique, compréhension de votre métier et accompagnement humain pour transformer vos idées en résultats concrets.",
+    "tsis_home_why_items": [
+      {
+        "title": "Solutions sur mesure",
+        "text": "Des outils conçus autour de vos objectifs, de votre organisation et de vos contraintes réelles."
+      },
+      {
+        "title": "Fiabilité & sécurité",
+        "text": "Des solutions robustes, sécurisées et pensées pour évoluer durablement avec votre activité."
+      },
+      {
+        "title": "Expertise locale",
+        "text": "Une équipe proche de vous, qui comprend les réalités des entreprises et organisations sénégalaises."
+      },
+      {
+        "title": "Accompagnement durable",
+        "text": "Du cadrage au support, nous restons présents à chaque étape de votre transformation digitale."
+      }
+    ],
+    "tsis_home_why_cta_label": "Échangeons sur votre projet",
+    "tsis_home_why_cta_href": "/contact/",
+    "tsis_home_process_eyebrow": "DE L’IDÉE À L’IMPACT",
+    "tsis_home_process_title": "Votre vision devient une solution qui crée de la valeur.",
+    "tsis_home_process_intro": "Une méthode simple, collaborative et centrée sur des résultats concrets pour votre organisation.",
+    "tsis_home_process_steps": [
+      {
+        "num": "01",
+        "title": "Écouter",
+        "text": "Comprendre vos besoins, votre contexte et vos objectifs prioritaires."
+      },
+      {
+        "num": "02",
+        "title": "Concevoir",
+        "text": "Imaginer une solution pertinente, intuitive et adaptée à vos utilisateurs."
+      },
+      {
+        "num": "03",
+        "title": "Développer",
+        "text": "Construire, tester et déployer une solution fiable, sécurisée et performante."
+      },
+      {
+        "num": "04",
+        "title": "Faire évoluer",
+        "text": "Vous accompagner dans la durée, mesurer les résultats et améliorer en continu."
+      }
+    ],
+    "tsis_home_final_eyebrow": "FAISONS AVANCER VOTRE PROJET",
+    "tsis_cta_titre": "Une idée, un besoin ? Parlons-en.",
+    "tsis_cta_texte": "Présentez-nous vos objectifs et les défis de votre activité. Ensemble, identifions la solution digitale adaptée à votre organisation.",
+    "tsis_cta_libelle": "Parlons de votre projet",
+    "tsis_cta_url": "/contact/",
+    "tsis_about_title": "La technologie pensée pour les réalités africaines.",
+    "tsis_about_intro": "Depuis plus de 12 ans, Touba Solution Informatique conçoit des solutions numériques sur mesure pour les entreprises et institutions.",
+    "tsis_about_pillars": [
+      {
+        "title": "Mission",
+        "text": "Accompagner la transformation digitale avec des solutions utiles, performantes et sécurisées."
+      },
+      {
+        "title": "Vision",
+        "text": "Faire du numérique un véritable levier de croissance en Afrique."
+      },
+      {
+        "title": "Valeurs",
+        "text": "Expertise, confiance et engagement au service de chaque projet."
+      }
+    ],
+    "tsis_about_expertise_eyebrow": "Une expertise ancrée en Afrique",
+    "tsis_about_expertise_paragraphs": [
+      "Touba Solution Informatique (TSI) est une entreprise sénégalaise spécialisée dans le développement de solutions numériques sur mesure.",
+      "Nous accompagnons les entreprises et institutions africaines dans leur transformation digitale en leur fournissant des outils modernes, performants et sécurisés. Présents au Sénégal, en Côte d’Ivoire, au Mali, au Burkina Faso, en Guinée, au Cameroun et en Gambie, nous concevons des solutions adaptées aux réalités locales et aux enjeux de chaque organisation."
+    ],
+    "tsis_about_expertise_countries": [
+      "Sénégal",
+      "Côte d'Ivoire",
+      "Mali",
+      "Burkina Faso",
+      "Guinée",
+      "Cameroun",
+      "Gambie"
+    ],
+    "tsis_about_team_eyebrow": "NOTRE ÉQUIPE",
+    "tsis_about_team_title": "Des talents engagés à vos côtés.",
+    "tsis_ui_services_index_eyebrow": "NOS SERVICES",
+    "tsis_ui_services_index_title": "Des expertises digitales au service de votre croissance.",
+    "tsis_ui_services_index_intro": "De la stratégie à la mise en œuvre, TSIS conçoit des solutions fiables, adaptées à vos besoins et à votre secteur.",
+    "tsis_ui_solutions_index_eyebrow": "NOS SOLUTIONS",
+    "tsis_ui_solutions_index_title": "Des projets conçus pour faire grandir votre activité.",
+    "tsis_ui_solutions_index_intro": "Découvrez des solutions digitales adaptées aux réalités de chaque secteur.",
+    "tsis_ui_contact_hero_eyebrow": "",
+    "tsis_ui_contact_hero_title": "Parlons de votre projet",
+    "tsis_ui_contact_hero_intro": "Expliquez-nous simplement votre besoin. Notre équipe vous répond sous 24 h."
+  },
+  "equipe": [
+    {
+      "nom": "Mbaye Babacar Mbow",
+      "fonction": "CEO",
+      "photo_fichier": "01-mbaye-babacar-mbow.jpg",
+      "ordre": 10
+    },
+    {
+      "nom": "Babacar Sadio",
+      "fonction": "DGA",
+      "photo_fichier": "02-babacar-sadio.jpg",
+      "ordre": 20
+    },
+    {
+      "nom": "Ndiakhate Séne",
+      "fonction": "Responsable Commande",
+      "photo_fichier": "03-ndiakhate-sene.jpg",
+      "ordre": 30
+    },
+    {
+      "nom": "Abdou khadre Ndiaye",
+      "fonction": "Responsable Logistique",
+      "photo_fichier": "04-abdou-khadre-ndiaye.jpg",
+      "ordre": 40
+    },
+    {
+      "nom": "Stella Mbengue",
+      "fonction": "Responsable Transfert",
+      "photo_fichier": "05-stella-mbengue.jpg",
+      "ordre": 50
+    },
+    {
+      "nom": "Mariama Ngom",
+      "fonction": "Comptable",
+      "photo_fichier": "06-mariama-ngom.jpg",
+      "ordre": 60
+    },
+    {
+      "nom": "Abdou Rahmane Barry",
+      "fonction": "Responsable Qualité",
+      "photo_fichier": "07-abdou-rahmane-barry.jpg",
+      "ordre": 70
+    },
+    {
+      "nom": "Habib Cissé",
+      "fonction": "Responsable Express Dakar",
+      "photo_fichier": "08-habib-cisse.jpg",
+      "ordre": 80
+    },
+    {
+      "nom": "Aissatou Wade Diallo",
+      "fonction": "Responsable Commerciale",
+      "photo_fichier": "09-aissatou-wade-diallo.jpg",
+      "ordre": 90
+    },
+    {
+      "nom": "Mbaye Sene",
+      "fonction": "Responsable Fournisseur",
+      "photo_fichier": "10-mbaye-sene.jpg",
+      "ordre": 100
+    },
+    {
+      "nom": "Aida Ndao",
+      "fonction": "Responsable Produit",
+      "photo_fichier": "11-aida-ndao.jpg",
+      "ordre": 110
+    },
+    {
+      "nom": "Sokhna Mbow",
+      "fonction": "Responsable Voyage",
+      "photo_fichier": "12-sokhna-mbow.jpg",
+      "ordre": 120
+    },
+    {
+      "nom": "Fatou sene Mbaye",
+      "fonction": "Agent Centre d’appel",
+      "photo_fichier": "13-fatou-sene-mbaye.jpg",
+      "ordre": 130
+    },
+    {
+      "nom": "Babacar Tomas",
+      "fonction": "Informaticien",
+      "photo_fichier": "14-babacar-tomas.jpg",
+      "ordre": 140
+    },
+    {
+      "nom": "Fatoumata M Camara",
+      "fonction": "Agent Commerciale",
+      "photo_fichier": "15-fatoumata-m-camara.jpg",
+      "ordre": 150
+    },
+    {
+      "nom": "Mamadou Ndangane Gaye",
+      "fonction": "Responsable transaction inter bancaire",
+      "photo_fichier": "16-mamadou-ndangane-gaye.jpg",
+      "ordre": 160
+    },
+    {
+      "nom": "Ibrahima Bah",
+      "fonction": "Agent logistique",
+      "photo_fichier": "17-ibrahima-bah.jpg",
+      "ordre": 170
+    },
+    {
+      "nom": "Hawa Sall",
+      "fonction": "Responsable Clientèle Chine",
+      "photo_fichier": "18-hawa-sall.jpg",
+      "ordre": 180
+    },
+    {
+      "nom": "Khady Faye",
+      "fonction": "Responsable Comptabilité",
+      "photo_fichier": "19-khady-faye.jpg",
+      "ordre": 190
+    },
+    {
+      "nom": "Amdy Mbaye",
+      "fonction": "Responsable Logement Chine",
+      "photo_fichier": "20-amdy-mbaye.jpg",
+      "ordre": 200
+    },
+    {
+      "nom": "Deguene Lo",
+      "fonction": "Responsable RH",
+      "photo_fichier": "21-deguene-lo.jpg",
+      "ordre": 210
+    },
+    {
+      "nom": "Abdoul Niang",
+      "fonction": "Responsable Achat",
+      "photo_fichier": "22-abdoul-niang.jpg",
+      "ordre": 220
+    },
+    {
+      "nom": "Mame Anta Mbacké",
+      "fonction": "Responsable SAV",
+      "photo_fichier": "23-mame-anta-mbacke.jpg",
+      "ordre": 230
+    },
+    {
+      "nom": "Mamadou Mbaye",
+      "fonction": "Directeur Filiale Touba",
+      "photo_fichier": "24-mamadou-mbaye.jpg",
+      "ordre": 240
+    },
+    {
+      "nom": "El Hadji Mbaye Sadio",
+      "fonction": "Agent Commerciale",
+      "photo_fichier": "25-el-hadji-mbaye-sadio.jpg",
+      "ordre": 250
+    }
+  ],
+  "notes": "Les clés *_image_fichier et photo_fichier sont des repères : la migration PHP résout le média par nom de fichier puis renseigne le champ image."
+}

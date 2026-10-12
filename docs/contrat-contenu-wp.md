@@ -267,6 +267,73 @@ métadonnées brutes) :
   métadonnées natives (une valeur par clé) sont lues — le site fonctionne, mais les listes ne sont
   pas éditables confortablement.
 
+## 5 bis. Correspondance avec le modèle WordPress existant (préprod, clone de `tsis.sn`)
+
+> **Section de référence prioritaire.** Le WordPress de préprod est un clone du site de production
+> `tsis.sn` (créé le 2026-10-12 à 11h20). Il contient **déjà** un modèle de contenu ACF rempli par
+> les éditeurs — découvert après la première rédaction du contrat, d'où cette section. Les clés
+> inventées aux §5.1, §5.5 et §5.6 sont **abandonnées** au profit de celles-ci : le pont lit les
+> métadonnées existantes, il n'en crée pas de parallèles. Les groupes ACF à installer (§6.2) sont
+> réduits en conséquence à ce qui n'a pas d'équivalent.
+
+Groupes ACF existants en préprod (31 champs, `show_in_rest` désactivé → invisible dans l'API REST) :
+
+| Groupe | Emplacement | Champs |
+| --- | --- | --- |
+| `group_tsis_reglages` | page d'options `tsis-reglages` (post_id `options`) | `tsis_telephone`, `tsis_telephone_secondaire`, `tsis_whatsapp`, `tsis_email`, `tsis_adresse`, `tsis_facebook`, `tsis_linkedin`, `tsis_instagram`, `tsis_youtube`, `tsis_tiktok`, `tsis_presentation_courte`, `tsis_chiffres_cles` (rép. `tsis_chiffre_valeur` / `_suffixe` / `_libelle`), `tsis_cta_titre`, `tsis_cta_texte`, `tsis_cta_libelle`, `tsis_cta_url` |
+| `group_tsis_service` | CPT `service` | `service_presentation` (wysiwyg), `service_points_forts` (rép. `service_point_titre` / `_description`), `service_ordre` (number) |
+| `group_tsis_realisation` | CPT `realisation` | `projet_presentation` (wysiwyg), `projet_services` (relation → `service`), `projet_points` (rép. `projet_point_titre` / `_description`), `projet_galerie` (galerie), `projet_demo_url`, `projet_temoignage_citation` / `_nom` / `_fonction`, `projet_accueil` (vrai/faux) |
+
+Correspondance document ← WordPress :
+
+| Chemin du document | Source WordPress | Remarque |
+| --- | --- | --- |
+| `site.name` | option `tsis_nom_affiche`, sinon `blogname` | `blogname` en préprod contient une coquille (« Toubab ») : champ dédié à saisir |
+| `site.shortName` | `tsis_sigle` | nouveau |
+| `site.legalName` | `tsis_raison_sociale`, sinon `tsis_nom_affiche` | nouveau |
+| `site.tagline` | `blogdescription` | réglage général WordPress |
+| `site.description` | `tsis_presentation_courte` | **existant** |
+| `site.logo` | `custom_logo` du thème | **existant** (média 7 en préprod) |
+| `site.url` | `home_url()` | — |
+| `contact.email` | `tsis_email` | **existant** |
+| `contact.address` | `tsis_adresse` | **existant** |
+| `contact.whatsapp` | `tsis_whatsapp` | **existant** |
+| `contact.phones` | `tsis_telephone`, `tsis_telephone_secondaire` | **existant** ; `href` = `tel:` normalisé |
+| `contact.mapsUrl` | `tsis_google_maps` | nouveau |
+| `social` | `tsis_facebook`, `tsis_linkedin`, `tsis_instagram`, `tsis_youtube`, `tsis_tiktok` | **existant** ; seules les valeurs non vides sont listées |
+| `nav.*` | emplacement `tsis_primary` / `tsis_footer`, sinon le menu nommé `main` | **existant** (menu `main` non affecté à un emplacement) |
+| `nav.primaryCta` | `tsis_cta_libelle` + `tsis_cta_url` | **existant** |
+| `pages.home.finalCta` | `tsis_cta_titre` / `_texte` / `_libelle` / `_url` | **existant** |
+| `pages.about.stats` | `tsis_chiffres_cles` | **existant** ; `value` = valeur + suffixe, `label` = libellé |
+| `pages.home.hero`, `…about`, `…solutions`, `…services`, `…why`, `…process` | `tsis_hero_*`, `tsis_home_*` | **nouveaux** (aujourd'hui dans les gabarits Elementor) |
+| `pages.about.header` / `pillars` / `expertise` / `teamSection` | `tsis_about_*` | **nouveaux** |
+| `pages.*Index` / `contact` | `tsis_ui_*` correspondants | **nouveaux** |
+| `ui.*` | `tsis_ui_*` | **nouveaux** |
+| `services[].body` | `service_presentation` | **existant** ; HTML nettoyé (liste blanche) |
+| `services[].features` | `service_points_forts` | **existant** |
+| `services[].order` | `service_ordre` | **existant** — corrige l'ordre alphabétique actuel |
+| `services[].image` | image à la une | **existant** (1 service sur 9 illustré) |
+| `realisations[].body` | `projet_presentation` | **existant** ; nettoyé (peut contenir du HTML Elementor) |
+| `realisations[].features` | `projet_points` | **existant** |
+| `realisations[].gallery` | `projet_galerie` | **existant** (4 réalisations sur 13 ; ACF renvoie `false` si vide) |
+| `realisations[].relatedServices` | `projet_services` | **existant** ; identifiants → slugs |
+| `realisations[].featured` | `projet_accueil` | **existant** (8 réalisations à la une) |
+| `realisations[].demoUrl`, `testimonial` | `projet_demo_url`, `projet_temoignage_*` | **existant** |
+| `secteurs` | taxonomie `secteur` | **existant** |
+| `team` | CPT `tsis_member` | **nouveau** (les 25 membres sont aujourd'hui dans Elementor) |
+
+Champs créés par ce lot (groupe « TSIS — Contenu des pages » + équipe + identité) : uniquement
+`tsis_nom_affiche`, `tsis_sigle`, `tsis_raison_sociale`, `tsis_google_maps`, les blocs
+`tsis_hero_*` / `tsis_home_*` / `tsis_about_*`, les `tsis_ui_*`, et le CPT `tsis_member`. **Aucun
+champ existant n'est renommé, remplacé ni supprimé.**
+
+Corrections de contenu à signaler à l'exploitant (constatées dans le clone, **non corrigées**) :
+
+- `blogname` = « Toubab solution informatique » (l'orthographe attendue est « Touba ») ;
+- `tsis_email` = `contact@preprod.tsis.sn` (à repasser sur `contact@tsis.sn` en production) ;
+- `tsis_chiffres_cles` : les 2ᵉ et 3ᵉ entrées se ressemblent (50 projets / 500 projets).
+
+
 ## 6. Côté WordPress — livrables à installer
 
 Répertoire `wordpress/` du dépôt (voir `wordpress/README.md` pour la procédure) :

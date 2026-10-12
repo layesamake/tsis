@@ -55,8 +55,15 @@ export interface RealisationEntity {
   client: string | null;
   year: string | null;
   body: string | null;
+  features?: { title: string; text: string }[];
   results: { label: string; value: string }[];
   gallery: ImageRef[];
+  /** Slugs des services liés (`projet_services`), convertis en slugs par le pont. */
+  relatedServices?: string[];
+  demoUrl?: string | null;
+  testimonial?: { quote: string; name: string; role: string } | null;
+  /** Réalisation mise en avant sur l'accueil (`projet_accueil`). */
+  featured?: boolean;
   seo: { title: string | null; description: string | null };
 }
 

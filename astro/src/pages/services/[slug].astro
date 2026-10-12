@@ -2,13 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import Button from '../../components/Button.astro';
-import { SERVICES, ui } from '../../content';
+import { SERVICES, getServiceEntity, ui } from '../../content';
 
 export function getStaticPaths() {
   return SERVICES.map((service) => ({ params: { slug: service.slug }, props: { service } }));
 }
 
 const { service } = Astro.props;
+
+// Détail éditorial saisi dans WordPress (présentation + points forts).
+const entity = getServiceEntity(service.slug);
+const body = entity?.body?.trim() ?? '';
+const features = entity?.features ?? [];
 
 // Services mis en avant en bas de page (les 3 premiers autres services).
 const related = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 3);
@@ -30,7 +35,25 @@ const related = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 3);
       <div class="flex flex-col gap-md">
         <span class="eyebrow">{ui('projectEyebrow', 'Le projet')}</span>
         <h2>{ui('projectTitle', 'Une réponse pensée pour les besoins réels.')}</h2>
-        <p class="text-body-lg">{service.excerpt}</p>
+
+        {body ? (
+          <div class="flex flex-col gap-sm text-body-lg" set:html={body} />
+        ) : (
+          <p class="text-body-lg">{service.excerpt}</p>
+        )}
+
+        {
+          features.length > 0 && (
+            <ul class="mt-md grid list-none gap-md p-0 sm:grid-cols-2">
+              {features.map((feature) => (
+                <li class="rounded-2xl border border-line bg-white p-lg">
+                  <h3 class="!text-h6">{feature.title}</h3>
+                  <p class="mt-xs text-body-sm text-muted">{feature.text}</p>
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </div>
 
       <aside class="flex flex-col gap-sm rounded-2xl bg-[#f6f9fb] p-lg">

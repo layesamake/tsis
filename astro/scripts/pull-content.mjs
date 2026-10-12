@@ -30,7 +30,8 @@ const option = (name, fallback) => {
   return found ? found.slice(name.length + 3) : fallback;
 };
 
-const base = (process.env.WP_BASE || 'https://preprod.tsis.sn').replace(/\/+$/, '') + '/wp-json/wp/v2';
+const root = (process.env.WP_BASE || 'https://preprod.tsis.sn').replace(/\/+$/, '');
+const base = `${root}/wp-json/wp/v2`;
 const lang = option('lang', process.env.WP_LANG || 'fr');
 const mirror = !hasFlag('--no-mirror');
 
@@ -52,7 +53,7 @@ if (!previous) {
 let incoming = null;
 let problems = [];
 
-const bridge = await fetchBridgeContent({ base, lang, log });
+const bridge = await fetchBridgeContent({ root, lang, log });
 if (bridge.ok) {
   incoming = bridge.content;
 } else {
