@@ -1,0 +1,37 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'accent' | 'outline' | 'ghost';
+type Size = 'md' | 'lg';
+
+interface Props extends HTMLAttributes<'a'> {
+  href: string;
+  variant?: Variant;
+  size?: Size;
+}
+
+const { href, variant = 'accent', size = 'md', class: className = '', ...rest } = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-bold transition ' +
+  'duration-200 whitespace-nowrap no-underline';
+
+const variants: Record<Variant, string> = {
+  accent:
+    'bg-accent text-primary hover:brightness-95 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-card)]',
+  primary: 'bg-primary text-white hover:bg-[#0b2230]',
+  outline: 'border-2 border-primary/25 text-primary hover:border-primary hover:bg-primary/5',
+  ghost: 'text-primary hover:bg-primary/5',
+};
+
+const sizes: Record<Size, string> = {
+  md: 'px-6 py-3 text-body-sm',
+  lg: 'px-8 py-4 text-body',
+};
+
+const cls = [base, variants[variant], sizes[size], className].filter(Boolean).join(' ');
+---
+
+<a href={href} class={cls} {...rest}>
+  <slot />
+</a>

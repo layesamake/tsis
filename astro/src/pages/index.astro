@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { SERVICES } from '../data/services';
+import { REALISATIONS } from '../data/realisations';
+import {
+  ABOUT,
+  FINAL_CTA,
+  HERO,
+  PROCESS,
+  SERVICES_SECTION,
+  SOLUTIONS,
+  WHY,
+} from '../data/home';
+
+const featuredSolutions = SOLUTIONS.featured
+  .map((slug) => REALISATIONS.find((r) => r.slug === slug))
+  .filter((r): r is (typeof REALISATIONS)[number] => Boolean(r));
+---
+
+<BaseLayout>
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden bg-primary text-white">
+    <div
+      class="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-accent/20 blur-3xl"
+      aria-hidden="true"
+    ></div>
+    <div class="container-tsis grid items-center gap-xl py-2xl lg:grid-cols-2">
+      <div class="flex flex-col items-start gap-md">
+        <span class="eyebrow">{HERO.eyebrow}</span>
+        <h1 class="text-display !text-white">{HERO.title}</h1>
+        <p class="max-w-xl text-body-lg text-footer-text">{HERO.text}</p>
+
+        <ul class="flex flex-wrap gap-sm">
+          {HERO.chips.map((chip) => (
+            <li class="rounded-full border border-white/20 px-4 py-1 text-body-sm">{chip}</li>
+          ))}
+        </ul>
+
+        <div class="mt-sm flex flex-wrap gap-sm">
+          <Button href={HERO.primaryCta.href} variant="accent" size="lg">
+            {HERO.primaryCta.label}
+          </Button>
+          <Button
+            href={HERO.secondaryCta.href}
+            variant="outline"
+            size="lg"
+            class="!border-white/40 !text-white hover:!bg-white/10"
+          >
+            {HERO.secondaryCta.label}
+          </Button>
+        </div>
+      </div>
+
+      <div class="relative">
+        <img
+          src={HERO.image}
+          alt={HERO.imageAlt}
+          width="720"
+          height="540"
+          class="w-full drop-shadow-[0_20px_48px_rgba(0,0,0,0.35)]"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ À PROPOS ============ -->
+  <Section id="a-propos" align="left">
+    <div class="grid items-center gap-xl lg:grid-cols-2">
+      <div class="order-2 lg:order-1">
+        <img
+          src={ABOUT.image}
+          alt={ABOUT.imageAlt}
+          width="640"
+          height="480"
+          class="w-full rounded-2xl object-cover shadow-[var(--shadow-card)]"
+          loading="lazy"
+        />
+      </div>
+      <div class="order-1 flex flex-col items-start gap-md lg:order-2">
+        <span class="eyebrow">{ABOUT.eyebrow}</span>
+        <h2>{ABOUT.title}</h2>
+        <p class="text-body-lg">{ABOUT.text}</p>
+        <p class="text-muted">{ABOUT.note}</p>
+
+        <ul class="flex flex-wrap gap-sm">
+          {ABOUT.highlights.map((h) => (
+            <li class="rounded-lg bg-primary/5 px-4 py-2 text-body-sm font-bold text-primary">{h}</li>
+          ))}
+        </ul>
+
+        <Button href={ABOUT.cta.href} variant="primary">{ABOUT.cta.label}</Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- ============ NOS SOLUTIONS ============ -->
+  <Section id="solutions" tone="tint" eyebrow={SOLUTIONS.eyebrow} title={SOLUTIONS.title} intro={SOLUTIONS.intro}>
+    <div class="grid gap-lg md:grid-cols-2 lg:grid-cols-3">
+      {featuredSolutions.map((item) => (
+        <article class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-card)]">
+          {item.image ? (
+            <img src={item.image} alt={item.imageAlt} width="640" height="400" class="h-52 w-full object-cover" loading="lazy" />
+          ) : (
+            <div class="flex h-52 w-full items-center justify-center bg-primary/90" aria-hidden="true">
+              <span class="font-heading text-h3 font-bold text-accent">TSIS</span>
+            </div>
+          )}
+          <div class="flex flex-1 flex-col gap-sm p-lg">
+            {item.secteurs[0] && <span class="eyebrow !text-muted">{item.secteurs[0]}</span>}
+            <h3 class="!text-h4">{item.title}</h3>
+            <p class="text-muted">{item.excerpt}</p>
+            <a href={`/realisations/${item.slug}/`} class="mt-auto pt-sm font-bold text-primary no-underline hover:text-accent">
+              Découvrir la solution →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="mt-xl text-center">
+      <Button href={SOLUTIONS.cta.href} variant="primary">{SOLUTIONS.cta.label}</Button>
+    </div>
+  </Section>
+
+  <!-- ============ NOS SERVICES ============ -->
+  <Section eyebrow={SERVICES_SECTION.eyebrow} title={SERVICES_SECTION.title} intro={SERVICES_SECTION.intro}>
+    <div class="grid gap-md sm:grid-cols-2 lg:grid-cols-3">
+      {SERVICES.map((s) => (
+        <a
+          href={`/services/${s.slug}/`}
+          class="group flex flex-col gap-sm rounded-2xl border border-line bg-white p-lg no-underline transition hover:border-accent hover:shadow-[var(--shadow-soft)]"
+        >
+          <span class="h-1 w-10 rounded-full bg-accent" aria-hidden="true"></span>
+          <h3 class="!text-h5">{s.title}</h3>
+          <p class="text-body-sm text-muted">{s.excerpt}</p>
+          <span class="mt-auto pt-sm font-bold text-primary group-hover:text-accent">Découvrir le service →</span>
+        </a>
+      ))}
+    </div>
+    <div class="mt-xl text-center">
+      <Button href={SERVICES_SECTION.cta.href} variant="primary">{SERVICES_SECTION.cta.label}</Button>
+    </div>
+  </Section>
+
+  <!-- ============ POURQUOI TSIS ============ -->
+  <Section tone="dark" eyebrow={WHY.eyebrow} title={WHY.title} intro={WHY.intro}>
+    <div class="grid gap-lg sm:grid-cols-2 lg:grid-cols-4">
+      {WHY.items.map((item) => (
+        <div class="flex flex-col gap-sm rounded-2xl bg-white/5 p-lg">
+          <h3 class="!text-h5 !text-white">{item.title}</h3>
+          <p class="text-body-sm text-footer-text">{item.text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-xl text-center">
+      <Button href={WHY.cta.href} variant="accent">{WHY.cta.label}</Button>
+    </div>
+  </Section>
+
+  <!-- ============ PROCESS ============ -->
+  <Section tone="tint" eyebrow={PROCESS.eyebrow} title={PROCESS.title} intro={PROCESS.intro}>
+    <ol class="grid gap-lg md:grid-cols-2 lg:grid-cols-4">
+      {PROCESS.steps.map((step) => (
+        <li class="flex flex-col gap-sm rounded-2xl bg-white p-lg shadow-[var(--shadow-soft)]">
+          <span class="font-heading text-h2 text-accent">{step.num}</span>
+          <h3 class="!text-h5">{step.title}</h3>
+          <p class="text-body-sm text-muted">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="bg-white pb-2xl">
+    <div class="container-tsis">
+      <div class="flex flex-col items-center gap-md rounded-3xl bg-primary px-xl py-2xl text-center text-white">
+        <span class="eyebrow">{FINAL_CTA.eyebrow}</span>
+        <h2 class="!text-white">{FINAL_CTA.title}</h2>
+        <p class="max-w-2xl text-body-lg text-footer-text">{FINAL_CTA.text}</p>
+        <Button href={FINAL_CTA.cta.href} variant="accent" size="lg">{FINAL_CTA.cta.label}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

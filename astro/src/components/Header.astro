@@ -1,0 +1,96 @@
+---
+import { NAV, PRIMARY_CTA, SITE } from '../config/site';
+import Button from './Button.astro';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, ''));
+---
+
+<header class="sticky top-0 z-50 border-b border-line/70 bg-white/95 backdrop-blur">
+  <div class="container-tsis flex items-center justify-between gap-md py-3">
+    <a href="/" class="flex items-center gap-sm no-underline" aria-label={`${SITE.name} — accueil`}>
+      <img
+        src="/brand/tsis-logo.png"
+        alt={SITE.name}
+        width="56"
+        height="56"
+        class="h-12 w-auto"
+      />
+      <span class="hidden flex-col leading-tight sm:flex">
+        <span class="font-heading text-[1rem] font-bold text-primary">Touba Solution</span>
+        <span class="text-caption font-bold tracking-[0.18em] text-muted uppercase">Informatique</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-lg lg:flex" aria-label="Navigation principale">
+      {NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'text-body-sm font-bold no-underline transition hover:text-accent',
+            isActive(item.href) ? 'text-accent' : 'text-primary',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-sm">
+      <Button href={PRIMARY_CTA.href} variant="accent" class="hidden sm:inline-flex">
+        {PRIMARY_CTA.label}
+      </Button>
+      <button
+        type="button"
+        id="nav-toggle"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-primary lg:hidden"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+      >
+        <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true" fill="none">
+          <path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="nav-mobile"
+    class="hidden border-t border-line bg-white lg:hidden"
+    aria-label="Navigation mobile"
+  >
+    <ul class="container-tsis flex flex-col py-sm">
+      {NAV.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'block py-3 text-body font-bold no-underline',
+              isActive(item.href) ? 'text-accent' : 'text-primary',
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-sm sm:hidden">
+        <Button href={PRIMARY_CTA.href} variant="accent" class="w-full">
+          {PRIMARY_CTA.label}
+        </Button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-mobile');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+</script>

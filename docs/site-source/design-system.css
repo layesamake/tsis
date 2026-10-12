@@ -1,0 +1,339 @@
+@font-face{ 
+  font-family: "Poppins";
+  src: url("https://preprod.tsis.sn/wp-content/uploads/2026/09/poppins-bold-webfont.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+ }
+@font-face{ 
+  font-family: "Poppins";
+  src: url("https://preprod.tsis.sn/wp-content/uploads/2026/09/poppins-regular-webfont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+ }
+:root {
+  --ts-font-heading: Poppins, Arial, sans-serif;
+  --ts-font-body: Poppins, Arial, sans-serif;
+  --ts-color-primary: #102F40;
+  --ts-color-accent: #F4B544;
+  --ts-color-heading: #102F40;
+  --ts-color-text: #334E5C;
+  --ts-color-muted: #526875;
+  --ts-color-footer-text: #C5D9E3;
+  --ts-color-border: #D5E2E9;
+  --ts-color-form-field: #526875;
+  --ts-color-white: #FFFFFF;
+  --ts-size-display: clamp(3rem, calc(2.28947rem + 3.15789vw), 4.5rem);
+  --ts-size-h1: clamp(2.625rem, calc(2.0625rem + 2.5vw), 3.8125rem);
+  --ts-size-h2: clamp(2.25rem, calc(1.86513rem + 1.71053vw), 3.0625rem);
+  --ts-size-h3: clamp(1.875rem, calc(1.60855rem + 1.18421vw), 2.4375rem);
+  --ts-size-h4: clamp(1.625rem, calc(1.47697rem + 0.65789vw), 1.9375rem);
+  --ts-size-h5: clamp(1.3125rem, calc(1.19408rem + 0.52632vw), 1.5625rem);
+  --ts-size-h6: clamp(1.125rem, calc(1.06579rem + 0.26316vw), 1.25rem);
+  --ts-size-body-lg: clamp(1.0625rem, calc(1.00329rem + 0.26316vw), 1.1875rem);
+  --ts-size-body: 1rem;
+  --ts-size-body-sm: 0.875rem;
+  --ts-size-caption: clamp(0.75rem, calc(0.72039rem + 0.13158vw), 0.8125rem);
+  --ts-space-xs: clamp(0.25rem, calc(0.19079rem + 0.26316vw), 0.375rem);
+  --ts-space-sm: clamp(0.5rem, calc(0.38158rem + 0.52632vw), 0.75rem);
+  --ts-space-md: clamp(1rem, calc(0.76316rem + 1.05263vw), 1.5rem);
+  --ts-space-lg: clamp(1.5rem, calc(1.02632rem + 2.10526vw), 2.5rem);
+  --ts-space-xl: clamp(2.5rem, calc(1.78947rem + 3.15789vw), 4rem);
+  --ts-space-2xl: clamp(4rem, calc(3.05263rem + 4.21053vw), 6rem);
+  --ts-shadow-sm: 0px 4px 12px 0px rgba(16, 47, 64, 0.1);
+  --ts-shadow-md: 0px 10px 28px 0px rgba(16, 47, 64, 0.16);
+  --ts-shadow-lg: 0px 20px 48px 0px rgba(16, 47, 64, 0.22);
+}
+.ts-display, .ts-display .elementor-heading-title, .ts-display.elementor-widget-text-editor > .elementor-widget-container, .ts-display .elementor-button, .g-ev4sk-03583a0cd6cf, .g-ev4sk-03583a0cd6cf .elementor-heading-title, .g-ev4sk-03583a0cd6cf.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-03583a0cd6cf .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-display) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 700 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.035em !important;
+}
+.ts-h1, .ts-h1 .elementor-heading-title, .ts-h1.elementor-widget-text-editor > .elementor-widget-container, .ts-h1 .elementor-button, .g-ev4sk-e4e237607bf4, .g-ev4sk-e4e237607bf4 .elementor-heading-title, .g-ev4sk-e4e237607bf4.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-e4e237607bf4 .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-h1) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 700 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+}
+.ts-h2, .ts-h2 .elementor-heading-title, .ts-h2.elementor-widget-text-editor > .elementor-widget-container, .ts-h2 .elementor-button, .g-ev4sk-7c685d5a7623, .g-ev4sk-7c685d5a7623 .elementor-heading-title, .g-ev4sk-7c685d5a7623.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-7c685d5a7623 .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-h2) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 700 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.025em !important;
+}
+.ts-h3, .ts-h3 .elementor-heading-title, .ts-h3.elementor-widget-text-editor > .elementor-widget-container, .ts-h3 .elementor-button, .g-ev4sk-e568df3588cc, .g-ev4sk-e568df3588cc .elementor-heading-title, .g-ev4sk-e568df3588cc.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-e568df3588cc .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-h3) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 700 !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.02em !important;
+}
+.ts-h4, .ts-h4 .elementor-heading-title, .ts-h4.elementor-widget-text-editor > .elementor-widget-container, .ts-h4 .elementor-button, .g-ev4sk-d46220996209, .g-ev4sk-d46220996209 .elementor-heading-title, .g-ev4sk-d46220996209.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-d46220996209 .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-h4) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 600 !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.015em !important;
+}
+.ts-h5, .ts-h5 .elementor-heading-title, .ts-h5.elementor-widget-text-editor > .elementor-widget-container, .ts-h5 .elementor-button, .g-ev4sk-ad14d49caf77, .g-ev4sk-ad14d49caf77 .elementor-heading-title, .g-ev4sk-ad14d49caf77.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-ad14d49caf77 .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-h5) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 600 !important;
+  line-height: 1.28 !important;
+  letter-spacing: -0.01em !important;
+}
+.ts-h6, .ts-h6 .elementor-heading-title, .ts-h6.elementor-widget-text-editor > .elementor-widget-container, .ts-h6 .elementor-button, .g-ev4sk-4f6e74f836d9, .g-ev4sk-4f6e74f836d9 .elementor-heading-title, .g-ev4sk-4f6e74f836d9.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-4f6e74f836d9 .elementor-button {
+  font-family: var(--ts-font-heading) !important;
+  font-size: var(--ts-size-h6) !important;
+  color: var(--ts-color-heading) !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0em !important;
+}
+.ts-body-lg, .ts-body-lg .elementor-heading-title, .ts-body-lg.elementor-widget-text-editor > .elementor-widget-container, .ts-body-lg .elementor-button, .g-ev4sk-6a7c80bb548a, .g-ev4sk-6a7c80bb548a .elementor-heading-title, .g-ev4sk-6a7c80bb548a.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-6a7c80bb548a .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body-lg) !important;
+  color: var(--ts-color-text) !important;
+  font-weight: 400 !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0em !important;
+}
+.ts-body, .ts-body .elementor-heading-title, .ts-body.elementor-widget-text-editor > .elementor-widget-container, .ts-body .elementor-button, .g-ev4sk-36376847f05f, .g-ev4sk-36376847f05f .elementor-heading-title, .g-ev4sk-36376847f05f.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-36376847f05f .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body) !important;
+  color: var(--ts-color-text) !important;
+  font-weight: 400 !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0em !important;
+}
+.ts-body-sm, .ts-body-sm .elementor-heading-title, .ts-body-sm.elementor-widget-text-editor > .elementor-widget-container, .ts-body-sm .elementor-button, .g-ev4sk-7d4824e73203, .g-ev4sk-7d4824e73203 .elementor-heading-title, .g-ev4sk-7d4824e73203.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-7d4824e73203 .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body-sm) !important;
+  color: var(--ts-color-muted) !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  letter-spacing: 0em !important;
+}
+.ts-caption, .ts-caption .elementor-heading-title, .ts-caption.elementor-widget-text-editor > .elementor-widget-container, .ts-caption .elementor-button, .g-ev4sk-02a453c8af6b, .g-ev4sk-02a453c8af6b .elementor-heading-title, .g-ev4sk-02a453c8af6b.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-02a453c8af6b .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-caption) !important;
+  color: var(--ts-color-muted) !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.02em !important;
+}
+.ts-eyebrow, .ts-eyebrow .elementor-heading-title, .ts-eyebrow.elementor-widget-text-editor > .elementor-widget-container, .ts-eyebrow .elementor-button, .g-ev4sk-6584faa673f6, .g-ev4sk-6584faa673f6 .elementor-heading-title, .g-ev4sk-6584faa673f6.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-6584faa673f6 .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-caption) !important;
+  color: var(--ts-color-primary) !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+.ts-link, .ts-link .elementor-heading-title, .ts-link.elementor-widget-text-editor > .elementor-widget-container, .ts-link .elementor-button, .g-ev4sk-8c13597a48d0, .g-ev4sk-8c13597a48d0 .elementor-heading-title, .g-ev4sk-8c13597a48d0.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-8c13597a48d0 .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body) !important;
+  color: var(--ts-color-accent) !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+}
+.ts-text-primary, .ts-text-primary .elementor-heading-title, .ts-text-primary.elementor-widget-text-editor > .elementor-widget-container, .ts-text-primary .elementor-button, .g-ev4sk-b0dac0282a02, .g-ev4sk-b0dac0282a02 .elementor-heading-title, .g-ev4sk-b0dac0282a02.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-b0dac0282a02 .elementor-button {
+  color: var(--ts-color-primary) !important;
+}
+.ts-text-muted, .ts-text-muted .elementor-heading-title, .ts-text-muted.elementor-widget-text-editor > .elementor-widget-container, .ts-text-muted .elementor-button, .g-ev4sk-4c61f73aa3e2, .g-ev4sk-4c61f73aa3e2 .elementor-heading-title, .g-ev4sk-4c61f73aa3e2.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-4c61f73aa3e2 .elementor-button {
+  color: var(--ts-color-muted) !important;
+}
+.ts-text-footer, .ts-text-footer .elementor-heading-title, .ts-text-footer.elementor-widget-text-editor > .elementor-widget-container, .ts-text-footer .elementor-button, .g-ev4sk-0e9d302b3c91, .g-ev4sk-0e9d302b3c91 .elementor-heading-title, .g-ev4sk-0e9d302b3c91.elementor-widget-text-editor > .elementor-widget-container, .g-ev4sk-0e9d302b3c91 .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-caption) !important;
+  color: var(--ts-color-form-field) !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+}
+.ts-navi, .ts-navi .elementor-heading-title, .ts-navi.elementor-widget-text-editor > .elementor-widget-container, .ts-navi .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body-lg) !important;
+  color: var(--ts-color-text) !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+}
+.ts-stack-sm, .g-ev4sk-caf0f5126268, .ts-stack-sm.elementor-section > .elementor-container, .ts-stack-sm.e-con > .e-con-inner, .g-ev4sk-caf0f5126268.elementor-section > .elementor-container, .g-ev4sk-caf0f5126268.e-con > .e-con-inner {
+  gap: var(--ts-space-sm) !important;
+}
+.ts-stack, .g-ev4sk-248e6c50631d, .ts-stack.elementor-section > .elementor-container, .ts-stack.e-con > .e-con-inner, .g-ev4sk-248e6c50631d.elementor-section > .elementor-container, .g-ev4sk-248e6c50631d.e-con > .e-con-inner {
+  gap: var(--ts-space-md) !important;
+}
+.ts-stack-lg, .g-ev4sk-f76528d84b81, .ts-stack-lg.elementor-section > .elementor-container, .ts-stack-lg.e-con > .e-con-inner, .g-ev4sk-f76528d84b81.elementor-section > .elementor-container, .g-ev4sk-f76528d84b81.e-con > .e-con-inner {
+  gap: var(--ts-space-lg) !important;
+}
+.ts-widget-pad, .g-ev4sk-a235da6bb489 {
+  padding-inline: var(--ts-space-md) !important;
+  padding-block: var(--ts-space-md) !important;
+}
+.ts-widget-pad-lg, .g-ev4sk-67a51a71dcd0 {
+  padding-inline: var(--ts-space-lg) !important;
+  padding-block: var(--ts-space-lg) !important;
+}
+.ts-section-pad, .g-ev4sk-68b882c1a2e6 {
+  padding-inline: var(--ts-space-md) !important;
+  padding-block: var(--ts-space-xl) !important;
+}
+.ts-section-pad, .g-ev4sk-68b882c1a2e6, .ts-section-pad.elementor-section > .elementor-container, .ts-section-pad.e-con > .e-con-inner, .g-ev4sk-68b882c1a2e6.elementor-section > .elementor-container, .g-ev4sk-68b882c1a2e6.e-con > .e-con-inner {
+  gap: var(--ts-space-lg) !important;
+}
+.ts-card, .g-ev4sk-3b70422902a9 {
+  padding-inline: var(--ts-space-md) !important;
+  padding-block: var(--ts-space-md) !important;
+  border: 1px solid var(--ts-color-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--ts-shadow-sm) !important;
+}
+.ts-card, .g-ev4sk-3b70422902a9, .ts-card.elementor-section > .elementor-container, .ts-card.e-con > .e-con-inner, .g-ev4sk-3b70422902a9.elementor-section > .elementor-container, .g-ev4sk-3b70422902a9.e-con > .e-con-inner {
+  gap: var(--ts-space-md) !important;
+}
+.ts-image-fluid:not(.elementor-widget-image), .ts-image-fluid.elementor-widget-image img, .ts-image-fluid img, .g-ev4sk-3b8e04b6f395:not(.elementor-widget-image), .g-ev4sk-3b8e04b6f395.elementor-widget-image img, .g-ev4sk-3b8e04b6f395 img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  object-fit: cover !important;
+}
+.ts-image-cover:not(.elementor-widget-image), .ts-image-cover.elementor-widget-image img, .ts-image-cover img, .g-ev4sk-d249456df33b:not(.elementor-widget-image), .g-ev4sk-d249456df33b.elementor-widget-image img, .g-ev4sk-d249456df33b img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: cover !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--ts-color-border) !important;
+  box-shadow: var(--ts-shadow-sm) !important;
+}
+.ts-avatar:not(.elementor-widget-image), .ts-avatar.elementor-widget-image img, .ts-avatar img, .g-ev4sk-5f0bf02c6b8c:not(.elementor-widget-image), .g-ev4sk-5f0bf02c6b8c.elementor-widget-image img, .g-ev4sk-5f0bf02c6b8c img {
+  display: block !important;
+  width: 96px !important;
+  max-width: 96px !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  border-radius: 999px !important;
+  border: 2px solid var(--ts-color-primary) !important;
+  box-shadow: var(--ts-shadow-sm) !important;
+}
+.ts-button-primary:not(.elementor-widget-button), .ts-button-primary.elementor-widget-button .elementor-button, .ts-button-primary .elementor-button, .g-ev4sk-96f3c7d72e04:not(.elementor-widget-button), .g-ev4sk-96f3c7d72e04.elementor-widget-button .elementor-button, .g-ev4sk-96f3c7d72e04 .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body) !important;
+  color: var(--ts-color-accent) !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease !important;
+  outline: 2px solid transparent !important;
+  outline-offset: 3px !important;
+  background-color: var(--ts-color-primary) !important;
+  color: var(--ts-color-white) !important;
+  fill: var(--ts-color-white) !important;
+  padding-inline: var(--ts-space-md) !important;
+  padding-block: var(--ts-space-sm) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--ts-color-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--ts-shadow-sm) !important;
+}
+.ts-button-primary:not(.elementor-widget-button):hover, .ts-button-primary:not(.elementor-widget-button):focus-visible, .ts-button-primary.elementor-widget-button .elementor-button:hover, .ts-button-primary.elementor-widget-button .elementor-button:focus-visible, .ts-button-primary .elementor-button:hover, .ts-button-primary .elementor-button:focus-visible, .g-ev4sk-96f3c7d72e04:not(.elementor-widget-button):hover, .g-ev4sk-96f3c7d72e04:not(.elementor-widget-button):focus-visible, .g-ev4sk-96f3c7d72e04.elementor-widget-button .elementor-button:hover, .g-ev4sk-96f3c7d72e04.elementor-widget-button .elementor-button:focus-visible, .g-ev4sk-96f3c7d72e04 .elementor-button:hover, .g-ev4sk-96f3c7d72e04 .elementor-button:focus-visible {
+  background-color: var(--ts-color-accent) !important;
+  color: var(--ts-color-heading) !important;
+  fill: var(--ts-color-heading) !important;
+  border-color: var(--ts-color-accent) !important;
+}
+.ts-button-primary:not(.elementor-widget-button):focus-visible, .ts-button-primary.elementor-widget-button .elementor-button:focus-visible, .ts-button-primary .elementor-button:focus-visible, .g-ev4sk-96f3c7d72e04:not(.elementor-widget-button):focus-visible, .g-ev4sk-96f3c7d72e04.elementor-widget-button .elementor-button:focus-visible, .g-ev4sk-96f3c7d72e04 .elementor-button:focus-visible {
+  outline-color: currentColor !important;
+}
+.ts-button-secondary:not(.elementor-widget-button), .ts-button-secondary.elementor-widget-button .elementor-button, .ts-button-secondary .elementor-button, .g-ev4sk-7b4a80524712:not(.elementor-widget-button), .g-ev4sk-7b4a80524712.elementor-widget-button .elementor-button, .g-ev4sk-7b4a80524712 .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body) !important;
+  color: var(--ts-color-accent) !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease !important;
+  outline: 2px solid transparent !important;
+  outline-offset: 3px !important;
+  background-color: var(--ts-color-white) !important;
+  color: var(--ts-color-primary) !important;
+  fill: var(--ts-color-primary) !important;
+  padding-inline: var(--ts-space-md) !important;
+  padding-block: var(--ts-space-sm) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--ts-color-primary) !important;
+  border-radius: 8px !important;
+}
+.ts-button-secondary:not(.elementor-widget-button):hover, .ts-button-secondary:not(.elementor-widget-button):focus-visible, .ts-button-secondary.elementor-widget-button .elementor-button:hover, .ts-button-secondary.elementor-widget-button .elementor-button:focus-visible, .ts-button-secondary .elementor-button:hover, .ts-button-secondary .elementor-button:focus-visible, .g-ev4sk-7b4a80524712:not(.elementor-widget-button):hover, .g-ev4sk-7b4a80524712:not(.elementor-widget-button):focus-visible, .g-ev4sk-7b4a80524712.elementor-widget-button .elementor-button:hover, .g-ev4sk-7b4a80524712.elementor-widget-button .elementor-button:focus-visible, .g-ev4sk-7b4a80524712 .elementor-button:hover, .g-ev4sk-7b4a80524712 .elementor-button:focus-visible {
+  background-color: var(--ts-color-primary) !important;
+  border-color: var(--ts-color-primary) !important;
+}
+.ts-button-secondary:not(.elementor-widget-button):focus-visible, .ts-button-secondary.elementor-widget-button .elementor-button:focus-visible, .ts-button-secondary .elementor-button:focus-visible, .g-ev4sk-7b4a80524712:not(.elementor-widget-button):focus-visible, .g-ev4sk-7b4a80524712.elementor-widget-button .elementor-button:focus-visible, .g-ev4sk-7b4a80524712 .elementor-button:focus-visible {
+  outline-color: currentColor !important;
+}
+.ts-button-ghost:not(.elementor-widget-button), .ts-button-ghost.elementor-widget-button .elementor-button, .ts-button-ghost .elementor-button, .g-ev4sk-ff86ff29084d:not(.elementor-widget-button), .g-ev4sk-ff86ff29084d.elementor-widget-button .elementor-button, .g-ev4sk-ff86ff29084d .elementor-button {
+  font-family: var(--ts-font-body) !important;
+  font-size: var(--ts-size-body) !important;
+  color: var(--ts-color-accent) !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease !important;
+  outline: 2px solid transparent !important;
+  outline-offset: 3px !important;
+  color: var(--ts-color-primary) !important;
+  fill: var(--ts-color-primary) !important;
+  padding-inline: var(--ts-space-md) !important;
+  padding-block: var(--ts-space-sm) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--ts-color-border) !important;
+  border-radius: 8px !important;
+}
+.ts-button-ghost:not(.elementor-widget-button):hover, .ts-button-ghost:not(.elementor-widget-button):focus-visible, .ts-button-ghost.elementor-widget-button .elementor-button:hover, .ts-button-ghost.elementor-widget-button .elementor-button:focus-visible, .ts-button-ghost .elementor-button:hover, .ts-button-ghost .elementor-button:focus-visible, .g-ev4sk-ff86ff29084d:not(.elementor-widget-button):hover, .g-ev4sk-ff86ff29084d:not(.elementor-widget-button):focus-visible, .g-ev4sk-ff86ff29084d.elementor-widget-button .elementor-button:hover, .g-ev4sk-ff86ff29084d.elementor-widget-button .elementor-button:focus-visible, .g-ev4sk-ff86ff29084d .elementor-button:hover, .g-ev4sk-ff86ff29084d .elementor-button:focus-visible {
+  color: var(--ts-color-primary) !important;
+  fill: var(--ts-color-primary) !important;
+  border-color: var(--ts-color-primary) !important;
+}
+.ts-button-ghost:not(.elementor-widget-button):focus-visible, .ts-button-ghost.elementor-widget-button .elementor-button:focus-visible, .ts-button-ghost .elementor-button:focus-visible, .g-ev4sk-ff86ff29084d:not(.elementor-widget-button):focus-visible, .g-ev4sk-ff86ff29084d.elementor-widget-button .elementor-button:focus-visible, .g-ev4sk-ff86ff29084d .elementor-button:focus-visible {
+  outline-color: currentColor !important;
+}
+@media (prefers-reduced-motion: reduce) {
+.ts-button-primary:not(.elementor-widget-button), .ts-button-primary.elementor-widget-button .elementor-button, .ts-button-primary .elementor-button, .g-ev4sk-96f3c7d72e04:not(.elementor-widget-button), .g-ev4sk-96f3c7d72e04.elementor-widget-button .elementor-button, .g-ev4sk-96f3c7d72e04 .elementor-button, .ts-button-secondary:not(.elementor-widget-button), .ts-button-secondary.elementor-widget-button .elementor-button, .ts-button-secondary .elementor-button, .g-ev4sk-7b4a80524712:not(.elementor-widget-button), .g-ev4sk-7b4a80524712.elementor-widget-button .elementor-button, .g-ev4sk-7b4a80524712 .elementor-button, .ts-button-ghost:not(.elementor-widget-button), .ts-button-ghost.elementor-widget-button .elementor-button, .ts-button-ghost .elementor-button, .g-ev4sk-ff86ff29084d:not(.elementor-widget-button), .g-ev4sk-ff86ff29084d.elementor-widget-button .elementor-button, .g-ev4sk-ff86ff29084d .elementor-button {
+  transition: none !important;
+}
+}
+/*# sourceURL=ev4sk-design-system-inline-css */

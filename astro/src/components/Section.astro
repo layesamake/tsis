@@ -1,0 +1,38 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  align?: 'left' | 'center';
+  tone?: 'light' | 'tint' | 'dark';
+  id?: string;
+}
+
+const { eyebrow, title, intro, align = 'center', tone = 'light', id } = Astro.props;
+
+const tones = {
+  light: 'bg-white',
+  tint: 'bg-[#f6f9fb]',
+  dark: 'bg-primary text-footer-text',
+} as const;
+
+const alignCls = align === 'center' ? 'text-center items-center' : 'text-left items-start';
+---
+
+<section id={id} class:list={['section', tones[tone]]}>
+  <div class="container-tsis">
+    {(eyebrow || title || intro) && (
+      <header class:list={['flex max-w-3xl flex-col gap-sm', alignCls, align === 'center' && 'mx-auto']}>
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        {title && (
+          <h2 class:list={[tone === 'dark' && 'text-white']}>{title}</h2>
+        )}
+        {intro && <p class="text-body-lg text-muted">{intro}</p>}
+      </header>
+    )}
+
+    <div class:list={[(eyebrow || title || intro) && 'mt-xl']}>
+      <slot />
+    </div>
+  </div>
+</section>

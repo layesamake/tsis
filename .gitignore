@@ -1,0 +1,24 @@
+# Dépendances
+node_modules/
+
+# Build & caches
+dist/
+.astro/
+.next/
+.cache/
+*.tsbuildinfo
+
+# Variables d'environnement
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.idea/

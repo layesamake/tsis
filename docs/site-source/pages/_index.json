@@ -1,0 +1,177 @@
+{
+  "a-propos": {
+    "title": "À propos – Toubab solution informatique",
+    "headings": 40,
+    "paras": 16,
+    "imgs": 28,
+    "links": 20
+  },
+  "accueil": {
+    "title": "Toubab solution informatique",
+    "headings": 46,
+    "paras": 22,
+    "imgs": 7,
+    "links": 43
+  },
+  "contact": {
+    "title": "Demander un devis – Toubab solution informatique",
+    "headings": 10,
+    "paras": 10,
+    "imgs": 2,
+    "links": 23
+  },
+  "nos-services": {
+    "title": "Nos services – Toubab solution informatique",
+    "headings": 17,
+    "paras": 15,
+    "imgs": 3,
+    "links": 33
+  },
+  "nos-solutions": {
+    "title": "Nos solutions – Toubab solution informatique",
+    "headings": 17,
+    "paras": 8,
+    "imgs": 6,
+    "links": 48
+  },
+  "real-assirou": {
+    "title": "Assirou Gestion File d’attente – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 4,
+    "links": 27
+  },
+  "real-bernde": {
+    "title": "Berndé – Toubab solution informatique",
+    "headings": 17,
+    "paras": 10,
+    "imgs": 6,
+    "links": 27
+  },
+  "real-diaba-commercial": {
+    "title": "Diaba commerciale – Toubab solution informatique",
+    "headings": 16,
+    "paras": 9,
+    "imgs": 2,
+    "links": 25
+  },
+  "real-diaba-marketplace": {
+    "title": "Diaba Market Place – Toubab solution informatique",
+    "headings": 16,
+    "paras": 8,
+    "imgs": 2,
+    "links": 25
+  },
+  "real-formation": {
+    "title": "Formation entreprise – Toubab solution informatique",
+    "headings": 17,
+    "paras": 10,
+    "imgs": 3,
+    "links": 27
+  },
+  "real-guides": {
+    "title": "GUIDES — Gestion hospitalière – Toubab solution informatique",
+    "headings": 17,
+    "paras": 10,
+    "imgs": 3,
+    "links": 27
+  },
+  "real-khidma": {
+    "title": "Khidma Gestion Chantier – Toubab solution informatique",
+    "headings": 17,
+    "paras": 10,
+    "imgs": 4,
+    "links": 27
+  },
+  "real-louma": {
+    "title": "LOUMA E-commerce – Toubab solution informatique",
+    "headings": 16,
+    "paras": 9,
+    "imgs": 2,
+    "links": 25
+  },
+  "real-securite-pointage": {
+    "title": "Sécurité & pointage – Toubab solution informatique",
+    "headings": 17,
+    "paras": 10,
+    "imgs": 4,
+    "links": 27
+  },
+  "real-sunuflix": {
+    "title": "Sunu Flix – Toubab solution informatique",
+    "headings": 17,
+    "paras": 11,
+    "imgs": 4,
+    "links": 27
+  },
+  "real-touba-transfert": {
+    "title": "Touba Transfert – Toubab solution informatique",
+    "headings": 17,
+    "paras": 10,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-erp": {
+    "title": "Création de sites web & ERP sur mesure – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-files-attente": {
+    "title": "Gestion de files d’attente & bornes interactives – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-ia": {
+    "title": "Automatisation des processus par intelligence artificielle – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-logiciels": {
+    "title": "Développement de logiciels & applications – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-marketing": {
+    "title": "Marketing digital & design graphique – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-materiel": {
+    "title": "Fourniture de matériel informatique & mobilier de bureau – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-reseaux": {
+    "title": "Réseaux informatiques & infrastructure IT – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 4,
+    "links": 27
+  },
+  "service-securite": {
+    "title": "Sécurité informatique & vidéosurveillance – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  },
+  "service-sites-vitrine": {
+    "title": "Création de sites web vitrine & e-commerce – Toubab solution informatique",
+    "headings": 17,
+    "paras": 9,
+    "imgs": 3,
+    "links": 27
+  }
+}
